@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
+import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Enemy;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -28,7 +29,6 @@ public class Level {
     public List<Entity> entities;
     public List<Entity> newEntities;
     public Systems entitySystems;
-    public Entity player;
 
     public int width, height;
     public Tile[] tiles;
@@ -70,11 +70,14 @@ public class Level {
 
         this.boundaryTile = new Tile(getTileType("empty"));
 
-        this.player = this.addEntity(Player.instance(this));
-        this.player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
+        Entity enemy = this.addEntity(Enemy.instance(this));
+        enemy.getComponent(PositionComponent.class).set(this.width/2f+1, this.height/2f+1);
+    }
 
-        this.player = this.addEntity(Enemy.instance(this));
-        this.player.getComponent(PositionComponent.class).set(this.width/2f+1, this.height/2f+1);
+    public void createPlayer(GameController controller) {
+        Entity player = Player.instance(this, controller);
+        this.addEntity(player);
+        player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
     }
 
     public Entity addEntity(Entity entity) {

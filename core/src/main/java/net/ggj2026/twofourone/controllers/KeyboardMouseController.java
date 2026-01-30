@@ -2,6 +2,8 @@ package net.ggj2026.twofourone.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import net.ggj2026.twofourone.Main;
 import net.ggj2026.twofourone.Util;
 
@@ -37,13 +39,11 @@ public class KeyboardMouseController implements GameController {
         return 0;
     }
 
-
+    Vector3 lookVector = new Vector3();
     @Override
-    public float getLookDir(float x, float y) {
-        float mouse_x = ((float) Gdx.input.getX() / Gdx.graphics.getWidth()) * Main.WIDTH;
-        float mouse_y = (1 - (float) Gdx.input.getY() / Gdx.graphics.getHeight()) * Main.HEIGHT;
-
-        return Util.pointDirection(x, y, mouse_x, mouse_y);
+    public float getLookDir(float x, float y, OrthographicCamera camera) {
+        Vector3 unprojectedCoords = camera.unproject(lookVector.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+        return Util.pointDirection(x, y, unprojectedCoords.x, unprojectedCoords.y);
     }
 
     @Override

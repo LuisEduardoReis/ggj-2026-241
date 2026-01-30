@@ -7,7 +7,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import net.ggj2026.twofourone.controllers.GameController;
+import net.ggj2026.twofourone.controllers.KeyboardMouseController;
 import net.ggj2026.twofourone.level.Level;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -17,6 +22,7 @@ public class GameScreen extends ScreenAdapter {
     public OrthographicCamera camera;
     public Viewport viewport;
 
+    ArrayList<GameController> controllers;
     public Level level;
 
     public float cameraScale = 40f / Main.WIDTH;
@@ -32,11 +38,18 @@ public class GameScreen extends ScreenAdapter {
 
         this.camera.position.set(this.level.width/2f, this.level.height/2f,0);
         this.camera.zoom = cameraScale;
+
+        this.controllers = new ArrayList<>();
+        controllers.add(new KeyboardMouseController());
+        //for(Controller c : Controllers.getControllers()) controllers.add(new Xbox360Controller(c));
+
+        this.controllers.forEach(controller -> this.level.createPlayer(controller));
     }
 
     @Override
     public void render(float delta) {
         delta = Math.min(2f / Main.FPS, delta);
+        this.controllers.forEach(GameController::update);
         this.level.update(delta);
 
         ScreenUtils.clear(0.2f,0.2f,0.2f,1);

@@ -11,12 +11,18 @@ public class TestBullet {
                 .addComponent(new PositionComponent())
                 .addComponent(new VelocityComponent())
                 .addComponent(new SpriteComponent())
-                .addComponent(new BulletComponent());
+                .addComponent(new BulletComponent())
+                .addComponent(new LevelCollisionComponent());
 
         SpriteComponent spriteComponent = bullet.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.testSprite);
         spriteComponent.states.get(0).scaleX = 0.5f;
         spriteComponent.states.get(0).scaleY = 0.5f;
+
+        LevelCollisionComponent collisionComponent = bullet.getComponent(LevelCollisionComponent.class);
+        collisionComponent.handleLevelCollision = (x,y) -> {
+            bullet.remove = true;
+        };
 
         return bullet;
     }
