@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.level.Level;
 
 public class GameScreen extends ScreenAdapter {
@@ -20,7 +19,7 @@ public class GameScreen extends ScreenAdapter {
 
     public Level level;
 
-    public float cameraScale = 32f / Main.WIDTH;
+    public float cameraScale = 40f / Main.WIDTH;
 
     public GameScreen() {
         this.spriteBatch = new SpriteBatch();

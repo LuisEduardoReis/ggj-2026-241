@@ -1,22 +1,24 @@
 textures.png
-size: 96, 16
+size: 48, 80
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
 pma: false
+enemies/test_enemy
+  bounds: 0, 0, 48, 48
 masks/oni
-  bounds: 0, 0, 16, 16
+  bounds: 0, 48, 16, 16
 test
-  bounds: 16, 0, 16, 16
+  bounds: 16, 48, 16, 16
 test_animated_sprite
-  bounds: 32, 0, 16, 16
+  bounds: 32, 48, 16, 16
   index: 1
 test_animated_sprite
-  bounds: 48, 0, 16, 16
+  bounds: 0, 64, 16, 16
   index: 2
 test_animated_sprite
-  bounds: 64, 0, 16, 16
+  bounds: 16, 64, 16, 16
   index: 3
 test_animated_sprite
-  bounds: 80, 0, 16, 16
+  bounds: 32, 64, 16, 16
   index: 4

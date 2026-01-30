@@ -13,6 +13,7 @@ public class Systems {
     public Systems() {
         this.systems = new ArrayList<>();
 
+        this.systems.add(new PositionPreUpdateSystem());
         this.systems.add(new PlayerSystem());
         this.systems.add(new SpriteSystem());
         this.systems.add(new BulletSystem());

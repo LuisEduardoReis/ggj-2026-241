@@ -8,6 +8,8 @@ public class SpriteAssets {
 
     public static Sprite testSprite;
     public static Sprite testAnimatedSprite;
+    public static Sprite playerSprite;
+    public static Sprite enemyTestSprite;
 
     public static void initSprites() {
         testSprite = Sprite.staticSprite(textureAtlas.findRegion("test"));
@@ -18,5 +20,7 @@ public class SpriteAssets {
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 3))
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 4))
                 );
+        playerSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
+        enemyTestSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/test_enemy"));
     }
 }

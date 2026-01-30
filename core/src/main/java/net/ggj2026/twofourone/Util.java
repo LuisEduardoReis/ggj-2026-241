@@ -22,6 +22,10 @@ public class Util {
         return (float) Math.sqrt((x * x) + (y * y));
     }
 
+    public static float pointDirection(float x1, float y1, float x2, float y2) {
+        return (float) Math.atan2(y2-y1, x2-x1);
+    }
+
     public static float stepTo(float a, float b, float x) {
         if (Math.abs(b - a) < x) return b;
         else return a + x * Math.signum(b - a);
