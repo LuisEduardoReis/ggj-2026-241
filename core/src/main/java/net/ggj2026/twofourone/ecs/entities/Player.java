@@ -12,7 +12,8 @@ public class Player {
                 .addComponent(new PlayerComponent())
                 .addComponent(new SpriteComponent())
                 .addComponent(new VelocityComponent())
-                .addComponent(new LevelCollisionComponent());
+                .addComponent(new LevelCollisionComponent())
+                .addComponent(new PathfindingTargetComponent());
 
         PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
         playerComponent.controller = controller;

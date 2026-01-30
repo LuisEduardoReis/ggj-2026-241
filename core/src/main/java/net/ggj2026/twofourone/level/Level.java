@@ -35,6 +35,8 @@ public class Level {
     public Tile[] overlayTiles;
     public Tile boundaryTile;
 
+    public PathfindingMap pathfindingMap;
+
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
 
@@ -69,6 +71,8 @@ public class Level {
         }
 
         this.boundaryTile = new Tile(getTileType("empty"));
+
+        pathfindingMap = new PathfindingMap(this);
 
         Entity enemy = this.addEntity(Enemy.instance(this));
         enemy.getComponent(PositionComponent.class).set(this.width/2f+1, this.height/2f+1);
