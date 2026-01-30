@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
+import net.ggj2026.twofourone.ecs.entities.Enemy;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Player;
 import net.ggj2026.twofourone.ecs.systems.Systems;
@@ -71,6 +72,9 @@ public class Level {
 
         this.player = this.addEntity(Player.instance(this));
         this.player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
+
+        this.player = this.addEntity(Enemy.instance(this));
+        this.player.getComponent(PositionComponent.class).set(this.width/2f+1, this.height/2f+1);
     }
 
     public Entity addEntity(Entity entity) {
