@@ -1,0 +1,50 @@
+package net.ggj2026.twofourone.level;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.ggj2026.twofourone.Assets.textureAtlas;
+
+public class TileType {
+
+    public static Map<String, TileType> TILETYPES = new HashMap<>();
+    public static TileType EMPTY_TILE;
+
+
+    static {
+        TILETYPES.put("empty", new TileType().setName("empty").setSolid(false));
+        TILETYPES.put("test", new TileType().setName("test").setSolid(true).setTexture(textureAtlas.findRegion("test")));
+        EMPTY_TILE = TILETYPES.get("empty");
+    }
+
+    public static TileType getTileType(String name) {
+        if (TILETYPES.containsKey(name)) {
+            return TILETYPES.get(name);
+        } else {
+            return TILETYPES.get("test");
+        }
+    }
+
+    public boolean solid = false;
+    public String name;
+    public TextureRegion texture;
+
+    TileType() {}
+
+    private TileType setSolid(boolean solid) {
+        this.solid = solid;
+        return this;
+    }
+
+    private TileType setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    private TileType setTexture(TextureRegion texture) {
+        this.texture = texture;
+        return this;
+    }
+}
