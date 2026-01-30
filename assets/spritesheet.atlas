@@ -1,20 +1,22 @@
 textures.png
-size: 80, 16
+size: 96, 16
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
 pma: false
-test
+masks/oni
   bounds: 0, 0, 16, 16
-test_animated_sprite
+test
   bounds: 16, 0, 16, 16
-  index: 1
 test_animated_sprite
   bounds: 32, 0, 16, 16
-  index: 2
+  index: 1
 test_animated_sprite
   bounds: 48, 0, 16, 16
-  index: 3
+  index: 2
 test_animated_sprite
   bounds: 64, 0, 16, 16
+  index: 3
+test_animated_sprite
+  bounds: 80, 0, 16, 16
   index: 4
