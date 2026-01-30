@@ -17,6 +17,7 @@ public class Systems {
         this.systems.add(new SpriteSystem());
         this.systems.add(new BulletSystem());
         this.systems.add(new VelocitySystem());
+        this.systems.add(new LevelCollisionsSystem());
     }
 
     public void update(Collection<Entity> entities, float delta) {

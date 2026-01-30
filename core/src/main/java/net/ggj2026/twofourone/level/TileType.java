@@ -20,6 +20,7 @@ public class TileType {
         for (int i = 0; i < 255; i++) {
             TILETYPES.put(String.format("id%d", i), new TileType().setTexture(getTileTextureById(i)));
         }
+        TILETYPES.get("id0").solid = true;
         EMPTY_TILE = TILETYPES.get("empty");
     }
 

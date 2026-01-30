@@ -10,7 +10,8 @@ public class Player {
                 .addComponent(new PositionComponent())
                 .addComponent(new PlayerComponent())
                 .addComponent(new SpriteComponent())
-                .addComponent(new VelocityComponent());
+                .addComponent(new VelocityComponent())
+                .addComponent(new LevelCollisionComponent());
 
         player.getComponent(SpriteComponent.class).sprite = SpriteAssets.testAnimatedSprite;
 
