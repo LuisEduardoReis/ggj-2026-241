@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.ggj2026.twofourone.Assets.getTileTextureById;
 import static net.ggj2026.twofourone.Assets.textureAtlas;
 
 public class TileType {
@@ -16,6 +17,9 @@ public class TileType {
     static {
         TILETYPES.put("empty", new TileType().setName("empty").setSolid(false));
         TILETYPES.put("test", new TileType().setName("test").setSolid(true).setTexture(textureAtlas.findRegion("test")));
+        for (int i = 0; i < 255; i++) {
+            TILETYPES.put(String.format("id%d", i), new TileType().setTexture(getTileTextureById(i)));
+        }
         EMPTY_TILE = TILETYPES.get("empty");
     }
 
@@ -25,6 +29,10 @@ public class TileType {
         } else {
             return TILETYPES.get("test");
         }
+    }
+
+    public static TileType getTileTypeById(int id) {
+        return getTileType(String.format("id%d", id));
     }
 
     public boolean solid = false;

@@ -12,7 +12,9 @@ import static net.ggj2026.twofourone.Main.TILE_SIZE;
 public class Assets {
 
     public static Texture testTexture;
+    public static Texture tilesheet;
     public static TextureAtlas textureAtlas;
+    static TextureRegion[][] tileTextures;
 
     public static BitmapFont font;
 
@@ -21,5 +23,12 @@ public class Assets {
         testTexture = new Texture("badlogic.jpg");
         textureAtlas = new TextureAtlas("spritesheet.atlas");
         textureAtlas.getTextures().forEach((texture) -> texture.setFilter(Nearest, Nearest));
+
+        tilesheet = new Texture("tilesheet.png");
+        tileTextures = TextureRegion.split(tilesheet, TILE_SIZE, TILE_SIZE);
+    }
+
+    public static TextureRegion getTileTextureById(int id) {
+        return tileTextures[id / tileTextures.length][id % tileTextures.length];
     }
 }

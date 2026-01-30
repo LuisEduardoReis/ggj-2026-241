@@ -1,9 +1,15 @@
 package net.ggj2026.twofourone.level;
 
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
+import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Player;
 import net.ggj2026.twofourone.ecs.systems.Systems;
@@ -12,8 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.ggj2026.twofourone.level.TileType.EMPTY_TILE;
-import static net.ggj2026.twofourone.level.TileType.getTileType;
+import static net.ggj2026.twofourone.level.TileType.*;
 
 public class Level {
 
@@ -35,18 +40,37 @@ public class Level {
         this.entities = new LinkedList<>();
         this.newEntities = new LinkedList<>();
         this.entitySystems = new Systems();
-        this.player = this.addEntity(Player.instance(this));
 
-        this.width = 16;
-        this.height = 16;
+        TiledMap map = new TmxMapLoader(new InternalFileHandleResolver()).load("map.tmx");
+        this.width = (int) map.getProperties().get("width");
+        this.height = (int) map.getProperties().get("height");
+
+        TiledMapTileLayer mapTiles = (TiledMapTileLayer) map.getLayers().get("tiles");
+        TiledMapTileLayer overlayTiles = (TiledMapTileLayer) map.getLayers().get("tiles_overlay");
+        MapObjects mapObjects = map.getLayers().get("objects").getObjects();
 
         this.tiles = new Tile[this.width * this.height];
         this.overlayTiles = new Tile[this.width * this.height];
         for (int i = 0; i < this.width * this.height; i++) {
-            this.tiles[i] = new Tile(Math.random() > 0.5 ? getTileType("empty") : getTileType("test"));
+            this.tiles[i] = new Tile(null);
             this.overlayTiles[i] = new Tile(null);
         }
+        for (int y = 0; y < this.height; y ++) {
+            for (int x = 0; x < this.width; x ++) {
+                Tile tile = getTile(x,y);
+                TiledMapTileLayer.Cell cell = mapTiles.getCell(x, y);
+                if (cell != null) {
+                    tile.type = getTileTypeById(cell.getTile().getId() - 1);
+                } else {
+                    tile.type = getTileType("empty");
+                }
+            }
+        }
+
         this.boundaryTile = new Tile(getTileType("empty"));
+
+        this.player = this.addEntity(Player.instance(this));
+        this.player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
     }
 
     public Entity addEntity(Entity entity) {
