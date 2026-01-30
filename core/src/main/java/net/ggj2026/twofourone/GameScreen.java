@@ -48,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        delta = Math.min(2f / Main.FPS, delta);
+        delta = Math.min(1.5f / Main.FPS, delta);
         this.controllers.forEach(GameController::update);
         this.level.update(delta);
 

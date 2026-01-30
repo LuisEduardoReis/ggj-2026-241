@@ -7,6 +7,7 @@ import net.ggj2026.twofourone.sprites.SpriteAssets;
 public class Enemy {
     public static Entity instance(Level level) {
         Entity player = new Entity(level)
+            .addComponent(new EnemyComponent())
             .addComponent(new PositionComponent())
             .addComponent(new SpriteComponent())
             .addComponent(new LevelCollisionComponent());

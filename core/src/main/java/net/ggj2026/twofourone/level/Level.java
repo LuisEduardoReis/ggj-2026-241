@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static net.ggj2026.twofourone.Assets.font;
 import static net.ggj2026.twofourone.level.TileType.*;
 
 public class Level {
@@ -90,6 +91,7 @@ public class Level {
     }
 
     public void update(float delta) {
+        this.pathfindingMap.reset();
         this.entitySystems.update(this.entities, delta);
 
         this.entities.addAll(this.newEntities);
@@ -103,11 +105,17 @@ public class Level {
     }
 
     public void renderSprites(SpriteBatch spriteBatch) {
+        font.getData().setScale(0.05f);
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
                 Tile tile = this.getTile(x, y);
                 if (tile.type != null && tile.type.texture != null)
                     spriteBatch.draw(tile.type.texture, x, y, 1, 1);
+
+                /*PathfindingNode node = this.pathfindingMap.getNode(x, y);
+                if (node.distance < 10) {
+                    font.draw(spriteBatch, String.format("%d", node.distance % 10), x,y + 1f);
+                }*/
 
                 Tile overlayTile = this.getTileOverlay(x, y);
                 if (overlayTile.type != null && overlayTile.type.texture != null)

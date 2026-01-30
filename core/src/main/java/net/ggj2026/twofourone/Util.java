@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Vector2;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Util {
 
@@ -62,4 +66,19 @@ public class Util {
     public static float mapValue(float v, float a1, float b1, float a2, float b2) {
         return a2 + (b2 - a2) * ((v - a1) / (b1 - a1));
     }
+
+    public static String getNodeId(int x, int y) {
+        return String.format("%d,%d", x, y);
+    }
+
+    public static final List<Vector2> eightDirections = Arrays.asList(
+        new Vector2(-1, 0),
+        new Vector2(1, 0),
+        new Vector2(0, -1),
+        new Vector2(0, 1),
+        new Vector2(-1, 1),
+        new Vector2(1, 1),
+        new Vector2(-1, -1),
+        new Vector2(1, -1)
+    );
 }

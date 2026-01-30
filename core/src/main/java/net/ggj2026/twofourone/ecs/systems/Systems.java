@@ -18,6 +18,8 @@ public class Systems {
         this.systems.add(new SpriteSystem());
         this.systems.add(new BulletSystem());
         this.systems.add(new VelocitySystem());
+        this.systems.add(new PathfindingCalculationSystem());
+        this.systems.add(new EnemySystem());
         this.systems.add(new LevelCollisionsSystem());
     }
 
