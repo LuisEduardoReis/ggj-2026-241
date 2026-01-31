@@ -1,5 +1,5 @@
 textures.png
-size: 32, 463
+size: 32, 527
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
@@ -11,82 +11,84 @@ bullets/green_fire
 bullets/red_fire
   bounds: 0, 16, 16, 16
 enemies/damsel
-  bounds: 0, 288, 24, 25
+  bounds: 0, 352, 24, 25
   index: 1
 enemies/damsel
-  bounds: 0, 313, 24, 25
+  bounds: 0, 377, 24, 25
   index: 2
 enemies/damsel
-  bounds: 0, 338, 24, 25
+  bounds: 0, 402, 24, 25
   index: 3
 enemies/damsel
-  bounds: 0, 363, 24, 25
+  bounds: 0, 427, 24, 25
   index: 4
 enemies/kasper
-  bounds: 0, 112, 17, 16
+  bounds: 0, 304, 17, 16
   index: 1
 enemies/kasper
-  bounds: 0, 128, 17, 16
+  bounds: 0, 320, 17, 16
   index: 2
 enemies/kasper
-  bounds: 0, 144, 17, 16
+  bounds: 0, 336, 17, 16
   index: 3
+enemies/koh/1
+  bounds: 16, 16, 16, 64
 masks/lilith
-  bounds: 16, 16, 16, 16
+  bounds: 0, 80, 16, 16
 masks/oni
-  bounds: 0, 32, 16, 16
+  bounds: 16, 80, 16, 16
 masks/san
-  bounds: 16, 32, 16, 16
+  bounds: 0, 96, 16, 16
 masks/toru
-  bounds: 0, 48, 16, 16
+  bounds: 16, 96, 16, 16
 particles/eva_cross
-  bounds: 0, 160, 16, 32
+  bounds: 0, 112, 16, 32
   index: 1
 particles/eva_cross
-  bounds: 16, 160, 16, 32
+  bounds: 16, 112, 16, 32
   index: 2
 particles/eva_cross
-  bounds: 0, 192, 16, 32
+  bounds: 0, 144, 16, 32
   index: 3
 particles/eva_cross
-  bounds: 16, 192, 16, 32
+  bounds: 16, 144, 16, 32
   index: 4
 particles/eva_cross
-  bounds: 0, 224, 16, 32
+  bounds: 0, 176, 16, 32
   index: 5
 particles/eva_cross
-  bounds: 16, 224, 16, 32
+  bounds: 16, 176, 16, 32
   index: 6
 particles/eva_cross
-  bounds: 0, 256, 16, 32
+  bounds: 0, 208, 16, 32
   index: 7
 particles/eva_cross
-  bounds: 16, 256, 16, 32
+  bounds: 16, 208, 16, 32
   index: 8
 particles/smoke
-  bounds: 16, 48, 16, 16
+  bounds: 0, 240, 16, 16
 player
-  bounds: 0, 388, 25, 25
+  bounds: 0, 452, 25, 25
   index: 1
 player
-  bounds: 0, 413, 25, 25
+  bounds: 0, 477, 25, 25
   index: 2
 player
-  bounds: 0, 438, 25, 25
+  bounds: 0, 502, 25, 25
   index: 3
 shadow
-  bounds: 0, 64, 16, 16
+  bounds: 16, 240, 16, 16
 test
-  bounds: 16, 64, 16, 16
+  bounds: 0, 256, 16, 16
 test_animated_sprite
-  bounds: 0, 80, 16, 16
+  bounds: 16, 256, 16, 16
   index: 1
 test_animated_sprite
-  bounds: 16, 80, 16, 16
+  bounds: 0, 272, 16, 16
   index: 2
 test_animated_sprite
-  bounds: 0, 96, 16, 16
+  bounds: 16, 272, 16, 16
   index: 3
 test_animated_sprite
-  bounds: 16, 96, 16, 16
+  bounds: 0, 288, 16, 16
   index: 4

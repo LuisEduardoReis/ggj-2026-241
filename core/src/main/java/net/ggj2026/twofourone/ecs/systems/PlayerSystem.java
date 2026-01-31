@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -12,6 +13,7 @@ import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Bullet;
 import net.ggj2026.twofourone.ecs.entities.Particle;
+import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
@@ -123,6 +125,8 @@ public class PlayerSystem extends AbstractSystem {
         }
     }
 
+    private static final Color lightningColor = new Color(0.5f, 0.5f, 1f, 1f);
+
     @Override
     protected void processShapeRenderer(Entity entity, ShapeRenderer shapeRenderer) {
         PlayerComponent player = entity.getComponent(PlayerComponent.class);
@@ -144,24 +148,7 @@ public class PlayerSystem extends AbstractSystem {
 
         // Lightning attack
         if (player.lightingTarget != null) {
-            PositionComponent targetPos = player.lightingTarget.getComponent(PositionComponent.class);
-            float lx = position.x;
-            float ly = position.y;
-            float dist = Util.pointDistance(position.x, position.y, targetPos.x, targetPos.y);
-            float nx = (targetPos.x - position.x) / dist;
-            float ny = (targetPos.y - position.y) / dist;
-            int steps = 10;
-
-            for (int i = 0; i < steps; i++) {
-                float ax = position.x + (i + 1) * nx * dist / steps + Util.randomRange(-0.5f, 0.5f) * ny;
-                float ay = position.y + (i + 1) * ny * dist / steps + Util.randomRange(-0.5f, 0.5f) * nx;
-                shapeRenderer.setColor(0.5f, 0.5f, 1f, 1f);
-                shapeRenderer.rectLine(lx, ly, ax, ay, 0.15f);
-                shapeRenderer.setColor(1f, 1f, 1f, 1f);
-                shapeRenderer.rectLine(lx, ly, ax, ay, 0.05f);
-                lx = ax;
-                ly = ay;
-            }
+            Lightning.draw(shapeRenderer, position.toVector2(), player.lightingTarget.getComponent(PositionComponent.class).toVector2(), lightningColor);
         }
     }
 }

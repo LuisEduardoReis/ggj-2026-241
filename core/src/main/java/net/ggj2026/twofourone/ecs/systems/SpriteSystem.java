@@ -22,6 +22,10 @@ public class SpriteSystem extends AbstractSystem {
     @Override
     protected void processUpdate(Entity entity, float delta) {
         SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
+        PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
+
+        entity.sz = -positionComponent.y / entity.level.height;
+
         for (int i = 0; i < spriteComponent.sprites.size(); i++) {
             Sprite sprite = spriteComponent.sprites.get(i);
             SpriteState state = spriteComponent.states.get(i);

@@ -29,6 +29,7 @@ public class Systems {
         this.systems.add(new PathfindingCalculationSystem());
         this.systems.add(new EnemySystem());
         this.systems.add(new DamselEnemySystem());
+        this.systems.add(new KohEnemySystem());
         this.systems.add(new EnemySpawnerSystem());
         this.systems.add(new EntityCollisionsSystem());
         this.systems.add(new LevelCollisionsSystem());
@@ -47,7 +48,7 @@ public class Systems {
 
     public void renderSprites(Collection<Entity> entities, SpriteBatch spriteBatch) {
         List<Entity> zSortedEntities = entities.stream()
-            .sorted((a, b) -> Float.compare(a.z, b.z))
+            .sorted((a, b) -> Float.compare(a.z + a.sz, b.z + b.sz))
             .collect(Collectors.toList());
 
         for (AbstractSystem system : this.systems) {

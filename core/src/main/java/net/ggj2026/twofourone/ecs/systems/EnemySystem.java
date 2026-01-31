@@ -33,20 +33,17 @@ public class EnemySystem extends AbstractSystem {
         enemy.attackTimer = Util.stepTo(enemy.attackTimer, 0, delta);
 
         // Pathfinding
-
-        if (!enemy.pathfind) {
-            return;
-        }
-
-        Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
-        if (target != null) {
-            float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
-            if (distToTarget < 2) {
-                enemy.targetPosition = target;
-            }
-            if (distToTarget > 0) {
-                position.x += (target.x - position.x) / distToTarget * enemy.speed * delta;
-                position.y += (target.y - position.y) / distToTarget * enemy.speed * delta;
+        if (enemy.pathfind) {
+            Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
+            if (target != null) {
+                float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
+                if (distToTarget < 2) {
+                    enemy.targetPosition = target;
+                }
+                if (distToTarget > 0) {
+                    position.x += (target.x - position.x) / distToTarget * enemy.speed * delta;
+                    position.y += (target.y - position.y) / distToTarget * enemy.speed * delta;
+                }
             }
         }
     }

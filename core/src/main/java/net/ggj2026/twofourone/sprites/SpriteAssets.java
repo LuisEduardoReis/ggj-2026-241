@@ -12,6 +12,7 @@ public class SpriteAssets {
     public static Sprite lilithMaskSprite;
     public static Sprite kasperSprite;
     public static Sprite damselSprite;
+    public static Sprite kohSprite;
     public static Sprite blueFireSprite;
     public static Sprite greenFireSprite;
     public static Sprite redFireSprite;
@@ -48,6 +49,10 @@ public class SpriteAssets {
                 .addFrame(textureAtlas.findRegion("enemies/damsel", 2))
                 .addFrame(textureAtlas.findRegion("enemies/damsel", 3))
                 .addFrame(textureAtlas.findRegion("enemies/damsel", 4))
+            );
+        kohSprite = new Sprite()
+            .addState("default", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("enemies/koh/1"))
             );
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
         redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));

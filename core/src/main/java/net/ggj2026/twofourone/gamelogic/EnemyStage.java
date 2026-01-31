@@ -5,4 +5,5 @@ public enum EnemyStage {
     DEFAULT,
     RUSH,
     DAMSEL,
+    KOH,
 }

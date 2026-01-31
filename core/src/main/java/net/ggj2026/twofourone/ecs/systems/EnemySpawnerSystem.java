@@ -1,14 +1,11 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import net.ggj2026.twofourone.Util;
-import net.ggj2026.twofourone.ecs.components.DamselEnemyComponent;
-import net.ggj2026.twofourone.ecs.components.EnemyComponent;
-import net.ggj2026.twofourone.ecs.components.PositionComponent;
-import net.ggj2026.twofourone.ecs.components.VelocityComponent;
+import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.enemies.DamselEnemy;
 import net.ggj2026.twofourone.ecs.entities.enemies.KasperEnemy;
-import net.ggj2026.twofourone.gamelogic.EnemyStage;
+import net.ggj2026.twofourone.ecs.entities.enemies.KohEnemy;import net.ggj2026.twofourone.gamelogic.EnemyStage;
 import net.ggj2026.twofourone.level.Level;
 
 import java.util.*;
@@ -19,6 +16,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
     float stageTimer = 3f;
 
     List<EnemyStage> stageOrder = Arrays.asList(
+        EnemyStage.KOH,
         EnemyStage.DEFAULT,
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
@@ -34,8 +32,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
         "Turn back",
         "You will die",
         "You are alone",
-        "Pathetic",
-        "GYAAAAAAAAAAAAAAAAHHHHHHHH!"
+        "Pathetic"
     );
     int ominousMessagesIndex = 0;
 
@@ -60,8 +57,10 @@ public class EnemySpawnerSystem extends AbstractSystem {
         long numEnemies = level.entities.stream()
             .filter(entity -> entity.hasComponent(EnemyComponent.class))
             .count();
-        long numDamsels = level.entities.stream()
-            .filter(entity -> entity.hasComponent(DamselEnemyComponent.class))
+        long numBosses = level.entities.stream()
+            .filter(entity ->
+                entity.hasComponent(DamselEnemyComponent.class) || entity.hasComponent(KohEnemyComponent.class)
+            )
             .count();
 
         switch (this.stage) {
@@ -86,9 +85,10 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 }
                 break;
             case DAMSEL:
-                if (numDamsels > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
+            case KOH:
+                if (numBosses > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
                     this.enemySpawnTimer = this.enemySpawnDelay;
-                    this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
+                    this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, true));
                 }
                 if (numEnemies == 0) {
                     this.enterStage(EnemyStage.GRACE, level);
@@ -114,15 +114,19 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 for (int i = 0; i < 40; i++) {
                     this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
                 }
-                level.showMessage(ominousMessages.get(ominousMessagesIndex++));
-                ominousMessagesIndex %= ominousMessages.size();
+                level.showMessage("GYAAAAAAAAAAAAAAAAHHHHHHHH!");
                 break;
             case DAMSEL:
-                float spawnDirection = Util.randomRange(0, (float) (2*Math.PI));
+                level.showMessage("<Code Blue>");
                 Entity entity = this.spawnEnemy(level, DamselEnemy.instance(level), (float) level.width / 2, (float) level.height / 2);
+                float spawnDirection = Util.randomRange(0, (float) (2*Math.PI));
                 float speed = entity.getComponent(EnemyComponent.class).speed;
                 entity.getComponent(VelocityComponent.class).set((float) (Math.cos(spawnDirection) * speed), (float) (Math.sin(spawnDirection) * speed));
-                level.showMessage("<Code Blue>");
+
+                break;
+            case KOH:
+                level.showMessage("<Code Red>");
+                this.spawnEnemyOutOfBounds(level, KohEnemy.instance(level));
                 break;
         }
     }
