@@ -21,8 +21,10 @@ public class MaskPickup {
         maskPickupComponent.type = type;
 
         SpriteComponent spriteComponent = maskPickup.getComponent(SpriteComponent.class);
+        spriteComponent.addSprite(SpriteAssets.shadowSprite);
+        spriteComponent.states.get(0).alpha = 0.5f;
         spriteComponent.addSprite(MaskType.maskSprites.get(type));
-        spriteComponent.states.get(0).scale = 0.75f;
+        spriteComponent.states.get(1).scale = 1f;
 
         EntityCollisionsComponent entityCollisionsComponent = maskPickup.getComponent(EntityCollisionsComponent.class);
         entityCollisionsComponent.pushesOthers = false;

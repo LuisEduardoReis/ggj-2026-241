@@ -25,6 +25,7 @@ public class PlayerSystem extends AbstractSystem {
         PlayerComponent player = entity.getComponent(PlayerComponent.class);
         SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
         PositionComponent position = entity.getComponent(PositionComponent.class);
+        LevelCollisionComponent levelCollisionComponent = entity.getComponent(LevelCollisionComponent.class);
         GameController controller = player.controller;
 
         // Movement
@@ -53,7 +54,7 @@ public class PlayerSystem extends AbstractSystem {
         // Shooty shooty
         player.bulletTimer = Util.stepTo(player.bulletTimer, 0, delta);
         player.lightingTarget = null;
-        Vector2 bulletSpawnPoint = new Vector2(position.x, position.y + 0.5f);
+        Vector2 bulletSpawnPoint = new Vector2(position.x, position.y);
         if (controller.getShootingDown()) {
             float dir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.camera);
 

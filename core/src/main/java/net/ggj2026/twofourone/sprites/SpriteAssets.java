@@ -15,6 +15,7 @@ public class SpriteAssets {
     public static Sprite greenFireSprite;
     public static Sprite redFireSprite;
     public static Sprite smokeParticleSprite;
+    public static Sprite shadowSprite;
 
     public static void initSprites() {
         testSprite = Sprite.staticSprite(textureAtlas.findRegion("test"));
@@ -47,5 +48,6 @@ public class SpriteAssets {
         oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         lilithMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/lilith"));
         sanMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/san"));
+        shadowSprite = Sprite.staticSprite(textureAtlas.findRegion("shadow"));
     }
 }

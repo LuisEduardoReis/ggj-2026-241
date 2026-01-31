@@ -34,7 +34,7 @@ public class Enemy {
             spriteComponent.addSprite(MaskType.maskSprites.get(enemyComponent.maskType));
             spriteComponent.states.get(1).x = -0.5f/16f;
             spriteComponent.states.get(1).y = 0.2f;
-            spriteComponent.states.get(1).scale = 0.75f;
+            spriteComponent.states.get(1).scale = 1f;
         }
 
         EntityCollisionsComponent entityCollisionsComponent = enemy.getComponent(EntityCollisionsComponent.class);

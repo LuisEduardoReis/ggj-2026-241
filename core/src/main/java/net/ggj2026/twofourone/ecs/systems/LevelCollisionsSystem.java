@@ -32,8 +32,6 @@ public class LevelCollisionsSystem extends AbstractSystem {
         if (collisionComponent.isTileSolid.apply(level.getTile(xc, yc))) {
             pos.x = pos.px;
             pos.y = pos.py;
-            //entity.vy = 0;
-            //entity.vx = 0;
             collisionComponent.handleLevelCollision.accept(0f, 0f);
         }
 

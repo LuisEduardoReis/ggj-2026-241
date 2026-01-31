@@ -19,6 +19,9 @@ public class Particle {
         SpriteComponent spriteComponent = particle.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.smokeParticleSprite);
 
+        LevelCollisionComponent levelCollisionComponent = particle.getComponent(LevelCollisionComponent.class);
+        levelCollisionComponent.collidesWithLevel = false;
+
         return particle;
     }
 

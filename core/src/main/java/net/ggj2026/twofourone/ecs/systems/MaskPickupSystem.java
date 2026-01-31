@@ -17,14 +17,14 @@ public class MaskPickupSystem extends AbstractSystem {
         SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
         MaskPickupComponent maskPickup = entity.getComponent(MaskPickupComponent.class);
 
-        spriteComponent.states.get(0).y = (float) (0.15 * Math.sin(2*Math.PI * entity.level.t));
+        spriteComponent.states.get(1).y = 0.5f + (float) (0.15 * Math.sin(2*Math.PI * entity.level.t));
 
         maskPickup.ttl = Util.stepTo(maskPickup.ttl, 0, delta);
         if (maskPickup.ttl == 0) {
             entity.remove = true;
         }
         if (maskPickup.ttl < 1) {
-            spriteComponent.states.get(0).alpha = maskPickup.ttl;
+            spriteComponent.states.get(1).alpha = maskPickup.ttl;
         }
     }
 }
