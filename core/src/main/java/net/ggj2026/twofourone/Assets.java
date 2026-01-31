@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,6 +18,7 @@ public class Assets {
     public static Texture fillTexture;
     public static TextureAtlas textureAtlas;
     static TextureRegion[][] tileTextures;
+    public static com.badlogic.gdx.audio.Music menuMusic;
 
     public static BitmapFont font;
 
@@ -34,6 +36,10 @@ public class Assets {
         p.fill();
         fillTexture = new Texture(p);
         p.dispose();
+
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.wav"));
+        menuMusic.setLooping(true);
+        menuMusic.play();
     }
 
     public static TextureRegion getTileTextureById(int id) {
