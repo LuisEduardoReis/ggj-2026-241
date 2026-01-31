@@ -8,6 +8,7 @@ public class SpriteAssets {
     public static Sprite testAnimatedSprite;
     public static Sprite playerSprite;
     public static Sprite oniMaskSprite;
+    public static Sprite lilithMaskSprite;
     public static Sprite kasperSprite;
     public static Sprite blueFireSprite;
     public static Sprite redFireSprite;
@@ -31,7 +32,6 @@ public class SpriteAssets {
                 .addFrame(textureAtlas.findRegion("player", 2))
                 .addFrame(textureAtlas.findRegion("player", 3))
             );
-        oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         kasperSprite = new Sprite()
             .addState("default", new SpriteAnimation()
                 .addFrame(textureAtlas.findRegion("enemies/kasper", 1))
@@ -41,5 +41,7 @@ public class SpriteAssets {
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
         redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));
         smokeParticleSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/smoke"));
+        oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
+        lilithMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/lilith"));
     }
 }

@@ -47,7 +47,7 @@ public class EnemySystem extends AbstractSystem {
 
         // Drop mask
         if (enemy.maskType != null) {
-            Entity maskPickup = MaskPickup.instance(entity.level);
+            Entity maskPickup = MaskPickup.instance(entity.level, enemy.maskType);
             entity.level.addEntity(maskPickup);
 
             maskPickup.getComponent(MaskPickupComponent.class).type = enemy.maskType;

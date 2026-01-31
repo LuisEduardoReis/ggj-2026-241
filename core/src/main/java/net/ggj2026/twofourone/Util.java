@@ -57,6 +57,9 @@ public class Util {
     public static float randomRange(float a, float b){
         return (float) (a + Math.random() * (b - a));
     }
+    public static int randomRangeInt(int a, int b){
+        return (int) Math.floor((a + Math.random() * (b - a)));
+    }
 
     public static boolean isBetween(float value, float lower, float upper) {
         return lower <= value && value <= upper;

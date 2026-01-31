@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.entities;
 
+import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
@@ -18,8 +19,8 @@ public class Enemy {
         enemy.z = EntityZ.ENEMIES;
 
         EnemyComponent enemyComponent = enemy.getComponent(EnemyComponent.class);
-        if (Math.random() < 0.1) {
-            enemyComponent.maskType = MaskType.ONI;
+        if (Math.random() < 0.25) {
+            enemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
         }
 
         SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);

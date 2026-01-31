@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.ecs.entities;
 
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
+import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
@@ -21,6 +22,7 @@ public class Player {
 
         PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
         playerComponent.controller = controller;
+        playerComponent.currentMask = MaskType.LILITH;
 
         player.getComponent(LevelCollisionComponent.class).isTileSolid = (tile) -> tile.type.solid || tile.type.solidToPlayer;
 

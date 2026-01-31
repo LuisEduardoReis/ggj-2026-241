@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.components;
 
 import net.ggj2026.twofourone.controllers.GameController;
+import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
 public class PlayerComponent implements Component {
@@ -13,4 +14,7 @@ public class PlayerComponent implements Component {
     public float maskTimer = 0;
     public float maskDelay = 5;
     public MaskType currentMask = null;
+
+    public float lightningDamage = 200; // 200 per second
+    public Entity lightingTarget = null;
 }
