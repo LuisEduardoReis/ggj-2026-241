@@ -1,48 +1,52 @@
 textures.png
-size: 64, 98
+size: 32, 219
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
 pma: false
 bullets/blue_fire
   bounds: 0, 0, 16, 16
-bullets/red_fire
+bullets/green_fire
   bounds: 16, 0, 16, 16
+bullets/red_fire
+  bounds: 0, 16, 16, 16
 enemies/kasper
-  bounds: 32, 32, 17, 16
+  bounds: 0, 96, 17, 16
   index: 1
 enemies/kasper
-  bounds: 0, 48, 17, 16
+  bounds: 0, 112, 17, 16
   index: 2
 enemies/kasper
-  bounds: 17, 48, 17, 16
+  bounds: 0, 128, 17, 16
   index: 3
 masks/lilith
-  bounds: 32, 0, 16, 16
+  bounds: 16, 16, 16, 16
 masks/oni
-  bounds: 48, 0, 16, 16
+  bounds: 0, 32, 16, 16
+masks/san
+  bounds: 16, 32, 16, 16
 particles/smoke
-  bounds: 0, 16, 16, 16
+  bounds: 0, 48, 16, 16
 player
-  bounds: 34, 48, 25, 25
+  bounds: 0, 144, 25, 25
   index: 1
 player
-  bounds: 0, 73, 25, 25
+  bounds: 0, 169, 25, 25
   index: 2
 player
-  bounds: 25, 73, 25, 25
+  bounds: 0, 194, 25, 25
   index: 3
 test
-  bounds: 16, 16, 16, 16
+  bounds: 16, 48, 16, 16
 test_animated_sprite
-  bounds: 32, 16, 16, 16
+  bounds: 0, 64, 16, 16
   index: 1
 test_animated_sprite
-  bounds: 48, 16, 16, 16
+  bounds: 16, 64, 16, 16
   index: 2
 test_animated_sprite
-  bounds: 0, 32, 16, 16
+  bounds: 0, 80, 16, 16
   index: 3
 test_animated_sprite
-  bounds: 16, 32, 16, 16
+  bounds: 16, 80, 16, 16
   index: 4

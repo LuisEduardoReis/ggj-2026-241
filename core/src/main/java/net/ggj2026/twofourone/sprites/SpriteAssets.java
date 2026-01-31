@@ -8,9 +8,11 @@ public class SpriteAssets {
     public static Sprite testAnimatedSprite;
     public static Sprite playerSprite;
     public static Sprite oniMaskSprite;
+    public static Sprite sanMaskSprite;
     public static Sprite lilithMaskSprite;
     public static Sprite kasperSprite;
     public static Sprite blueFireSprite;
+    public static Sprite greenFireSprite;
     public static Sprite redFireSprite;
     public static Sprite smokeParticleSprite;
 
@@ -40,8 +42,10 @@ public class SpriteAssets {
             );
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
         redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));
+        greenFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/green_fire"));
         smokeParticleSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/smoke"));
         oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         lilithMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/lilith"));
+        sanMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/san"));
     }
 }

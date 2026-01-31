@@ -10,7 +10,8 @@ import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
 import java.util.Collections;
-import java.util.Objects;
+
+import static net.ggj2026.twofourone.Util.DEG_TO_RAD;
 
 public class PlayerSystem extends AbstractSystem {
     protected PlayerSystem() {
@@ -55,7 +56,7 @@ public class PlayerSystem extends AbstractSystem {
 
             if (MaskType.ONI.equals(player.currentMask)) {
                 if (player.bulletTimer == 0) {
-                    player.bulletTimer = player.bulletDelay;
+                    player.bulletTimer = player.bulletDelay / 2;
                     Bullet.spawnBullet(entity.level, position, dir, BulletType.HIGH_DAMAGE);
                 }
             } else if (MaskType.LILITH.equals(player.currentMask)){
@@ -72,6 +73,13 @@ public class PlayerSystem extends AbstractSystem {
                 if (player.lightingTarget != null) {
                     EnemyComponent enemy = player.lightingTarget.getComponent(EnemyComponent.class);
                     enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
+                }
+            } else if (MaskType.SAN.equals(player.currentMask)){
+                if (player.bulletTimer == 0) {
+                    player.bulletTimer = player.bulletDelay;
+                    Bullet.spawnBullet(entity.level, position, dir, BulletType.TRIPLE);
+                    Bullet.spawnBullet(entity.level, position, dir - 20 * DEG_TO_RAD, BulletType.TRIPLE);
+                    Bullet.spawnBullet(entity.level, position, dir + 20 * DEG_TO_RAD, BulletType.TRIPLE);
                 }
             } else {
                 if (player.bulletTimer == 0) {
