@@ -1,9 +1,11 @@
 package net.ggj2026.twofourone.ecs.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.level.Level;
+import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 public class Bullet {
@@ -16,6 +18,7 @@ public class Bullet {
                 .addComponent(new EntityCollisionsComponent())
                 .addComponent(new LevelCollisionComponent());
 
+        bullet.z = EntityZ.BULLETS;
         SpriteComponent spriteComponent = bullet.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.blueFireSprite);
         spriteComponent.states.get(0).scale = 0.75f;
@@ -51,7 +54,7 @@ public class Bullet {
         return bullet;
     }
 
-    public static Entity spawnBullet(Level level, PositionComponent position, float dir, BulletType type) {
+    public static Entity spawnBullet(Level level, Vector2 position, float dir, BulletType type) {
         Entity bullet = Bullet.instance(level);
         BulletComponent bulletComponent = bullet.getComponent(BulletComponent.class);
         SpriteComponent sprite = bullet.getComponent(SpriteComponent.class);

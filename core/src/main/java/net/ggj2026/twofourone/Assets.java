@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,6 +14,7 @@ public class Assets {
 
     public static Texture testTexture;
     public static Texture tilesheet;
+    public static Texture fillTexture;
     public static TextureAtlas textureAtlas;
     static TextureRegion[][] tileTextures;
 
@@ -26,6 +28,12 @@ public class Assets {
 
         tilesheet = new Texture("tilesheet.png");
         tileTextures = TextureRegion.split(tilesheet, TILE_SIZE, TILE_SIZE);
+
+        Pixmap p = new Pixmap(Main.WIDTH, Main.HEIGHT, Pixmap.Format.RGBA8888);
+        p.setColor(1, 1, 1, 1);
+        p.fill();
+        fillTexture = new Texture(p);
+        p.dispose();
     }
 
     public static TextureRegion getTileTextureById(int id) {

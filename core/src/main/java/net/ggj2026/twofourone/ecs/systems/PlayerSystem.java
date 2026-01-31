@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
@@ -52,13 +53,14 @@ public class PlayerSystem extends AbstractSystem {
         // Shooty shooty
         player.bulletTimer = Util.stepTo(player.bulletTimer, 0, delta);
         player.lightingTarget = null;
+        Vector2 bulletSpawnPoint = new Vector2(position.x, position.y + 0.5f);
         if (controller.getShootingDown()) {
             float dir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.camera);
 
             if (MaskType.ONI.equals(player.currentMask)) {
                 if (player.bulletTimer == 0) {
                     player.bulletTimer = player.bulletDelay / 2;
-                    Bullet.spawnBullet(entity.level, position, dir, BulletType.HIGH_DAMAGE);
+                    Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.HIGH_DAMAGE);
                 }
             } else if (MaskType.LILITH.equals(player.currentMask)){
                 float minDistance = Float.MAX_VALUE;
@@ -78,14 +80,14 @@ public class PlayerSystem extends AbstractSystem {
             } else if (MaskType.SAN.equals(player.currentMask)){
                 if (player.bulletTimer == 0) {
                     player.bulletTimer = player.bulletDelay;
-                    Bullet.spawnBullet(entity.level, position, dir, BulletType.TRIPLE);
-                    Bullet.spawnBullet(entity.level, position, dir - 20 * DEG_TO_RAD, BulletType.TRIPLE);
-                    Bullet.spawnBullet(entity.level, position, dir + 20 * DEG_TO_RAD, BulletType.TRIPLE);
+                    Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.TRIPLE);
+                    Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir - 20 * DEG_TO_RAD, BulletType.TRIPLE);
+                    Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir + 20 * DEG_TO_RAD, BulletType.TRIPLE);
                 }
             } else {
                 if (player.bulletTimer == 0) {
                     player.bulletTimer = player.bulletDelay;
-                    Bullet.spawnBullet(entity.level, position, dir, BulletType.NORMAL);
+                    Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.NORMAL);
                 }
             }
         }
@@ -120,14 +122,14 @@ public class PlayerSystem extends AbstractSystem {
         float healthBarWidth = player.health / player.maxHealth;
         if (player.health > 25 || entity.level.t % 0.5 < 0.4) {
             shapeRenderer.setColor(1f, 0, 0, 1);
-            shapeRenderer.rect(position.x - 0.5f, position.y + 0.6f, healthBarWidth, 0.1f);
+            shapeRenderer.rect(position.x - 0.5f, position.y + 1.2f, healthBarWidth, 0.1f);
         }
 
         // Mask timer bar
         if (player.currentMask != null) {
             float maskTimerWidth = player.maskTimer / player.maskDelay;
             shapeRenderer.setColor(0.2f, 0.2f, 1, 1);
-            shapeRenderer.rect(position.x - 0.5f, position.y + 0.75f, maskTimerWidth, 0.1f);
+            shapeRenderer.rect(position.x - 0.5f, position.y + 1.35f, maskTimerWidth, 0.1f);
         }
 
         // Lightning attack

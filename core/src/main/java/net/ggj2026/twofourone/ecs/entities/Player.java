@@ -22,18 +22,18 @@ public class Player {
 
         PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
         playerComponent.controller = controller;
-        playerComponent.currentMask = MaskType.LILITH;
 
         player.getComponent(LevelCollisionComponent.class).isTileSolid = (tile) -> tile.type.solid || tile.type.solidToPlayer;
 
         SpriteComponent spriteComponent = player.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.playerSprite);
-        spriteComponent.states.get(0).scale = 1.25f;
+        spriteComponent.states.get(0).scale = 1.5f;
+        spriteComponent.states.get(0).y = 0.25f;
         spriteComponent.addSprite(SpriteAssets.oniMaskSprite);
         spriteComponent.states.get(1).visible = false;
         spriteComponent.states.get(1).x = -0.5f/16f;
-        spriteComponent.states.get(1).y = 0.5f;
-        spriteComponent.states.get(1).scale = 0.75f;
+        spriteComponent.states.get(1).y = 0.85f;
+        spriteComponent.states.get(1).scale = 1f;
 
         return player;
     }

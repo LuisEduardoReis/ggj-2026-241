@@ -16,7 +16,7 @@ public final class Entity {
     public final int id;
     public Level level;
     public boolean remove;
-    public float z = EntityZ.DEFAUlT;
+    public float z = EntityZ.DEFAULT;
 
     public Entity(Level level) {
         this.components = new HashMap<>();

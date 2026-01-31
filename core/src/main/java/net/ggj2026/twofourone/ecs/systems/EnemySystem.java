@@ -24,11 +24,8 @@ public class EnemySystem extends AbstractSystem {
         PathfindingMap pathfindingMap = entity.level.pathfindingMap;
 
         // Health
-        long playerCount = entity.level.entities.stream()
-            .filter(e -> e.hasComponent(PlayerComponent.class))
-            .count();
-        if (enemy.health == 0 || playerCount == 0) {
-            this.die(entity, playerCount > 0);
+        if (enemy.health == 0 || entity.level.playerCount == 0) {
+            this.die(entity, entity.level.playerCount > 0);
         }
 
         // Attack

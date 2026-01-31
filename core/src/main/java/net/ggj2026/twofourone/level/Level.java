@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
 import net.ggj2026.twofourone.controllers.GameController;
+import net.ggj2026.twofourone.ecs.components.PlayerComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Enemy;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -27,10 +28,12 @@ public class Level {
 
     public GameScreen gameScreen;
     public float t = 0;
+    public boolean gameOver = false;
 
     public List<Entity> entities;
     public List<Entity> newEntities;
     public Systems entitySystems;
+    public int playerCount = 0;
 
     public int width, height;
     public Tile[] tiles;
@@ -90,11 +93,19 @@ public class Level {
 
     public void update(float delta) {
         this.t += delta;
+
         this.pathfindingMap.reset();
         this.entitySystems.update(this.entities, delta);
 
         this.entities.addAll(this.newEntities);
         this.newEntities.clear();
+
+        this.playerCount = (int) this.entities.stream()
+            .filter(e -> e.hasComponent(PlayerComponent.class))
+            .count();
+        if (this.playerCount == 0) {
+            this.gameOver = true;
+        }
 
         if (this.entities.stream().anyMatch(entity -> entity.remove)) {
             this.entities = this.entities.stream()
