@@ -8,6 +8,7 @@ import java.util.function.Function;
 public class LevelCollisionComponent implements Component {
     public float radius = 0.3f;
     public boolean collidesWithLevel = true;
+    public boolean bounce = false;
 
     public Function<Tile, Boolean> isTileSolid = (tile) -> tile.type.solid;
     public BiConsumer<Float, Float> handleLevelCollision = (x,y) -> {};
