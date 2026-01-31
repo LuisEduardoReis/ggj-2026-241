@@ -1,7 +1,10 @@
 package net.ggj2026.twofourone.ecs.systems;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
@@ -57,7 +60,7 @@ public class PlayerSystem extends AbstractSystem {
         player.lightingTarget = null;
         Vector2 bulletSpawnPoint = new Vector2(position.x, position.y);
         if (controller.getShootingDown()) {
-            float dir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.camera);
+            float dir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.viewport);
 
             if (MaskType.ONI.equals(player.currentMask)) {
                 if (player.bulletTimer == 0) {

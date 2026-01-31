@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.controllers;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.Util;
 
 public class XBox360Controller implements GameController {
@@ -40,7 +41,7 @@ public class XBox360Controller implements GameController {
     public float getMoveAxisY() { return controller.getAxis(XBox360Pad.AXIS_LEFT_Y); }
 
     @Override
-    public float getLookDir(float x, float y, OrthographicCamera camera) {
+    public float getLookDir(float x, float y, Viewport viewport) {
         float rax = controller.getAxis(XBox360Pad.AXIS_RIGHT_X);
         float ray = controller.getAxis(XBox360Pad.AXIS_RIGHT_Y);
         return - (float) Math.atan2(ray, rax);

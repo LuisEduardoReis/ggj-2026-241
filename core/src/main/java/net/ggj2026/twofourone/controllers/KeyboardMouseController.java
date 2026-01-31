@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.Main;
 import net.ggj2026.twofourone.Util;
 
@@ -41,8 +42,8 @@ public class KeyboardMouseController implements GameController {
 
     Vector3 lookVector = new Vector3();
     @Override
-    public float getLookDir(float x, float y, OrthographicCamera camera) {
-        Vector3 unprojectedCoords = camera.unproject(lookVector.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+    public float getLookDir(float x, float y, Viewport viewport) {
+        Vector3 unprojectedCoords = viewport.unproject(lookVector.set(Gdx.input.getX(), Gdx.input.getY(), 0));
         return Util.pointDirection(x, y, unprojectedCoords.x, unprojectedCoords.y);
     }
 

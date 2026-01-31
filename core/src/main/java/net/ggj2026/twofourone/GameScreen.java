@@ -45,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
 
         this.camera = new OrthographicCamera(Main.WIDTH, Main.HEIGHT);
         this.viewport = new FitViewport(Main.WIDTH, Main.HEIGHT);
+        this.viewport.setCamera(this.camera);
 
         this.controllers = new ArrayList<>();
         for(Controller c : Controllers.getControllers()) controllers.add(new XBox360Controller(c));

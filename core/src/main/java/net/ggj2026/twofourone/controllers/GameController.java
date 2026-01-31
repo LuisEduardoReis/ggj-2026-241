@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.controllers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public interface GameController {
 
@@ -9,7 +10,7 @@ public interface GameController {
     float getMoveAxisX();
     float getMoveAxisY();
 
-    float getLookDir(float x, float y, OrthographicCamera camera);
+    float getLookDir(float x, float y, Viewport viewport);
     float getLookNormal();
 
     boolean getShootingDown();
