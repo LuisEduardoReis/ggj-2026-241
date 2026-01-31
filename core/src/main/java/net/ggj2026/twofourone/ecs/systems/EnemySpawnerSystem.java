@@ -26,6 +26,15 @@ public class EnemySpawnerSystem extends AbstractSystem {
         EnemyStage.DEFAULT
     );
     int stageIndex = 0;
+    List<String> ominousMessages = Arrays.asList(
+        "You are not ready",
+        "Turn back",
+        "You will die",
+        "You are alone",
+        "Pathetic",
+        "GYAAAAAAAAAAAAAAAAHHHHHHHH!"
+    );
+    int ominousMessagesIndex = 0;
 
     int maxEnemies = 0;
     float enemySpawnTimer = 0;
@@ -90,7 +99,8 @@ public class EnemySpawnerSystem extends AbstractSystem {
             case DEFAULT:
                 this.stageTimer = 30f;
                 this.maxEnemies += 5;
-                level.showMessage("You are not ready");
+                level.showMessage(ominousMessages.get(ominousMessagesIndex++));
+                ominousMessagesIndex %= ominousMessages.size();
                 break;
             case DAMSEL:
                 this.spawnEnemy(level, DamselEnemy.instance(level));
