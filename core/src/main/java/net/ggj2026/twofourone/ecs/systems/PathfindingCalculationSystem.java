@@ -36,7 +36,7 @@ public class PathfindingCalculationSystem extends AbstractSystem {
             String nodeId = getNodeId((int) current.x, (int) current.y);
             PathfindingNode node = pathfindingMap.getNode((int) current.x, (int) current.y);
 
-            if (visited.contains(nodeId) || tile.type.solid || tile == level.boundaryTile) continue;
+            if (visited.contains(nodeId) || tile.type.solid || tile == level.boundaryTile || node.distance < current.z) continue;
 
             node.distance = (int) current.z;
             visited.add(nodeId);
