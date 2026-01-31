@@ -10,6 +10,7 @@ import net.ggj2026.twofourone.ecs.entities.Bullet;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.gamelogic.BulletType;
+import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -22,7 +23,18 @@ public class KohEnemySystem extends AbstractSystem {
     @Override
     protected void processUpdate(Entity entity, float delta) {
         PositionComponent position = entity.getComponent(PositionComponent.class);
+        EnemyComponent enemyComponent = entity.getComponent(EnemyComponent.class);
         KohEnemyComponent kohComponent = entity.getComponent(KohEnemyComponent.class);
+        SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
+
+        if (kohComponent.stage == 0 && enemyComponent.health < 2000) {
+            kohComponent.stage++;
+            spriteComponent.sprites.set(0, SpriteAssets.kohSprite2);
+        }
+        if (kohComponent.stage == 1 && enemyComponent.health < 1000) {
+            kohComponent.stage++;
+            spriteComponent.sprites.set(0, SpriteAssets.kohSprite3);
+        }
 
         kohComponent.targets = entity.level.entities.stream()
             .filter(e -> e.hasComponent(PlayerComponent.class))

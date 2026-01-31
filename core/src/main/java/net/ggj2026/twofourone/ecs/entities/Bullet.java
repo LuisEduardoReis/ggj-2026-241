@@ -38,7 +38,6 @@ public class Bullet {
             BulletComponent bulletComponent = me.getComponent(BulletComponent.class);
 
             if (bulletComponent.friendly && other.hasComponent(EnemyComponent.class)) {
-
                 me.remove = true;
 
                 // Bump the enemy

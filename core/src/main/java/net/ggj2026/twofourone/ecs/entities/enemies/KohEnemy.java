@@ -24,14 +24,14 @@ public class KohEnemy {
         SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
         EntityCollisionsComponent entityCollisionsComponent = enemy.getComponent(EntityCollisionsComponent.class);
 
-        spriteComponent.addSprite(SpriteAssets.kohSprite);
+        spriteComponent.addSprite(SpriteAssets.kohSprite1);
         spriteComponent.states.get(0).scale = 1.5f;
         spriteComponent.states.get(0).height = 4;
         spriteComponent.states.get(0).y = 2;
         spriteComponent.states.get(0).animated = true;
         spriteComponent.states.get(0).animationDelay = 1 / 4f / 2f;
 
-        enemyComponent.health = 2000;
+        enemyComponent.health = 3000;
         enemyComponent.speed = 2.5f;
         enemyComponent.onDeath = (entity) -> {
             // Death particles

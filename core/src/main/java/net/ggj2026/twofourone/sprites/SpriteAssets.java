@@ -12,7 +12,9 @@ public class SpriteAssets {
     public static Sprite lilithMaskSprite;
     public static Sprite kasperSprite;
     public static Sprite damselSprite;
-    public static Sprite kohSprite;
+    public static Sprite kohSprite1;
+    public static Sprite kohSprite2;
+    public static Sprite kohSprite3;
     public static Sprite blueFireSprite;
     public static Sprite greenFireSprite;
     public static Sprite redFireSprite;
@@ -50,9 +52,23 @@ public class SpriteAssets {
                 .addFrame(textureAtlas.findRegion("enemies/damsel", 3))
                 .addFrame(textureAtlas.findRegion("enemies/damsel", 4))
             );
-        kohSprite = new Sprite()
+        kohSprite1 = new Sprite()
             .addState("default", new SpriteAnimation()
-                .addFrame(textureAtlas.findRegion("enemies/koh/1"))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase1", 1))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase1", 2))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase1", 3))
+            );
+        kohSprite2 = new Sprite()
+            .addState("default", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase2", 1))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase2", 2))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase2", 3))
+            );
+        kohSprite3 = new Sprite()
+            .addState("default", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase3", 1))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase3", 2))
+                .addFrame(textureAtlas.findRegion("enemies/koh-phase3", 3))
             );
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
         redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));
