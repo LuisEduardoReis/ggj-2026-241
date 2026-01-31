@@ -23,6 +23,7 @@ public class PlayerComponent implements Component {
     public MaskType currentMask = null;
 
     public float lightningDamage = 200; // 200 per second
+    public float lightningRange = 15;
     public Entity lightingTarget = null;
 
     public void damage(float value, Entity player) {

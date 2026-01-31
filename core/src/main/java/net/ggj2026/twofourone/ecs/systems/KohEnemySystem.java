@@ -32,6 +32,11 @@ public class KohEnemySystem extends AbstractSystem {
                 return dist < kohComponent.range;
             })
             .collect(Collectors.toList());
+
+        for (Entity player : kohComponent.targets) {
+            PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
+            playerComponent.damage(kohComponent.damagePerSecond * delta, player);
+        }
     }
 
     @Override

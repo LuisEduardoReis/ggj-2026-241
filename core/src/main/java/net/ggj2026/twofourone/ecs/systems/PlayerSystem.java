@@ -76,7 +76,7 @@ public class PlayerSystem extends AbstractSystem {
                     if (!enemy.hasComponent(EnemyComponent.class)) continue;
                     PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
                     float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
-                    if (dist < minDistance) {
+                    if (dist < minDistance && dist < player.lightningRange) {
                         player.lightingTarget = enemy;
                         minDistance = dist;
                     }
