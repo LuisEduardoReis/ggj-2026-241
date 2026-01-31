@@ -59,6 +59,7 @@ public class Bullet {
         sprite.sprites.set(0, BulletType.bulletSprites.get(type));
         switch (type) {
             case NORMAL:
+            case TRIPLE:
                 bulletComponent.damage = 50;
                 break;
             case HIGH_DAMAGE:
