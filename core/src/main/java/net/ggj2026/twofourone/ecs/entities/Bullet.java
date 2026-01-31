@@ -24,7 +24,7 @@ public class Bullet {
 
         LevelCollisionComponent levelCollisionComponent = bullet.getComponent(LevelCollisionComponent.class);
         levelCollisionComponent.radius = 0.2f;
-        levelCollisionComponent.handleLevelCollision = (x,y) -> {bullet.remove = !levelCollisionComponent.bounce;};
+        levelCollisionComponent.handleLevelCollision = (x,y) -> {bullet.    remove = !levelCollisionComponent.bounce;};
 
         EntityCollisionsComponent entityCollisionsComponent = bullet.getComponent(EntityCollisionsComponent.class);
         entityCollisionsComponent.radius = 0.2f;
@@ -59,6 +59,8 @@ public class Bullet {
         sprite.sprites.set(0, BulletType.bulletSprites.get(type));
         switch (type) {
             case NORMAL:
+                bulletComponent.damage = 100;
+                break;
             case TRIPLE:
                 bulletComponent.damage = 50;
                 bullet.getComponent(LevelCollisionComponent.class).bounce = true;
