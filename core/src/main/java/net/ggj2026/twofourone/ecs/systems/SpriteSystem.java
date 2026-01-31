@@ -69,6 +69,7 @@ public class SpriteSystem extends AbstractSystem {
             }
             affine2.translate(state.x, state.y);
             affine2.translate(-state.width / 2, -state.height / 2);
+            spriteBatch.setColor(1,1,1, state.alpha);
             spriteBatch.draw(frame.textureRegion, state.width, state.height, affine2);
         }
     }

@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.systems;
 
+import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 
@@ -14,7 +15,16 @@ public class MaskPickupSystem extends AbstractSystem {
     @Override
     protected void processUpdate(Entity entity, float delta) {
         SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
+        MaskPickupComponent maskPickup = entity.getComponent(MaskPickupComponent.class);
 
         spriteComponent.states.get(0).y = (float) (0.15 * Math.sin(2*Math.PI * entity.level.t));
+
+        maskPickup.ttl = Util.stepTo(maskPickup.ttl, 0, delta);
+        if (maskPickup.ttl == 0) {
+            entity.remove = true;
+        }
+        if (maskPickup.ttl < 1) {
+            spriteComponent.states.get(0).alpha = maskPickup.ttl;
+        }
     }
 }
