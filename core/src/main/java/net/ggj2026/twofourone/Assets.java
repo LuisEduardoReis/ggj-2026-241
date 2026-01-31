@@ -23,6 +23,10 @@ public class Assets {
     public static Sound hitHurt;
     public static Sound enemyDeath;
     public static Sound beamSound1;
+    public static Sound damselFire;
+    public static Sound damselDeath;
+    public static Sound damselSpawn;
+
 
 
     public static BitmapFont font;
@@ -49,6 +53,9 @@ public class Assets {
         enemyDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/enemy-death.wav"));
         hitHurt = Gdx.audio.newSound(Gdx.files.internal("./sounds/hit-hurt.wav"));
         beamSound1 = Gdx.audio.newSound(Gdx.files.internal("./sounds/beam-sound-1.wav"));
+        damselFire = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-fire.wav"));
+        damselSpawn = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-spawn.wav"));
+        damselDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-death.wav"));
     }
 
     public static TextureRegion getTileTextureById(int id) {

@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import com.badlogic.gdx.math.Vector2;
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.DamselEnemyComponent;
 import net.ggj2026.twofourone.ecs.components.EnemyComponent;
@@ -23,6 +24,7 @@ public class DamselEnemySystem extends AbstractSystem {
         PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
 
         if (enemyComponent.attackTimer == 0) {
+            Assets.damselFire.play();
             enemyComponent.attackTimer = enemyComponent.attackDelay;
             float dir = Util.randomRange(0, (float) (2 * Math.PI));
             Bullet.spawnBullet(entity.level, new Vector2(positionComponent.x, positionComponent.y), dir, BulletType.ENEMY);

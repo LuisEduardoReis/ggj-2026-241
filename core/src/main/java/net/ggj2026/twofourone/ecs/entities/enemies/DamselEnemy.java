@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.entities.enemies;
 
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Particle;
@@ -36,9 +37,12 @@ public class DamselEnemy {
         enemyComponent.onDeath = (entity) -> {
             // Death particles
             Particle.smokeExplosion(entity.level, positionComponent, 2, false);
+            Assets.damselDeath.play();
         };
 
         entityCollisionsComponent.mass = 20;
+
+        Assets.damselSpawn.play();
 
         return enemy;
     }
