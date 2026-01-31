@@ -4,7 +4,6 @@ import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.BulletComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.components.SpriteComponent;
-import net.ggj2026.twofourone.ecs.components.VelocityComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Particle;
 import net.ggj2026.twofourone.sprites.EntityZ;
@@ -36,7 +35,7 @@ public class BulletSystem extends AbstractSystem {
             Entity particle = Particle.instance(entity.level);
             entity.level.addEntity(particle);
 
-            particle.z = EntityZ.BULLETS;
+            particle.z = entity.z;
             PositionComponent particlePosition = particle.getComponent(PositionComponent.class);
             SpriteComponent particleSprite = particle.getComponent(SpriteComponent.class);
             particlePosition.x = position.x;

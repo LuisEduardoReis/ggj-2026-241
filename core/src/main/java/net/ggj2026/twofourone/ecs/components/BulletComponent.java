@@ -1,6 +1,9 @@
 package net.ggj2026.twofourone.ecs.components;
 
 public class BulletComponent implements Component {
+
+    public boolean friendly = true;
+
     public float speed = 10;
     public float damage = 100;
 

@@ -25,7 +25,7 @@ public class EnemySystem extends AbstractSystem {
 
         // Health
         if (enemy.health == 0 || entity.level.playerCount == 0) {
-            this.die(entity, entity.level.playerCount > 0);
+            this.die(entity);
         }
 
         // Attack
@@ -39,32 +39,15 @@ public class EnemySystem extends AbstractSystem {
                 enemy.targetPosition = target;
             }
             if (distToTarget > 0) {
-                position.x += (target.x - position.x) / distToTarget * 2.5f * delta;
-                position.y += (target.y - position.y) / distToTarget * 2.5f * delta;
+                position.x += (target.x - position.x) / distToTarget * enemy.speed * delta;
+                position.y += (target.y - position.y) / distToTarget * enemy.speed * delta;
             }
         }
     }
 
-    private void die(Entity entity, boolean dropMask) {
+    private void die(Entity entity) {
         entity.remove = true;
-        PositionComponent enemyPosition = entity.getComponent(PositionComponent.class);
-        EnemyComponent enemy = entity.getComponent(EnemyComponent.class);
-
-        // Drop mask
-        if (dropMask && enemy.maskType != null) {
-            Entity maskPickup = MaskPickup.instance(entity.level, enemy.maskType);
-            entity.level.addEntity(maskPickup);
-
-            maskPickup.getComponent(MaskPickupComponent.class).type = enemy.maskType;
-
-            PositionComponent maskPickupPosition = maskPickup.getComponent(PositionComponent.class);
-            maskPickupPosition.x = enemyPosition.x;
-            maskPickupPosition.y = enemyPosition.y;
-        }
-
-        // Death particles
-        Particle.smokeExplosion(entity.level, enemyPosition, 1, true);
-
+        entity.getComponent(EnemyComponent.class).onDeath.accept(entity);
     }
 
     @Override

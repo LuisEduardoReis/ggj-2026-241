@@ -18,7 +18,7 @@ public class Bullet {
                 .addComponent(new EntityCollisionsComponent())
                 .addComponent(new LevelCollisionComponent());
 
-        bullet.z = EntityZ.BULLETS;
+        bullet.z = EntityZ.FRIENDLY_BULLETS;
         SpriteComponent spriteComponent = bullet.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.blueFireSprite);
         spriteComponent.states.get(0).scale = 0.75f;
@@ -35,21 +35,41 @@ public class Bullet {
         entityCollisionsComponent.radius = 0.2f;
         entityCollisionsComponent.pushesOthers = false;
         entityCollisionsComponent.handleEntityCollision = (me, other) -> {
-            if (other.hasComponent(EnemyComponent.class)) {
-                BulletComponent bulletComponent = me.getComponent(BulletComponent.class);
+            BulletComponent bulletComponent = me.getComponent(BulletComponent.class);
+
+            if (bulletComponent.friendly && other.hasComponent(EnemyComponent.class)) {
+
                 me.remove = true;
 
                 // Bump the enemy
                 PositionComponent pos = me.getComponent(PositionComponent.class);
                 PositionComponent otherPos = other.getComponent(PositionComponent.class);
                 VelocityComponent otherVelocity = other.getComponent(VelocityComponent.class);
+                EntityCollisionsComponent otherEntityCollisionsComponent = other.getComponent(EntityCollisionsComponent.class);
                 float dist = Util.pointDistance(pos.x, pos.y, otherPos.x, otherPos.y);
-                otherVelocity.ex = (otherPos.x - pos.x) / dist * 10;
-                otherVelocity.ey = (otherPos.y - pos.y) / dist * 10;
+                otherVelocity.ex = (otherPos.x - pos.x) / dist * 10 / otherEntityCollisionsComponent.mass;
+                otherVelocity.ey = (otherPos.y - pos.y) / dist * 10 / otherEntityCollisionsComponent.mass;
 
                 // Deal damage
                 EnemyComponent enemyComponent = other.getComponent(EnemyComponent.class);
                 enemyComponent.health = Util.stepTo(enemyComponent.health, 0, bulletComponent.damage);
+            }
+
+            if (!bulletComponent.friendly && other.hasComponent(PlayerComponent.class)) {
+                me.remove = true;
+
+                // Bump the player
+                PositionComponent pos = me.getComponent(PositionComponent.class);
+                PositionComponent otherPos = other.getComponent(PositionComponent.class);
+                VelocityComponent otherVelocity = other.getComponent(VelocityComponent.class);
+                EntityCollisionsComponent otherEntityCollisionsComponent = other.getComponent(EntityCollisionsComponent.class);
+                float dist = Util.pointDistance(pos.x, pos.y, otherPos.x, otherPos.y);
+                otherVelocity.ex = (otherPos.x - pos.x) / dist * 10 / otherEntityCollisionsComponent.mass;
+                otherVelocity.ey = (otherPos.y - pos.y) / dist * 10 / otherEntityCollisionsComponent.mass;
+
+                // Deal damage
+                PlayerComponent playerComponent = other.getComponent(PlayerComponent.class);
+                playerComponent.damage(bulletComponent.damage, other);
             }
         };
 
@@ -73,6 +93,11 @@ public class Bullet {
                 break;
             case HIGH_DAMAGE:
                 bulletComponent.damage = 100;
+                break;
+            case ENEMY:
+                bulletComponent.speed = 3;
+                bulletComponent.friendly = false;
+                bullet.z = EntityZ.ENEMY_BULLETS;
                 break;
         }
 

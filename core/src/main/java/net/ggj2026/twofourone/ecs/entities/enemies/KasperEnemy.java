@@ -1,16 +1,20 @@
-package net.ggj2026.twofourone.ecs.entities;
+package net.ggj2026.twofourone.ecs.entities.enemies;
 
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
+import net.ggj2026.twofourone.ecs.entities.Entity;
+import net.ggj2026.twofourone.ecs.entities.MaskPickup;
+import net.ggj2026.twofourone.ecs.entities.Particle;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
-public class Enemy {
+public class KasperEnemy {
     public static Entity instance(Level level) {
         Entity enemy = new Entity(level)
             .addComponent(new EnemyComponent())
+            .addComponent(new KasperEnemyComponent())
             .addComponent(new PositionComponent())
             .addComponent(new VelocityComponent())
             .addComponent(new SpriteComponent())
@@ -20,18 +24,20 @@ public class Enemy {
 
         PositionComponent position = enemy.getComponent(PositionComponent.class);
         EnemyComponent enemyComponent = enemy.getComponent(EnemyComponent.class);
+        KasperEnemyComponent kasperEnemyComponent = enemy.getComponent(KasperEnemyComponent.class);
+        SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
+
         if (Math.random() < 0.25) {
-            enemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
+            kasperEnemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
         }
 
-        SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.kasperSprite);
         spriteComponent.states.get(0).scale = 1;
         spriteComponent.states.get(0).animated = true;
         spriteComponent.states.get(0).animationDelay = 1 / 3f / 2f;
 
-        if (enemyComponent.maskType != null) {
-            spriteComponent.addSprite(MaskType.maskSprites.get(enemyComponent.maskType));
+        if (kasperEnemyComponent.maskType != null) {
+            spriteComponent.addSprite(MaskType.maskSprites.get(kasperEnemyComponent.maskType));
             spriteComponent.states.get(1).x = -0.5f/16f;
             spriteComponent.states.get(1).y = 0.2f;
             spriteComponent.states.get(1).scale = 1f;
@@ -52,6 +58,23 @@ public class Enemy {
                     player.damage(enemyComponent.attackDamage, other);
                 }
             }
+        };
+
+        enemyComponent.onDeath = (entity) -> {
+            // Drop mask
+            if (kasperEnemyComponent.maskType != null && entity.level.playerCount > 0) {
+                Entity maskPickup = MaskPickup.instance(entity.level, kasperEnemyComponent.maskType);
+                entity.level.addEntity(maskPickup);
+
+                maskPickup.getComponent(MaskPickupComponent.class).type = kasperEnemyComponent.maskType;
+
+                PositionComponent maskPickupPosition = maskPickup.getComponent(PositionComponent.class);
+                maskPickupPosition.x = position.x;
+                maskPickupPosition.y = position.y;
+            }
+
+            // Death particles
+            Particle.smokeExplosion(entity.level, position, 1, false);
         };
 
         return enemy;
