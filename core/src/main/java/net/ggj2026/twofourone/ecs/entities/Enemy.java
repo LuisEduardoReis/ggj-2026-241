@@ -18,6 +18,7 @@ public class Enemy {
             .addComponent(new EntityCollisionsComponent());
         enemy.z = EntityZ.ENEMIES;
 
+        PositionComponent position = enemy.getComponent(PositionComponent.class);
         EnemyComponent enemyComponent = enemy.getComponent(EnemyComponent.class);
         if (Math.random() < 0.25) {
             enemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
@@ -35,6 +36,23 @@ public class Enemy {
             spriteComponent.states.get(1).y = 0.2f;
             spriteComponent.states.get(1).scale = 0.75f;
         }
+
+        EntityCollisionsComponent entityCollisionsComponent = enemy.getComponent(EntityCollisionsComponent.class);
+        entityCollisionsComponent.handleEntityCollision = (me, other) -> {
+            if (other.hasComponent(PlayerComponent.class)) {
+                if (enemyComponent.attackTimer == 0) {
+                    enemyComponent.attackTimer = enemyComponent.attackDelay;
+                    PlayerComponent player = other.getComponent(PlayerComponent.class);
+                    PositionComponent playerPosition = other.getComponent(PositionComponent.class);
+                    VelocityComponent playerVelocity = other.getComponent(VelocityComponent.class);
+                    float dist = Util.pointDistance(position.x, position.y, playerPosition.x, playerPosition.y);
+                    playerVelocity.ex = (playerPosition.x - position.x) / dist * 7;
+                    playerVelocity.ey = (playerPosition.y - position.y) / dist * 7;
+
+                    player.damage(enemyComponent.attackDamage, other);
+                }
+            }
+        };
 
         return enemy;
     }

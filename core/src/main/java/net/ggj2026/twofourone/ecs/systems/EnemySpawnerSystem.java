@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import net.ggj2026.twofourone.Util;
+import net.ggj2026.twofourone.ecs.components.EnemyComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Enemy;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -22,7 +23,11 @@ public class EnemySpawnerSystem extends AbstractSystem {
     @Override
     public void update(Level level, float delta) {
         this.enemySpawnTimer = Util.stepTo(this.enemySpawnTimer, 0, delta);
-        if (this.enemySpawnTimer == 0) {
+        long numEnemies = level.entities.stream()
+            .filter(entity -> entity.hasComponent(EnemyComponent.class))
+            .count();
+
+        if (this.enemySpawnTimer == 0 && numEnemies < 20) {
             this.enemySpawnTimer = this.enemySpawnDelay;
 
             Entity enemy = Enemy.instance(level);

@@ -24,29 +24,37 @@ public class EnemySystem extends AbstractSystem {
         PathfindingMap pathfindingMap = entity.level.pathfindingMap;
 
         // Health
-        if (enemy.health == 0) {
-            this.die(entity);
+        long playerCount = entity.level.entities.stream()
+            .filter(e -> e.hasComponent(PlayerComponent.class))
+            .count();
+        if (enemy.health == 0 || playerCount == 0) {
+            this.die(entity, playerCount > 0);
         }
+
+        // Attack
+        enemy.attackTimer = Util.stepTo(enemy.attackTimer, 0, delta);
 
         // Pathfinding
         Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
-        float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
-        if (distToTarget < 2) {
-            enemy.targetPosition = target;
-        }
-        if (distToTarget > 0) {
-            position.x += (target.x - position.x) / distToTarget * 2.5f * delta;
-            position.y += (target.y - position.y) / distToTarget * 2.5f * delta;
+        if (target != null) {
+            float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
+            if (distToTarget < 2) {
+                enemy.targetPosition = target;
+            }
+            if (distToTarget > 0) {
+                position.x += (target.x - position.x) / distToTarget * 2.5f * delta;
+                position.y += (target.y - position.y) / distToTarget * 2.5f * delta;
+            }
         }
     }
 
-    private void die(Entity entity) {
+    private void die(Entity entity, boolean dropMask) {
         entity.remove = true;
         PositionComponent enemyPosition = entity.getComponent(PositionComponent.class);
         EnemyComponent enemy = entity.getComponent(EnemyComponent.class);
 
         // Drop mask
-        if (enemy.maskType != null) {
+        if (dropMask && enemy.maskType != null) {
             Entity maskPickup = MaskPickup.instance(entity.level, enemy.maskType);
             entity.level.addEntity(maskPickup);
 
@@ -58,24 +66,8 @@ public class EnemySystem extends AbstractSystem {
         }
 
         // Death particles
-        for (int i = 0; i < 10; i++) {
-            Entity particle = Particle.instance(entity.level);
-            entity.level.addEntity(particle);
+        Particle.smokeExplosion(entity.level, enemyPosition, 1, true);
 
-            PositionComponent particlePosition = particle.getComponent(PositionComponent.class);
-            VelocityComponent particleVelocity = particle.getComponent(VelocityComponent.class);
-            SpriteComponent particleSprite = particle.getComponent(SpriteComponent.class);
-            float dir = Util.randomRange(0, (float) (2*Math.PI));
-            float force = Util.randomRange(0.5f, 3);
-            particlePosition.x = enemyPosition.x;
-            particlePosition.y = enemyPosition.y;
-
-            particleVelocity.vx = (float) (force * Math.cos(dir));
-            particleVelocity.vy = (float) (force * Math.sin(dir));
-            particleSprite.states.get(0).animated = true;
-            particleSprite.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
-            particleSprite.states.get(0).scaleV = -1f;
-        }
     }
 
     @Override

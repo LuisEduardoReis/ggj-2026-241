@@ -32,6 +32,11 @@ public class PathfindingMap {
         int iy = (int) Math.floor(y);
         float targetX = this.level.width/2f;
         float targetY = this.level.height/2f;
+
+        if (this.level.getTile(ix, iy) == this.level.boundaryTile) {
+            return new Vector2(targetX, targetY);
+        }
+
         int minDistance = Integer.MAX_VALUE;
         for (Vector2 direction : eightDirections) {
             PathfindingNode node = this.getNode((int) (ix + direction.x), (int) (iy + direction.y));
@@ -41,6 +46,10 @@ public class PathfindingMap {
                 targetY = iy + direction.y + 0.5f;
             }
         }
-        return new Vector2(targetX, targetY);
+        if (minDistance == Integer.MAX_VALUE) {
+            return null;
+        } else {
+            return new Vector2(targetX, targetY);
+        }
     }
 }

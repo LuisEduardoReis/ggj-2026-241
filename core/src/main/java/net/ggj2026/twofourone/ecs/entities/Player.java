@@ -35,7 +35,6 @@ public class Player {
         spriteComponent.states.get(1).y = 0.5f;
         spriteComponent.states.get(1).scale = 0.75f;
 
-
         return player;
     }
 }

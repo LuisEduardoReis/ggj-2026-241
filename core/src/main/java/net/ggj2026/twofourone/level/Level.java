@@ -75,9 +75,6 @@ public class Level {
         this.boundaryTile = new Tile(getTileType("boundary"));
 
         pathfindingMap = new PathfindingMap(this);
-
-        Entity enemy = this.addEntity(Enemy.instance(this));
-        enemy.getComponent(PositionComponent.class).set(this.width/2f+1, this.height/2f+1);
     }
 
     public void createPlayer(GameController controller) {

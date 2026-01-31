@@ -29,6 +29,7 @@ public class GameScreen extends ScreenAdapter {
     public Level level;
 
     public float cameraScale = 40f / Main.WIDTH;
+    public float cameraShake = 0;
 
     public GameScreen() {
         this.spriteBatch = new SpriteBatch();
@@ -39,12 +40,9 @@ public class GameScreen extends ScreenAdapter {
         this.camera = new OrthographicCamera(Main.WIDTH, Main.HEIGHT);
         this.viewport = new FitViewport(Main.WIDTH, Main.HEIGHT);
 
-        this.camera.position.set(this.level.width/2f, this.level.height/2f,0);
-        this.camera.zoom = cameraScale;
-
         this.controllers = new ArrayList<>();
         for(Controller c : Controllers.getControllers()) controllers.add(new XBox360Controller(c));
-        if (this.controllers.isEmpty() || true) {
+        if (this.controllers.isEmpty()) {
             controllers.add(new KeyboardMouseController());
         }
 
@@ -60,6 +58,11 @@ public class GameScreen extends ScreenAdapter {
         ScreenUtils.clear(0.2f,0.2f,0.2f,1);
         this.viewport.apply();
 
+        float shakeX = Util.randomRange(-1, 1) * this.cameraShake * this.cameraScale;
+        float shakeY = Util.randomRange(-1, 1) * this.cameraShake * this.cameraScale;
+        this.cameraShake = Util.stepTo(this.cameraShake, 0, 100 * delta);
+        this.camera.position.set(this.level.width/2f + shakeX, this.level.height/2f + shakeY,0);
+        this.camera.zoom = cameraScale;
         this.camera.update();
 
         this.spriteBatch.setProjectionMatrix(camera.combined);

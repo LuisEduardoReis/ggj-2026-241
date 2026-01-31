@@ -6,6 +6,7 @@ import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Bullet;
+import net.ggj2026.twofourone.ecs.entities.Particle;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
@@ -100,6 +101,14 @@ public class PlayerSystem extends AbstractSystem {
         } else {
             sprite.states.get(1).visible = false;
         }
+
+        // Health
+        if (player.health == 0) {
+            entity.remove = true;
+            Particle.smokeExplosion(entity.level, position, 3, false);
+        } else {
+            player.health = Util.stepTo(player.health, player.maxHealth, player.healthRegen * delta);
+        }
     }
 
     @Override
@@ -107,12 +116,21 @@ public class PlayerSystem extends AbstractSystem {
         PlayerComponent player = entity.getComponent(PlayerComponent.class);
         PositionComponent position = entity.getComponent(PositionComponent.class);
 
-        if (player.currentMask != null) {
-            float width = player.maskTimer / player.maskDelay;
-            shapeRenderer.setColor(1, 0, 0, 1);
-            shapeRenderer.rect(position.x - 0.5f, position.y + 0.6f, width, 0.1f);
+        // Health bar
+        float healthBarWidth = player.health / player.maxHealth;
+        if (player.health > 25 || entity.level.t % 0.5 < 0.4) {
+            shapeRenderer.setColor(1f, 0, 0, 1);
+            shapeRenderer.rect(position.x - 0.5f, position.y + 0.6f, healthBarWidth, 0.1f);
         }
 
+        // Mask timer bar
+        if (player.currentMask != null) {
+            float maskTimerWidth = player.maskTimer / player.maskDelay;
+            shapeRenderer.setColor(0.2f, 0.2f, 1, 1);
+            shapeRenderer.rect(position.x - 0.5f, position.y + 0.75f, maskTimerWidth, 0.1f);
+        }
+
+        // Lightning attack
         if (player.lightingTarget != null) {
             PositionComponent targetPos = player.lightingTarget.getComponent(PositionComponent.class);
             float lx = position.x;
