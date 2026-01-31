@@ -13,9 +13,8 @@ public class EnemySpawnerSystem extends AbstractSystem {
 
     EnemyStage stage = EnemyStage.START;
 
-    boolean stageTimerActive = true;
     float stageTimer = 0;
-    float stageDelay = 2 * 60;
+    float stageDelay = 30f;
 
     int maxEnemies = 0;
     float enemySpawnTimer = 0;
@@ -40,23 +39,6 @@ public class EnemySpawnerSystem extends AbstractSystem {
             .filter(entity -> entity.hasComponent(DamselEnemyComponent.class))
             .count();
 
-        switch (this.stage) {
-            case START:
-                break;
-            case DEFAULT:
-                if (this.stageTimer > 0 && this.enemySpawnTimer == 0 && numEnemies < maxEnemies) {
-                    this.enemySpawnTimer = this.enemySpawnDelay;
-                    this.spawnEnemy(level, KasperEnemy.instance(level, Math.random() < 0.2));
-                }
-                break;
-            case DAMSEL:
-                if (numDamsels > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
-                    this.enemySpawnTimer = this.enemySpawnDelay;
-                    this.spawnEnemy(level, KasperEnemy.instance(level, true));
-                }
-                break;
-        }
-
         if (numEnemies == 0) {
             switch (this.stage) {
                 case START:
@@ -74,11 +56,29 @@ public class EnemySpawnerSystem extends AbstractSystem {
                     break;
             }
         }
+
+        switch (this.stage) {
+            case START:
+                break;
+            case DEFAULT:
+                if (this.stageTimer > 0 && this.enemySpawnTimer == 0 && numEnemies < maxEnemies) {
+                    this.enemySpawnTimer = this.enemySpawnDelay;
+                    this.spawnEnemy(level, KasperEnemy.instance(level, Math.random() < 0.2));
+                }
+                break;
+            case DAMSEL:
+                if (numDamsels > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
+                    this.enemySpawnTimer = this.enemySpawnDelay;
+                    this.spawnEnemy(level, KasperEnemy.instance(level, true));
+                }
+                break;
+        }
     }
 
     private void transitionStage(EnemyStage enemyStage, Level level) {
         this.stage = enemyStage;
         this.stageTimer = this.stageDelay;
+        System.out.println(this.stage.toString());
 
         switch (this.stage) {
             case DEFAULT:
