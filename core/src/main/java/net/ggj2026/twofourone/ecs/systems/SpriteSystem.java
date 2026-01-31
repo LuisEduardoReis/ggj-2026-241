@@ -38,7 +38,10 @@ public class SpriteSystem extends AbstractSystem {
                     state.animationIndex++;
                     state.animationIndex %= spriteAnimation.frames.size();
                 }
+            } else {
+                state.animationIndex = 0;
             }
+
         }
 
     }
@@ -61,6 +64,9 @@ public class SpriteSystem extends AbstractSystem {
             affine2.translate(positionComponent.x, positionComponent.y);
             affine2.rotate(state.rotation * Util.RAD_TO_DEG);
             affine2.scale(state.scale, state.scale);
+            if (state.mirrorX) {
+                affine2.scale(-1, 1);
+            }
             affine2.translate(state.x, state.y);
             affine2.translate(-state.width / 2, -state.height / 2);
             spriteBatch.draw(frame.textureRegion, state.width, state.height, affine2);

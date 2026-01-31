@@ -8,6 +8,7 @@ public class SpriteState {
     public float y = 0;
     public float scale = 1f;
     public float scaleV = 0f;
+    public boolean mirrorX = false;
     public float width = 1f;
     public float height = 1f;
     public float rotation = 0;

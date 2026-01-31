@@ -25,12 +25,12 @@ public class Player {
         player.getComponent(LevelCollisionComponent.class).isTileSolid = (tile) -> tile.type.solid || tile.type.solidToPlayer;
 
         SpriteComponent spriteComponent = player.getComponent(SpriteComponent.class);
-        spriteComponent.addSprite(SpriteAssets.enemyTestSprite);
-        spriteComponent.states.get(0).scale = 1;
+        spriteComponent.addSprite(SpriteAssets.playerSprite);
+        spriteComponent.states.get(0).scale = 1.25f;
         spriteComponent.addSprite(SpriteAssets.oniMaskSprite);
         spriteComponent.states.get(1).visible = false;
         spriteComponent.states.get(1).x = -0.5f/16f;
-        spriteComponent.states.get(1).y = 0.2f;
+        spriteComponent.states.get(1).y = 0.5f;
         spriteComponent.states.get(1).scale = 0.75f;
 
 

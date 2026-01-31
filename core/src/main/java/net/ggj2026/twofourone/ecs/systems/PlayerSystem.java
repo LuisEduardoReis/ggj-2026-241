@@ -27,9 +27,25 @@ public class PlayerSystem extends AbstractSystem {
         // Movement
         float lax = controller.getMoveAxisX(), lay = controller.getMoveAxisY();
         float deadzone = 0.25f;
+        boolean moving = false;
 
-        if(Math.abs(lay) > deadzone) position.y -= player.speed * delta * lay;
-        if(Math.abs(lax) > deadzone) position.x += player.speed * delta * lax;
+        if(Math.abs(lay) > deadzone) {
+            moving = true;
+            position.y -= player.speed * delta * lay;
+        }
+        if(Math.abs(lax) > deadzone) {
+            moving = true;
+            sprite.states.get(0).mirrorX = lax > 0;
+            position.x += player.speed * delta * lax;
+        }
+        if (moving) {
+            sprite.states.get(0).animated = true;
+            sprite.states.get(0).state = "walking";
+            sprite.states.get(0).animationDelay = 1f / 5 / 3; // 1 second / 5 frames per second / 3 frames
+        } else {
+            sprite.states.get(0).animated = false;
+            sprite.states.get(0).state = "standing";
+        }
 
         // Shooty shooty
         player.bulletTimer = Util.stepTo(player.bulletTimer, 0, delta);

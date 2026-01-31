@@ -6,6 +6,7 @@ public class SpriteAssets {
 
     public static Sprite testSprite;
     public static Sprite testAnimatedSprite;
+    public static Sprite playerSprite;
     public static Sprite oniMaskSprite;
     public static Sprite enemyTestSprite;
     public static Sprite kasperSprite;
@@ -22,6 +23,15 @@ public class SpriteAssets {
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 3))
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 4))
                 );
+        playerSprite = new Sprite()
+            .addState("standing", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("player", 1))
+            )
+            .addState("walking", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("player", 1))
+                .addFrame(textureAtlas.findRegion("player", 2))
+                .addFrame(textureAtlas.findRegion("player", 3))
+            );
         oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         enemyTestSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/test_enemy"));
         kasperSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/kasper"));

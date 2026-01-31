@@ -1,5 +1,5 @@
 textures.png
-size: 64, 105
+size: 64, 130
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
@@ -11,19 +11,19 @@ bullets/red_fire
 enemies/kasper
   bounds: 16, 32, 17, 16
 enemies/test_enemy
-  bounds: 15, 57, 48, 48
+  bounds: 0, 82, 48, 48
 masks/oni
   bounds: 32, 0, 16, 16
 particles/smoke
   bounds: 48, 0, 16, 16
 player
-  bounds: 33, 32, 15, 25
+  bounds: 33, 32, 25, 25
   index: 1
 player
-  bounds: 48, 32, 15, 25
+  bounds: 0, 57, 25, 25
   index: 2
 player
-  bounds: 0, 57, 15, 25
+  bounds: 25, 57, 25, 25
   index: 3
 test
   bounds: 0, 16, 16, 16

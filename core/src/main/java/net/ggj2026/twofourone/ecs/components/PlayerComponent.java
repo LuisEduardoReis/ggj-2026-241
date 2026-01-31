@@ -11,6 +11,6 @@ public class PlayerComponent implements Component {
     public float bulletDelay = 1 / 3f;
 
     public float maskTimer = 0;
-    public float maskDelay = 10;
+    public float maskDelay = 5;
     public MaskType currentMask = null;
 }
