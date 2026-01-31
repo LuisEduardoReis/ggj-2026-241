@@ -19,11 +19,13 @@ public class EnemySpawnerSystem extends AbstractSystem {
 
     List<EnemyStage> stageOrder = Arrays.asList(
         EnemyStage.DEFAULT,
-        EnemyStage.DEFAULT,
+        EnemyStage.RUSH,
         EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
+        EnemyStage.RUSH,
         EnemyStage.DAMSEL,
-        EnemyStage.DEFAULT
+        EnemyStage.DEFAULT,
+        EnemyStage.RUSH
     );
     int stageIndex = 0;
     List<String> ominousMessages = Arrays.asList(
@@ -77,6 +79,11 @@ public class EnemySpawnerSystem extends AbstractSystem {
                     this.enterStage(EnemyStage.GRACE, level);
                 }
                 break;
+            case RUSH:
+                if (numEnemies == 0) {
+                    this.enterStage(EnemyStage.GRACE, level);
+                }
+                break;
             case DAMSEL:
                 if (numDamsels > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
                     this.enemySpawnTimer = this.enemySpawnDelay;
@@ -99,6 +106,13 @@ public class EnemySpawnerSystem extends AbstractSystem {
             case DEFAULT:
                 this.stageTimer = 30f;
                 this.maxEnemies += 5;
+                level.showMessage(ominousMessages.get(ominousMessagesIndex++));
+                ominousMessagesIndex %= ominousMessages.size();
+                break;
+            case RUSH:
+                for (int i = 0; i < 40; i++) {
+                    this.spawnEnemy(level, KasperEnemy.instance(level, Math.random() < 0.2));
+                }
                 level.showMessage(ominousMessages.get(ominousMessagesIndex++));
                 ominousMessagesIndex %= ominousMessages.size();
                 break;

@@ -23,6 +23,11 @@ public class BulletSystem extends AbstractSystem {
         BulletComponent bullet = entity.getComponent(BulletComponent.class);
         SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
 
+        bullet.t += delta;
+        if (bullet.t > bullet.lifetime) {
+            entity.remove = true;
+        }
+
         if (!Util.isBetween(position.x, -REMOVE_BORDER_RADIUS, entity.level.width + REMOVE_BORDER_RADIUS) ||
             !Util.isBetween(position.y, -REMOVE_BORDER_RADIUS, entity.level.height + REMOVE_BORDER_RADIUS)) {
             entity.remove = true;
