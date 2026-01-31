@@ -173,7 +173,16 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">bullets/blue_fire.png</key>
+            <key type="filename">bullets/red_fire.png</key>
+            <key type="filename">masks/lilith.png</key>
+            <key type="filename">masks/oni.png</key>
+            <key type="filename">particles/smoke.png</key>
             <key type="filename">test.png</key>
+            <key type="filename">test_animated_sprite/001.png</key>
+            <key type="filename">test_animated_sprite/002.png</key>
+            <key type="filename">test_animated_sprite/003.png</key>
+            <key type="filename">test_animated_sprite/004.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -188,7 +197,9 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">test_animated_sprite.png</key>
+            <key type="filename">enemies/kasper/1.png</key>
+            <key type="filename">enemies/kasper/2.png</key>
+            <key type="filename">enemies/kasper/3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -197,9 +208,26 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>16,4,32,8</rect>
+                <rect>4,4,9,8</rect>
                 <key>scale9Paddings</key>
-                <rect>16,4,32,8</rect>
+                <rect>4,4,9,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">player/1.png</key>
+            <key type="filename">player/2.png</key>
+            <key type="filename">player/3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,6,7,13</rect>
+                <key>scale9Paddings</key>
+                <rect>4,6,7,13</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

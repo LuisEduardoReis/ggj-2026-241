@@ -20,7 +20,7 @@ public class Bullet {
         spriteComponent.addSprite(SpriteAssets.blueFireSprite);
         spriteComponent.states.get(0).scale = 0.75f;
         spriteComponent.states.get(0).animated = true;
-        spriteComponent.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
+        spriteComponent.states.get(0).rotationDelta = (float) (2 * 2*Math.PI);
 
         LevelCollisionComponent levelCollisionComponent = bullet.getComponent(LevelCollisionComponent.class);
         levelCollisionComponent.radius = 0.2f;

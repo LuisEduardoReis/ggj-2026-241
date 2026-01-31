@@ -43,11 +43,15 @@ public class EnemySystem extends AbstractSystem {
     private void die(Entity entity) {
         entity.remove = true;
         PositionComponent enemyPosition = entity.getComponent(PositionComponent.class);
+        EnemyComponent enemy = entity.getComponent(EnemyComponent.class);
 
         // Drop mask
-        if (Math.random() < 1) {
+        if (enemy.maskType != null) {
             Entity maskPickup = MaskPickup.instance(entity.level);
             entity.level.addEntity(maskPickup);
+
+            maskPickup.getComponent(MaskPickupComponent.class).type = enemy.maskType;
+
             PositionComponent maskPickupPosition = maskPickup.getComponent(PositionComponent.class);
             maskPickupPosition.x = enemyPosition.x;
             maskPickupPosition.y = enemyPosition.y;
