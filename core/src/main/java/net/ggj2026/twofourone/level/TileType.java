@@ -22,6 +22,7 @@ public class TileType {
             TILETYPES.put(id, new TileType().setName(id).setTexture(getTileTextureById(i)));
         }
         TILETYPES.get("id0").solid = true;
+        TILETYPES.get("id4").solid = true;
     }
 
     public static TileType getTileType(String name) {
