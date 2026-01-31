@@ -17,6 +17,7 @@ public class LevelCollisionsSystem extends AbstractSystem {
     protected void processUpdate(Entity entity, float delta) {
         PositionComponent pos = entity.getComponent(PositionComponent.class);
         LevelCollisionComponent collisionComponent = entity.getComponent(LevelCollisionComponent.class);
+
         Level level = entity.level;
 
         if (!collisionComponent.collidesWithLevel) return;

@@ -24,6 +24,7 @@ public class Systems {
         this.systems.add(new PathfindingCalculationSystem());
         this.systems.add(new EnemySystem());
         this.systems.add(new EnemySpawnerSystem());
+        this.systems.add(new EntityCollisionsSystem());
         this.systems.add(new LevelCollisionsSystem());
     }
 

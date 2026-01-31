@@ -3,17 +3,17 @@ package net.ggj2026.twofourone.ecs.entities;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.level.Level;
-import net.ggj2026.twofourone.level.Tile;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 public class Player {
     public static Entity instance(Level level, GameController controller) {
         Entity player = new Entity(level)
-                .addComponent(new PositionComponent())
                 .addComponent(new PlayerComponent())
+                .addComponent(new PositionComponent())
                 .addComponent(new SpriteComponent())
                 .addComponent(new VelocityComponent())
                 .addComponent(new LevelCollisionComponent())
+                .addComponent(new EntityCollisionsComponent())
                 .addComponent(new PathfindingTargetComponent());
 
         PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);

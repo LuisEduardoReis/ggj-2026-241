@@ -36,11 +36,11 @@ public class EnemySystem extends AbstractSystem {
 
     @Override
     protected void processShapeRenderer(Entity entity, ShapeRenderer shapeRenderer) {
-        EnemyComponent enemy = entity.getComponent(EnemyComponent.class);
+        /*EnemyComponent enemy = entity.getComponent(EnemyComponent.class);
         PositionComponent position = entity.getComponent(PositionComponent.class);
 
         if (enemy.targetPosition != null) {
             shapeRenderer.line(position.x, position.y, enemy.targetPosition.x, enemy.targetPosition.y);
-        }
+        }*/
     }
 }

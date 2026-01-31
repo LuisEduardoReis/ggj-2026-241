@@ -10,7 +10,8 @@ public class Enemy {
             .addComponent(new EnemyComponent())
             .addComponent(new PositionComponent())
             .addComponent(new SpriteComponent())
-            .addComponent(new LevelCollisionComponent());
+            .addComponent(new LevelCollisionComponent())
+            .addComponent(new EntityCollisionsComponent());
 
         SpriteComponent spriteComponent = player.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.kasperSprite);
