@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.PlayerComponent;

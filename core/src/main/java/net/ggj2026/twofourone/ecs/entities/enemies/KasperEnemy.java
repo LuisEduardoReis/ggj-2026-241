@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.entities.enemies;
 
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -61,6 +62,7 @@ public class KasperEnemy {
         };
 
         enemyComponent.onDeath = (entity) -> {
+            Assets.enemyDeath.play();
             // Drop mask
             if (kasperEnemyComponent.maskType != null && entity.level.playerCount > 0) {
                 Entity maskPickup = MaskPickup.instance(entity.level, kasperEnemyComponent.maskType);
