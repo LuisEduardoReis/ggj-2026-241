@@ -5,6 +5,10 @@ import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.gamelogic.MaskType;
+import com.badlogic.gdx.graphics.Color;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PlayerComponent implements Component {
 
@@ -25,6 +29,8 @@ public class PlayerComponent implements Component {
     public float lightningDamage = 200; // 200 per second
     public float lightningRange = 15;
     public Entity lightingTarget = null;
+
+    public static List<Color> ColorAssignment = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA);
 
     public void damage(float value, Entity player) {
         player.level.gameScreen.cameraShake = 20;

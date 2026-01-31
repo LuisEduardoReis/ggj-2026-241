@@ -12,6 +12,7 @@ import net.ggj2026.twofourone.GameScreen;
 import net.ggj2026.twofourone.Util;import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.PlayerComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
+import net.ggj2026.twofourone.ecs.components.SpriteComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Player;
 import net.ggj2026.twofourone.ecs.systems.Systems;
@@ -43,6 +44,7 @@ public class Level {
     public String message = null;
     public float messageTimer = 0;
     public float messageDelay = 3;
+
 
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
@@ -82,9 +84,10 @@ public class Level {
         pathfindingMap = new PathfindingMap(this);
     }
 
-    public void createPlayer(GameController controller) {
+    public void createPlayer(GameController controller, int i) {
         Entity player = Player.instance(this, controller);
         this.addEntity(player);
+        player.getComponent(SpriteComponent.class).states.get(0).color = PlayerComponent.ColorAssignment.get(i);
         player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
     }
 

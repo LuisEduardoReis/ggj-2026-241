@@ -53,7 +53,10 @@ public class GameScreen extends ScreenAdapter {
             controllers.add(new KeyboardMouseController());
         }
 
-        this.controllers.forEach(controller -> this.level.createPlayer(controller));
+        for (int i = 0; i < this.controllers.size(); i++) {
+            GameController controller = this.controllers.get(i);
+            this.level.createPlayer(controller, i);
+        }
     }
 
     @Override

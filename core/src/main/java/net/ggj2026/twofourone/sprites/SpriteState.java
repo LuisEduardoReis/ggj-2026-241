@@ -1,5 +1,9 @@
 package net.ggj2026.twofourone.sprites;
 
+import com.badlogic.gdx.graphics.Color;
+
+import java.awt.*;
+
 public class SpriteState {
     public String state = null;
     public boolean visible = true;
@@ -14,6 +18,7 @@ public class SpriteState {
     public float rotation = 0;
     public float rotationDelta = 0;
     public float alpha = 1;
+    public Color color = new Color(Color.WHITE);
 
     public boolean animated = true;
     public float animationTimer = 0;
