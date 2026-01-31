@@ -1,6 +1,8 @@
 package net.ggj2026.twofourone;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.controllers.KeyboardMouseController;
+import net.ggj2026.twofourone.controllers.XBox360Controller;
 import net.ggj2026.twofourone.level.Level;
 
 import java.util.ArrayList;
@@ -40,8 +43,10 @@ public class GameScreen extends ScreenAdapter {
         this.camera.zoom = cameraScale;
 
         this.controllers = new ArrayList<>();
-        controllers.add(new KeyboardMouseController());
-        //for(Controller c : Controllers.getControllers()) controllers.add(new Xbox360Controller(c));
+        for(Controller c : Controllers.getControllers()) controllers.add(new XBox360Controller(c));
+        if (this.controllers.isEmpty()) {
+            controllers.add(new KeyboardMouseController());
+        }
 
         this.controllers.forEach(controller -> this.level.createPlayer(controller));
     }
