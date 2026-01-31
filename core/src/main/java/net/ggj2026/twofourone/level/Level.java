@@ -43,7 +43,7 @@ public class Level {
 
         this.entities = new LinkedList<>();
         this.newEntities = new LinkedList<>();
-        this.entitySystems = new Systems();
+        this.entitySystems = new Systems(this);
 
         TiledMap map = new TmxMapLoader(new InternalFileHandleResolver()).load("map.tmx");
         this.width = (int) map.getProperties().get("width");
@@ -71,7 +71,7 @@ public class Level {
             }
         }
 
-        this.boundaryTile = new Tile(getTileType("empty"));
+        this.boundaryTile = new Tile(getTileType("boundary"));
 
         pathfindingMap = new PathfindingMap(this);
 

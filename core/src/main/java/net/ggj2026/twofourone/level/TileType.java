@@ -11,17 +11,17 @@ import static net.ggj2026.twofourone.Assets.textureAtlas;
 public class TileType {
 
     public static Map<String, TileType> TILETYPES = new HashMap<>();
-    public static TileType EMPTY_TILE;
 
 
     static {
         TILETYPES.put("empty", new TileType().setName("empty").setSolid(false));
+        TILETYPES.put("boundary", new TileType().setName("boundary").setSolid(false).setSolidToPlayer(true));
         TILETYPES.put("test", new TileType().setName("test").setSolid(true).setTexture(textureAtlas.findRegion("test")));
         for (int i = 0; i < 255; i++) {
-            TILETYPES.put(String.format("id%d", i), new TileType().setTexture(getTileTextureById(i)));
+            String id = String.format("id%d", i);
+            TILETYPES.put(id, new TileType().setName(id).setTexture(getTileTextureById(i)));
         }
         TILETYPES.get("id0").solid = true;
-        EMPTY_TILE = TILETYPES.get("empty");
     }
 
     public static TileType getTileType(String name) {
@@ -37,6 +37,7 @@ public class TileType {
     }
 
     public boolean solid = false;
+    public boolean solidToPlayer = false;
     public String name;
     public TextureRegion texture;
 
@@ -44,6 +45,11 @@ public class TileType {
 
     private TileType setSolid(boolean solid) {
         this.solid = solid;
+        return this;
+    }
+
+    private TileType setSolidToPlayer(boolean solid) {
+        this.solidToPlayer = solid;
         return this;
     }
 

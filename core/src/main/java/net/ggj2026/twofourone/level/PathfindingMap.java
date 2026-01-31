@@ -30,8 +30,8 @@ public class PathfindingMap {
     public Vector2 getNextPositionFrom(float x, float y) {
         int ix = (int) Math.floor(x);
         int iy = (int) Math.floor(y);
-        float targetX = x;
-        float targetY = y;
+        float targetX = this.level.width/2f;
+        float targetY = this.level.height/2f;
         int minDistance = Integer.MAX_VALUE;
         for (Vector2 direction : eightDirections) {
             PathfindingNode node = this.getNode((int) (ix + direction.x), (int) (iy + direction.y));

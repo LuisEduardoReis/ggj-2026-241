@@ -24,8 +24,10 @@ public class EnemySystem extends AbstractSystem {
         PathfindingMap pathfindingMap = entity.level.pathfindingMap;
 
         Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
-        enemy.targetPosition = target;
         float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
+        if (distToTarget < 2) {
+            enemy.targetPosition = target;
+        }
         if (distToTarget > 0) {
             position.x += (target.x - position.x) / distToTarget * 2.5f * delta;
             position.y += (target.y - position.y) / distToTarget * 2.5f * delta;

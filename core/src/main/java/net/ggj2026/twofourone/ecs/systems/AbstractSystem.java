@@ -4,16 +4,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.ggj2026.twofourone.ecs.components.Component;
 import net.ggj2026.twofourone.ecs.entities.Entity;
+import net.ggj2026.twofourone.level.Level;
 
 import java.util.Collection;
 
 public abstract class AbstractSystem {
 
     public final Collection<Class<? extends Component>> requiredComponents;
+    public boolean visitsEntities = true;
 
     protected AbstractSystem(Collection<Class<? extends Component>> requiredComponents) {
         this.requiredComponents = requiredComponents;
     }
+
+    public void update(Level level, float delta) {}
 
     public final void visitUpdate(Entity entity, float delta) {
         if (entity.hasComponents(this.requiredComponents)) {

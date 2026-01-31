@@ -3,6 +3,7 @@ package net.ggj2026.twofourone.ecs.entities;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.level.Level;
+import net.ggj2026.twofourone.level.Tile;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 public class Player {
@@ -17,6 +18,8 @@ public class Player {
 
         PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
         playerComponent.controller = controller;
+
+        player.getComponent(LevelCollisionComponent.class).isTileSolid = (tile) -> tile.type.solid || tile.type.solidToPlayer;
 
         SpriteComponent spriteComponent = player.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.enemyTestSprite);

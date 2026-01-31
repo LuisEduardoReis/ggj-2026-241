@@ -26,7 +26,7 @@ public class LevelCollisionsSystem extends AbstractSystem {
         float xr = pos.x - xc;
         float yr = pos.y - yc;
 
-        if (collisionComponent.isTileSolid(level.getTile(xc, yc))) {
+        if (collisionComponent.isTileSolid.apply(level.getTile(xc, yc))) {
             pos.x = pos.px;
             pos.y = pos.py;
             //entity.vy = 0;
@@ -34,14 +34,14 @@ public class LevelCollisionsSystem extends AbstractSystem {
             collisionComponent.handleLevelCollision.accept(0f, 0f);
         }
 
-        if (collisionComponent.isTileSolid(level.getTile(xc - 1, yc)) && xr < collisionComponent.radius) {
+        if (collisionComponent.isTileSolid.apply(level.getTile(xc - 1, yc)) && xr < collisionComponent.radius) {
             xr = collisionComponent.radius;
             //entity.vx = 0;
             pos.x = xc + xr;
 
             collisionComponent.handleLevelCollision.accept(-1f, 0f);
         }
-        if (collisionComponent.isTileSolid(level.getTile(xc + 1, yc)) && xr > 1 - collisionComponent.radius) {
+        if (collisionComponent.isTileSolid.apply(level.getTile(xc + 1, yc)) && xr > 1 - collisionComponent.radius) {
             xr = 1 - collisionComponent.radius;
             //entity.vx = 0;
             pos.x = xc + xr;
@@ -49,14 +49,14 @@ public class LevelCollisionsSystem extends AbstractSystem {
             collisionComponent.handleLevelCollision.accept(+1f, 0f);
         }
 
-        if (collisionComponent.isTileSolid(level.getTile(xc, yc - 1)) && yr < collisionComponent.radius) {
+        if (collisionComponent.isTileSolid.apply(level.getTile(xc, yc - 1)) && yr < collisionComponent.radius) {
             yr = collisionComponent.radius;
             //entity.vy = 0;
             pos.y = yc + yr;
 
             collisionComponent.handleLevelCollision.accept(0f, -1f);
         }
-        if (collisionComponent.isTileSolid(level.getTile(xc, yc + 1)) && yr > 1 - collisionComponent.radius) {
+        if (collisionComponent.isTileSolid.apply(level.getTile(xc, yc + 1)) && yr > 1 - collisionComponent.radius) {
             yr = 1 - collisionComponent.radius;
             //entity.vy = 0;
             pos.y = yc + yr;
