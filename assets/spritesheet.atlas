@@ -4,23 +4,25 @@ format: RGBA8888
 filter: Linear, Linear
 repeat: none
 pma: false
-enemies/kasper
-  bounds: 32, 16, 17, 16
-enemies/test_enemy
-  bounds: 0, 32, 48, 48
-masks/oni
+bullets/blue_fire
   bounds: 0, 0, 16, 16
+enemies/kasper
+  bounds: 16, 0, 17, 16
+enemies/test_enemy
+  bounds: 16, 32, 48, 48
+masks/oni
+  bounds: 33, 0, 16, 16
 test
-  bounds: 16, 0, 16, 16
-test_animated_sprite
-  bounds: 32, 0, 16, 16
-  index: 1
-test_animated_sprite
-  bounds: 48, 0, 16, 16
-  index: 2
-test_animated_sprite
   bounds: 0, 16, 16, 16
-  index: 3
 test_animated_sprite
   bounds: 16, 16, 16, 16
+  index: 1
+test_animated_sprite
+  bounds: 32, 16, 16, 16
+  index: 2
+test_animated_sprite
+  bounds: 48, 16, 16, 16
+  index: 3
+test_animated_sprite
+  bounds: 0, 32, 16, 16
   index: 4

@@ -23,6 +23,12 @@ public class EnemySystem extends AbstractSystem {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         PathfindingMap pathfindingMap = entity.level.pathfindingMap;
 
+        // Health
+        if (enemy.health == 0) {
+            entity.remove = true;
+        }
+
+        // Pathfinding
         Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
         float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);
         if (distToTarget < 2) {

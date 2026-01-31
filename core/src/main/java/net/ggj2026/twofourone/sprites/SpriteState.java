@@ -11,6 +11,7 @@ public class SpriteState {
     public float width = 1f;
     public float height = 1f;
     public float rotation = 0;
+    public float rotationDelta = 0;
 
     public boolean animated = true;
     public float animationTimer = 0;

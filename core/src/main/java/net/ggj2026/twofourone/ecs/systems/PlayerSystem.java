@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.systems;
 
+import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -24,7 +25,9 @@ public class PlayerSystem extends AbstractSystem {
         if(Math.abs(lay) > deadzone) position.y -= player.speed * delta * lay;
         if(Math.abs(lax) > deadzone) position.x += player.speed * delta * lax;
 
-        if (controller.getShootingDown()) {
+        player.bulletTimer = Util.stepTo(player.bulletTimer, 0, delta);
+        if (controller.getShootingDown() && player.bulletTimer == 0) {
+            player.bulletTimer = player.bulletDelay;
             Entity bullet = Bullet.instance(entity.level);
 
             float lookDir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.camera);

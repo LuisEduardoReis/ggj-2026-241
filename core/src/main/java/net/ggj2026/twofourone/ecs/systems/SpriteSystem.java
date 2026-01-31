@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.ecs.systems;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Affine2;
+import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.Component;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.components.SpriteComponent;
@@ -28,6 +29,9 @@ public class SpriteSystem extends AbstractSystem {
             if (state.animated) {
                 SpriteAnimation spriteAnimation = sprite.getState(state.state);
 
+                if (state.rotationDelta != 0) {
+                    state.rotation += state.rotationDelta * delta;
+                }
                 state.animationTimer += delta;
                 if (state.animationTimer > state.animationDelay) {
                     state.animationTimer -= state.animationDelay;
@@ -55,7 +59,7 @@ public class SpriteSystem extends AbstractSystem {
 
             affine2.idt();
             affine2.translate(positionComponent.x, positionComponent.y);
-            affine2.rotate(state.rotation);
+            affine2.rotate(state.rotation * Util.RAD_TO_DEG);
             affine2.scale(state.scaleX, state.scaleY);
             affine2.scale(frame.scaleX, frame.scaleY);
             affine2.translate(state.x, state.y);

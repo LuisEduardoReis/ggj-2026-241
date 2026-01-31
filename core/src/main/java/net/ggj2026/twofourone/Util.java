@@ -12,6 +12,9 @@ import java.util.List;
 
 public class Util {
 
+    public static final float DEG_TO_RAD = (float) (Math.PI / 180);
+    public static final float RAD_TO_DEG = (float) (180 / Math.PI);
+
     public static Affine2 affine2 = new Affine2();
 
     public static float pointDistanceSquare(float x1, float y1, float x2, float y2) {

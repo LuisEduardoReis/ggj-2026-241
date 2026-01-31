@@ -19,9 +19,11 @@ public class Bullet {
                 .addComponent(new LevelCollisionComponent());
 
         SpriteComponent spriteComponent = bullet.getComponent(SpriteComponent.class);
-        spriteComponent.addSprite(SpriteAssets.testSprite);
-        spriteComponent.states.get(0).scaleX = 0.5f;
-        spriteComponent.states.get(0).scaleY = 0.5f;
+        spriteComponent.addSprite(SpriteAssets.blueFireSprite);
+        spriteComponent.states.get(0).scaleX = 0.75f;
+        spriteComponent.states.get(0).scaleY = 0.75f;
+        spriteComponent.states.get(0).animated = true;
+        spriteComponent.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
 
         LevelCollisionComponent levelCollisionComponent = bullet.getComponent(LevelCollisionComponent.class);
         levelCollisionComponent.radius = 0.2f;
@@ -32,13 +34,20 @@ public class Bullet {
         entityCollisionsComponent.pushesOthers = false;
         entityCollisionsComponent.handleEntityCollision = (me, other) -> {
             if (other.hasComponent(EnemyComponent.class)) {
+                BulletComponent bulletComponent = me.getComponent(BulletComponent.class);
                 me.remove = true;
+
+                // Bump the enemy
                 PositionComponent pos = me.getComponent(PositionComponent.class);
                 PositionComponent otherPos = other.getComponent(PositionComponent.class);
                 VelocityComponent otherVelocity = other.getComponent(VelocityComponent.class);
                 float dist = Util.pointDistance(pos.x, pos.y, otherPos.x, otherPos.y);
                 otherVelocity.ex = (otherPos.x - pos.x) / dist * 10;
                 otherVelocity.ey = (otherPos.y - pos.y) / dist * 10;
+
+                // Deal damage
+                EnemyComponent enemyComponent = other.getComponent(EnemyComponent.class);
+                enemyComponent.health = Util.stepTo(enemyComponent.health, 0, bulletComponent.damage);
             }
         };
 
