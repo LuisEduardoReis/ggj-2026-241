@@ -33,6 +33,11 @@ public class EnemySystem extends AbstractSystem {
         enemy.attackTimer = Util.stepTo(enemy.attackTimer, 0, delta);
 
         // Pathfinding
+
+        if (!enemy.pathfind) {
+            return;
+        }
+
         Vector2 target = pathfindingMap.getNextPositionFrom(position.px, position.py);
         if (target != null) {
             float distToTarget = Util.pointDistance(position.x, position.y, target.x, target.y);

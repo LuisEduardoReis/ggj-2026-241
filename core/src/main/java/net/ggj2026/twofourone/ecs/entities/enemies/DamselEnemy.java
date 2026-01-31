@@ -16,7 +16,6 @@ public class DamselEnemy {
             .addComponent(new PositionComponent())
             .addComponent(new VelocityComponent())
             .addComponent(new SpriteComponent())
-            .addComponent(new LevelCollisionComponent())
             .addComponent(new EntityCollisionsComponent());
         enemy.z = EntityZ.ENEMIES;
 
@@ -31,8 +30,9 @@ public class DamselEnemy {
         spriteComponent.states.get(0).animationDelay = 1 / 4f / 2f;
 
         enemyComponent.health = 2000;
-        enemyComponent.speed = 1;
-        enemyComponent.attackTimer = 20;
+        enemyComponent.pathfind = false;
+        enemyComponent.speed = 5;
+        enemyComponent.attackTimer = 5;
         enemyComponent.attackDelay = 1 / 5f;
         enemyComponent.onDeath = (entity) -> {
             // Death particles

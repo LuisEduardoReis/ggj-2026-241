@@ -96,7 +96,7 @@ public class Bullet {
                 break;
             case ENEMY:
                 bulletComponent.damage = 25;
-                bulletComponent.speed = 3;
+                bulletComponent.speed = 10;
                 bulletComponent.friendly = false;
                 bullet.z = EntityZ.ENEMY_BULLETS;
                 break;

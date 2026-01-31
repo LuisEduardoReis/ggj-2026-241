@@ -17,6 +17,8 @@ public class EnemyComponent implements Component {
 
     public Vector2 targetPosition = null;
 
+    public boolean pathfind = true;
+
     public float health = 100;
 
     public Consumer<Entity> onDeath = entity -> {};

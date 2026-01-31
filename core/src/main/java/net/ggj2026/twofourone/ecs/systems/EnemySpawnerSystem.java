@@ -4,6 +4,7 @@ import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.DamselEnemyComponent;
 import net.ggj2026.twofourone.ecs.components.EnemyComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
+import net.ggj2026.twofourone.ecs.components.VelocityComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.enemies.DamselEnemy;
 import net.ggj2026.twofourone.ecs.entities.enemies.KasperEnemy;
@@ -73,7 +74,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
             case DEFAULT:
                 if (this.stageTimer > 0 && this.enemySpawnTimer == 0 && numEnemies < maxEnemies) {
                     this.enemySpawnTimer = this.enemySpawnDelay;
-                    this.spawnEnemy(level, KasperEnemy.instance(level, Math.random() < 0.2));
+                    this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
                 }
                 if (this.stageTimer == 0 && numEnemies == 0) {
                     this.enterStage(EnemyStage.GRACE, level);
@@ -87,7 +88,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
             case DAMSEL:
                 if (numDamsels > 0 && this.enemySpawnTimer == 0 && numEnemies < 3) {
                     this.enemySpawnTimer = this.enemySpawnDelay;
-                    this.spawnEnemy(level, KasperEnemy.instance(level, true));
+                    this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
                 }
                 if (numEnemies == 0) {
                     this.enterStage(EnemyStage.GRACE, level);
@@ -117,13 +118,22 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 ominousMessagesIndex %= ominousMessages.size();
                 break;
             case DAMSEL:
-                this.spawnEnemy(level, DamselEnemy.instance(level));
+                float spawnDirection = Util.randomRange(0, (float) (2*Math.PI));
+                Entity entity = this.spawnEnemy(level, DamselEnemy.instance(level), (float) level.width / 2, (float) level.height / 2);
+                float speed = entity.getComponent(EnemyComponent.class).speed;
+                entity.getComponent(VelocityComponent.class).set((float) (Math.cos(spawnDirection) * speed), (float) (Math.sin(spawnDirection) * speed));
                 level.showMessage("<Code Blue>");
                 break;
         }
     }
 
-    private Entity spawnEnemy(Level level, Entity enemy) {
+    private Entity spawnEnemy(Level level, Entity enemy, float x, float y) {
+        level.addEntity(enemy);
+        enemy.getComponent(PositionComponent.class).set(x, y);
+        return enemy;
+    }
+
+    private Entity spawnEnemyOutOfBounds(Level level, Entity enemy) {
         level.addEntity(enemy);
         float spawnDirection = Util.randomRange(0, (float) (2*Math.PI));
         float spawnX = (level.width/2f) + (float) (level.width*0.6f * Math.cos(spawnDirection));
