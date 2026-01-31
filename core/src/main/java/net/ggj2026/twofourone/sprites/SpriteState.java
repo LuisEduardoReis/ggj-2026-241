@@ -6,8 +6,8 @@ public class SpriteState {
 
     public float x = 0;
     public float y = 0;
-    public float scaleX = 1f;
-    public float scaleY = 1f;
+    public float scale = 1f;
+    public float scaleV = 0f;
     public float width = 1f;
     public float height = 1f;
     public float rotation = 0;

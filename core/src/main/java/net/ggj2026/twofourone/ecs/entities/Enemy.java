@@ -16,14 +16,11 @@ public class Enemy {
 
         SpriteComponent spriteComponent = player.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.kasperSprite);
+        spriteComponent.states.get(0).scale = 1;
         spriteComponent.addSprite(SpriteAssets.playerSprite);
-        spriteComponent.states.get(0).scaleX = 1;
-        spriteComponent.states.get(0).scaleY = 1;
         spriteComponent.states.get(1).x = -0.5f/16f;
         spriteComponent.states.get(1).y = 0.2f;
-        spriteComponent.states.get(1).scaleX = 0.75f;
-        spriteComponent.states.get(1).scaleY = 0.75f;
-
+        spriteComponent.states.get(1).scale = 0.75f;
 
         return player;
     }

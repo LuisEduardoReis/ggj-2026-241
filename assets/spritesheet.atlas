@@ -1,5 +1,5 @@
 textures.png
-size: 64, 80
+size: 49, 96
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
@@ -7,11 +7,13 @@ pma: false
 bullets/blue_fire
   bounds: 0, 0, 16, 16
 enemies/kasper
-  bounds: 16, 0, 17, 16
+  bounds: 32, 32, 17, 16
 enemies/test_enemy
-  bounds: 16, 32, 48, 48
+  bounds: 0, 48, 48, 48
 masks/oni
-  bounds: 33, 0, 16, 16
+  bounds: 16, 0, 16, 16
+particles/smoke
+  bounds: 32, 0, 16, 16
 test
   bounds: 0, 16, 16, 16
 test_animated_sprite
@@ -21,8 +23,8 @@ test_animated_sprite
   bounds: 32, 16, 16, 16
   index: 2
 test_animated_sprite
-  bounds: 48, 16, 16, 16
+  bounds: 0, 32, 16, 16
   index: 3
 test_animated_sprite
-  bounds: 0, 32, 16, 16
+  bounds: 16, 32, 16, 16
   index: 4

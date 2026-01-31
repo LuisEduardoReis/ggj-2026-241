@@ -12,6 +12,7 @@ public class SpriteAssets {
     public static Sprite enemyTestSprite;
     public static Sprite kasperSprite;
     public static Sprite blueFireSprite;
+    public static Sprite smokeParticleSprite;
 
     public static void initSprites() {
         testSprite = Sprite.staticSprite(textureAtlas.findRegion("test"));
@@ -26,5 +27,6 @@ public class SpriteAssets {
         enemyTestSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/test_enemy"));
         kasperSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/kasper"));
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
+        smokeParticleSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/smoke"));
     }
 }

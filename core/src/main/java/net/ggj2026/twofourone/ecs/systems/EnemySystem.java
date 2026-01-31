@@ -3,10 +3,9 @@ package net.ggj2026.twofourone.ecs.systems;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Util;
-import net.ggj2026.twofourone.ecs.components.BulletComponent;
-import net.ggj2026.twofourone.ecs.components.EnemyComponent;
-import net.ggj2026.twofourone.ecs.components.PositionComponent;
+import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
+import net.ggj2026.twofourone.ecs.entities.Particle;
 import net.ggj2026.twofourone.level.PathfindingMap;
 
 import java.util.Collections;
@@ -25,7 +24,7 @@ public class EnemySystem extends AbstractSystem {
 
         // Health
         if (enemy.health == 0) {
-            entity.remove = true;
+            this.die(entity);
         }
 
         // Pathfinding
@@ -37,6 +36,32 @@ public class EnemySystem extends AbstractSystem {
         if (distToTarget > 0) {
             position.x += (target.x - position.x) / distToTarget * 2.5f * delta;
             position.y += (target.y - position.y) / distToTarget * 2.5f * delta;
+        }
+    }
+
+    private void die(Entity entity) {
+        entity.remove = true;
+        PositionComponent enemyPosition = entity.getComponent(PositionComponent.class);
+
+        // Death particles
+        for (int i = 0; i < 10; i++) {
+            Entity particle = Particle.instance(entity.level);
+            entity.level.addEntity(particle);
+
+            PositionComponent particlePosition = particle.getComponent(PositionComponent.class);
+            VelocityComponent particleVelocity = particle.getComponent(VelocityComponent.class);
+            SpriteComponent particleSprite = particle.getComponent(SpriteComponent.class);
+            float dir = Util.randomRange(0, (float) (2*Math.PI));
+            float force = Util.randomRange(0.5f, 3);
+            particlePosition.x = enemyPosition.x;
+            particlePosition.y = enemyPosition.y;
+
+            particleVelocity.vx = (float) (force * Math.cos(dir));
+            particleVelocity.vy = (float) (force * Math.sin(dir));
+            particleSprite.states.get(0).animated = true;
+            particleSprite.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
+            particleSprite.states.get(0).scaleV = -1f;
+
         }
     }
 

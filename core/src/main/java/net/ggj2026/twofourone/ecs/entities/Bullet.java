@@ -20,8 +20,7 @@ public class Bullet {
 
         SpriteComponent spriteComponent = bullet.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.blueFireSprite);
-        spriteComponent.states.get(0).scaleX = 0.75f;
-        spriteComponent.states.get(0).scaleY = 0.75f;
+        spriteComponent.states.get(0).scale = 0.75f;
         spriteComponent.states.get(0).animated = true;
         spriteComponent.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
 

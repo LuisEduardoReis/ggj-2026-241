@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Systems {
-    public Collection<AbstractSystem> systems;
-    private Level level;
+    private final Collection<AbstractSystem> systems;
+    private final Level level;
 
     public Systems(Level level) {
         this.level = level;
@@ -19,6 +19,7 @@ public class Systems {
         this.systems.add(new PositionPreUpdateSystem());
         this.systems.add(new PlayerSystem());
         this.systems.add(new SpriteSystem());
+        this.systems.add(new ParticleSystem());
         this.systems.add(new BulletSystem());
         this.systems.add(new VelocitySystem());
         this.systems.add(new PathfindingCalculationSystem());
