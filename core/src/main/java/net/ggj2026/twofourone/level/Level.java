@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.GameScreen;
-import net.ggj2026.twofourone.controllers.GameController;
+import net.ggj2026.twofourone.Util;import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.PlayerComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -40,6 +40,9 @@ public class Level {
     public Tile boundaryTile;
 
     public PathfindingMap pathfindingMap;
+    public String message = null;
+    public float messageTimer = 0;
+    public float messageDelay = 3;
 
     public Level(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
@@ -92,6 +95,10 @@ public class Level {
 
     public void update(float delta) {
         this.t += delta;
+        this.messageTimer = Util.stepTo(this.messageTimer, 0, delta);
+        if (this.messageTimer == 0 && this.message != null) {
+            this.message = null;
+        }
 
         this.pathfindingMap.reset();
         this.entitySystems.update(this.entities, delta);
@@ -169,4 +176,8 @@ public class Level {
         return getTileOverlay((int) Math.floor(x), (int) Math.floor(y));
     }
 
+    public void showMessage(String message) {
+        this.message = message;
+        this.messageTimer = this.messageDelay;
+    }
 }

@@ -103,7 +103,17 @@ public class GameScreen extends ScreenAdapter {
             font.getData().setScale(6);
             font.setColor(1, 1, 1, 1f - (this.gameOverTitleTimer / this.gameOverDelay));
             Util.drawTextCentered(this.spriteBatch, font, "Game Over", Main.WIDTH/2f,Main.HEIGHT/2f);
-
+        }
+        if (this.level.message != null) {
+            font.getData().setScale(4);
+            float messageAlpha = 1;
+            if (this.level.messageTimer < 1) {
+                messageAlpha = this.level.messageTimer;
+            } else if (this.level.messageTimer > this.level.messageDelay - 1) {
+                messageAlpha = Util.mapValue(this.level.messageTimer, this.level.messageDelay - 1, this.level.messageDelay, 1,0);
+            }
+            font.setColor(1, 1, 1, messageAlpha);
+            Util.drawTextCentered(this.spriteBatch, font, this.level.message, Main.WIDTH/2f,Main.HEIGHT*0.75f);
         }
         this.spriteBatch.end();
 

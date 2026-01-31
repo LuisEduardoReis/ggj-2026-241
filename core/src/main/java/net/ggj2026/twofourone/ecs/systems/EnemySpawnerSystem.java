@@ -1,20 +1,31 @@
 package net.ggj2026.twofourone.ecs.systems;
 
 import net.ggj2026.twofourone.Util;
-import net.ggj2026.twofourone.ecs.components.DamselEnemyComponent;import net.ggj2026.twofourone.ecs.components.EnemyComponent;
+import net.ggj2026.twofourone.ecs.components.DamselEnemyComponent;
+import net.ggj2026.twofourone.ecs.components.EnemyComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
-import net.ggj2026.twofourone.ecs.entities.enemies.DamselEnemy;import net.ggj2026.twofourone.ecs.entities.enemies.KasperEnemy;
-import net.ggj2026.twofourone.gamelogic.EnemyStage;import net.ggj2026.twofourone.level.Level;
+import net.ggj2026.twofourone.ecs.entities.enemies.DamselEnemy;
+import net.ggj2026.twofourone.ecs.entities.enemies.KasperEnemy;
+import net.ggj2026.twofourone.gamelogic.EnemyStage;
+import net.ggj2026.twofourone.level.Level;
 
-import java.util.Collections;
+import java.util.*;
 
 public class EnemySpawnerSystem extends AbstractSystem {
 
-    EnemyStage stage = EnemyStage.START;
+    EnemyStage stage = EnemyStage.GRACE;
+    float stageTimer = 3f;
 
-    float stageTimer = 0;
-    float stageDelay = 30f;
+    List<EnemyStage> stageOrder = Arrays.asList(
+        EnemyStage.DEFAULT,
+        EnemyStage.DEFAULT,
+        EnemyStage.DAMSEL,
+        EnemyStage.DEFAULT,
+        EnemyStage.DAMSEL,
+        EnemyStage.DEFAULT
+    );
+    int stageIndex = 0;
 
     int maxEnemies = 0;
     float enemySpawnTimer = 0;
@@ -29,6 +40,8 @@ public class EnemySpawnerSystem extends AbstractSystem {
     @Override
     public void update(Level level, float delta) {
 
+        if (level.gameOver) return;
+
         this.stageTimer = Util.stepTo(this.stageTimer, 0, delta);
         this.enemySpawnTimer = Util.stepTo(this.enemySpawnTimer, 0, delta);
 
@@ -39,31 +52,20 @@ public class EnemySpawnerSystem extends AbstractSystem {
             .filter(entity -> entity.hasComponent(DamselEnemyComponent.class))
             .count();
 
-        if (numEnemies == 0) {
-            switch (this.stage) {
-                case START:
-                    transitionStage(EnemyStage.DEFAULT, level);
-                    break;
-                case DEFAULT:
-                    if (Math.random() < 0.5) {
-                        transitionStage(EnemyStage.DAMSEL, level);
-                    } else {
-                        transitionStage(EnemyStage.DEFAULT, level);
-                    }
-                    break;
-                case DAMSEL:
-                    transitionStage(EnemyStage.DEFAULT, level);
-                    break;
-            }
-        }
-
         switch (this.stage) {
-            case START:
+            case GRACE:
+                if (this.stageTimer == 0) {
+                    enterStage(stageOrder.get(stageIndex++), level);
+                    stageIndex %= stageOrder.size();
+                }
                 break;
             case DEFAULT:
                 if (this.stageTimer > 0 && this.enemySpawnTimer == 0 && numEnemies < maxEnemies) {
                     this.enemySpawnTimer = this.enemySpawnDelay;
                     this.spawnEnemy(level, KasperEnemy.instance(level, Math.random() < 0.2));
+                }
+                if (this.stageTimer == 0 && numEnemies == 0) {
+                    this.enterStage(EnemyStage.GRACE, level);
                 }
                 break;
             case DAMSEL:
@@ -71,21 +73,28 @@ public class EnemySpawnerSystem extends AbstractSystem {
                     this.enemySpawnTimer = this.enemySpawnDelay;
                     this.spawnEnemy(level, KasperEnemy.instance(level, true));
                 }
+                if (numEnemies == 0) {
+                    this.enterStage(EnemyStage.GRACE, level);
+                }
                 break;
         }
     }
 
-    private void transitionStage(EnemyStage enemyStage, Level level) {
+    private void enterStage(EnemyStage enemyStage, Level level) {
         this.stage = enemyStage;
-        this.stageTimer = this.stageDelay;
-        System.out.println(this.stage.toString());
 
         switch (this.stage) {
+            case GRACE:
+                this.stageTimer = 3f;
+                break;
             case DEFAULT:
+                this.stageTimer = 30f;
                 this.maxEnemies += 5;
+                level.showMessage("You are not ready");
                 break;
             case DAMSEL:
                 this.spawnEnemy(level, DamselEnemy.instance(level));
+                level.showMessage("<Code Blue>");
                 break;
         }
     }
