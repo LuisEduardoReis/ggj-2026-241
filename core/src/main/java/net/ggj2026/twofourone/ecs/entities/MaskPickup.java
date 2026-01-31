@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.entities;
 
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
@@ -36,6 +37,7 @@ public class MaskPickup {
                 player.maskTimer = player.maskDelay;
                 SpriteComponent playerSprite = other.getComponent(SpriteComponent.class);
                 playerSprite.sprites.set(1, MaskType.maskSprites.get(maskPickupComponent.type));
+                Assets.maskPickup.play();
             }
         };
 

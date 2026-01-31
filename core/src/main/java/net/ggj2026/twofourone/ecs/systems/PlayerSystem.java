@@ -61,7 +61,7 @@ public class PlayerSystem extends AbstractSystem {
 
             if (MaskType.ONI.equals(player.currentMask)) {
                 if (player.bulletTimer == 0) {
-                    Assets.beamSound1.play();
+                    Assets.oniFire.play();
                     player.bulletTimer = player.bulletDelay / 2;
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.HIGH_DAMAGE);
                 }
@@ -82,6 +82,8 @@ public class PlayerSystem extends AbstractSystem {
                 }
             } else if (MaskType.SAN.equals(player.currentMask)){
                 if (player.bulletTimer == 0) {
+                    Assets.beamSound1.play();
+                    Assets.beamSound1.play();d
                     Assets.beamSound1.play();
                     player.bulletTimer = player.bulletDelay;
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.TRIPLE);

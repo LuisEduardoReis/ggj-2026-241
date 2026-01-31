@@ -26,8 +26,8 @@ public class Assets {
     public static Sound damselFire;
     public static Sound damselDeath;
     public static Sound damselSpawn;
-
-
+    public static Sound maskPickup;
+    public static Sound oniFire;
 
     public static BitmapFont font;
 
@@ -56,6 +56,8 @@ public class Assets {
         damselFire = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-fire.wav"));
         damselSpawn = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-spawn.wav"));
         damselDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-death.wav"));
+        maskPickup = Gdx.audio.newSound(Gdx.files.internal("./sounds/pickup-1.wav"));
+        oniFire = Gdx.audio.newSound(Gdx.files.internal("./sounds/oni-fire.wav"));
     }
 
     public static TextureRegion getTileTextureById(int id) {
