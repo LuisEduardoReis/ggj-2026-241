@@ -12,7 +12,7 @@ import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 public class KasperEnemy {
-    public static Entity instance(Level level) {
+    public static Entity instance(Level level, boolean hasMask) {
         Entity enemy = new Entity(level)
             .addComponent(new EnemyComponent())
             .addComponent(new KasperEnemyComponent())
@@ -28,7 +28,7 @@ public class KasperEnemy {
         KasperEnemyComponent kasperEnemyComponent = enemy.getComponent(KasperEnemyComponent.class);
         SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
 
-        if (Math.random() < 0.25) {
+        if (hasMask) {
             kasperEnemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
         }
 
