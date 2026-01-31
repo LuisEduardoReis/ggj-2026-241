@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
+import net.ggj2026.twofourone.ecs.entities.MaskPickup;
 import net.ggj2026.twofourone.ecs.entities.Particle;
 import net.ggj2026.twofourone.level.PathfindingMap;
 
@@ -43,6 +44,15 @@ public class EnemySystem extends AbstractSystem {
         entity.remove = true;
         PositionComponent enemyPosition = entity.getComponent(PositionComponent.class);
 
+        // Drop mask
+        if (Math.random() < 1) {
+            Entity maskPickup = MaskPickup.instance(entity.level);
+            entity.level.addEntity(maskPickup);
+            PositionComponent maskPickupPosition = maskPickup.getComponent(PositionComponent.class);
+            maskPickupPosition.x = enemyPosition.x;
+            maskPickupPosition.y = enemyPosition.y;
+        }
+
         // Death particles
         for (int i = 0; i < 10; i++) {
             Entity particle = Particle.instance(entity.level);
@@ -61,7 +71,6 @@ public class EnemySystem extends AbstractSystem {
             particleSprite.states.get(0).animated = true;
             particleSprite.states.get(0).rotationDelta = (float) (4 * 2*Math.PI);
             particleSprite.states.get(0).scaleV = -1f;
-
         }
     }
 

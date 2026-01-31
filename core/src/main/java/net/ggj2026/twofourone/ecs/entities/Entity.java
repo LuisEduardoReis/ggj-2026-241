@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.ecs.entities;
 
 import net.ggj2026.twofourone.ecs.components.Component;
 import net.ggj2026.twofourone.level.Level;
+import net.ggj2026.twofourone.sprites.EntityZ;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public final class Entity {
     public final int id;
     public Level level;
     public boolean remove;
+    public float z = EntityZ.DEFAUlT;
 
     public Entity(Level level) {
         this.components = new HashMap<>();

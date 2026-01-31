@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.ecs.entities;
 
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.level.Level;
+import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 public class Particle {
@@ -12,6 +13,7 @@ public class Particle {
             .addComponent(new VelocityComponent())
             .addComponent(new SpriteComponent())
             .addComponent(new LevelCollisionComponent());
+        particle.z = EntityZ.PARTICLES;
 
         SpriteComponent spriteComponent = particle.getComponent(SpriteComponent.class);
         spriteComponent.addSprite(SpriteAssets.smokeParticleSprite);

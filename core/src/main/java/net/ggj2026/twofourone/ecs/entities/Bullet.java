@@ -2,11 +2,9 @@ package net.ggj2026.twofourone.ecs.entities;
 
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
+import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 public class Bullet {
     public static Entity instance(Level level) {
@@ -53,4 +51,28 @@ public class Bullet {
         return bullet;
     }
 
+    public static Entity spawnBullet(Level level, PositionComponent position, float dir, BulletType type) {
+        Entity bullet = Bullet.instance(level);
+        BulletComponent bulletComponent = bullet.getComponent(BulletComponent.class);
+        SpriteComponent sprite = bullet.getComponent(SpriteComponent.class);
+
+        sprite.sprites.set(0, BulletType.bulletSprites.get(type));
+        switch (type) {
+            case NORMAL:
+                bulletComponent.damage = 50;
+                break;
+            case HIGH_DAMAGE:
+                bulletComponent.damage = 100;
+                break;
+        }
+
+        float bulletSpeed = bulletComponent.speed;
+        bullet.getComponent(PositionComponent.class).set(position.x, position.y);
+        bullet.getComponent(VelocityComponent.class).set(
+            (float) (bulletSpeed * Math.cos(dir)),
+            (float) (bulletSpeed * Math.sin(dir))
+        );
+        level.addEntity(bullet);
+        return bullet;
+    }
 }

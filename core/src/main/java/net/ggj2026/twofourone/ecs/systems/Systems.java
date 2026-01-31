@@ -7,6 +7,9 @@ import net.ggj2026.twofourone.level.Level;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Systems {
     private final Collection<AbstractSystem> systems;
@@ -21,6 +24,7 @@ public class Systems {
         this.systems.add(new SpriteSystem());
         this.systems.add(new ParticleSystem());
         this.systems.add(new BulletSystem());
+        this.systems.add(new MaskPickupSystem());
         this.systems.add(new VelocitySystem());
         this.systems.add(new PathfindingCalculationSystem());
         this.systems.add(new EnemySystem());
@@ -41,9 +45,13 @@ public class Systems {
     }
 
     public void renderSprites(Collection<Entity> entities, SpriteBatch spriteBatch) {
+        List<Entity> zSortedEntities = entities.stream()
+            .sorted((a, b) -> Float.compare(a.z, b.z))
+            .collect(Collectors.toList());
+
         for (AbstractSystem system : this.systems) {
             if (system.visitsEntities) {
-                for (Entity entity : entities) {
+                for (Entity entity : zSortedEntities) {
                     system.visitSpriteBatch(entity, spriteBatch);
                 }
             }

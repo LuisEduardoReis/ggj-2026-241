@@ -1,17 +1,16 @@
 package net.ggj2026.twofourone.sprites;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import static net.ggj2026.twofourone.Assets.textureAtlas;
 
 public class SpriteAssets {
 
     public static Sprite testSprite;
     public static Sprite testAnimatedSprite;
-    public static Sprite playerSprite;
+    public static Sprite oniMaskSprite;
     public static Sprite enemyTestSprite;
     public static Sprite kasperSprite;
     public static Sprite blueFireSprite;
+    public static Sprite redFireSprite;
     public static Sprite smokeParticleSprite;
 
     public static void initSprites() {
@@ -23,10 +22,11 @@ public class SpriteAssets {
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 3))
                         .addFrame(textureAtlas.findRegion("test_animated_sprite", 4))
                 );
-        playerSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
+        oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         enemyTestSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/test_enemy"));
         kasperSprite = Sprite.staticSprite(textureAtlas.findRegion("enemies/kasper"));
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
+        redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));
         smokeParticleSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/smoke"));
     }
 }

@@ -69,7 +69,7 @@ public class GameScreen extends ScreenAdapter {
         this.level.renderSprites(this.spriteBatch);
         this.spriteBatch.end();
 
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         this.level.renderShapes(this.shapeRenderer);
         this.shapeRenderer.end();
 

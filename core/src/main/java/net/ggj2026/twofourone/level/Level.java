@@ -26,6 +26,7 @@ import static net.ggj2026.twofourone.level.TileType.*;
 public class Level {
 
     public GameScreen gameScreen;
+    public float t = 0;
 
     public List<Entity> entities;
     public List<Entity> newEntities;
@@ -91,6 +92,7 @@ public class Level {
     }
 
     public void update(float delta) {
+        this.t += delta;
         this.pathfindingMap.reset();
         this.entitySystems.update(this.entities, delta);
 
