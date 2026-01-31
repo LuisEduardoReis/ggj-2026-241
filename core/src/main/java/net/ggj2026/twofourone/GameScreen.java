@@ -48,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
 
         this.controllers = new ArrayList<>();
         for(Controller c : Controllers.getControllers()) controllers.add(new XBox360Controller(c));
-        if (this.controllers.isEmpty()) {
+        if (this.controllers.isEmpty() || true) {
             controllers.add(new KeyboardMouseController());
         }
 

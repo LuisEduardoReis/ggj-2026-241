@@ -102,7 +102,7 @@ public class Level {
         this.playerCount = (int) this.entities.stream()
             .filter(e -> e.hasComponent(PlayerComponent.class))
             .count();
-        if (this.playerCount == 0) {
+        if (!this.gameOver && this.playerCount == 0) {
             this.gameOver = true;
             Assets.menuMusic.stop();
         }

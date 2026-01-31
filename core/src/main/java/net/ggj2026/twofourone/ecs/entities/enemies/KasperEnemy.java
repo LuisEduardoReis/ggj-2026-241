@@ -62,7 +62,10 @@ public class KasperEnemy {
         };
 
         enemyComponent.onDeath = (entity) -> {
-            Assets.enemyDeath.play();
+            if (entity.level.playerCount > 0) {
+                Assets.enemyDeath.play();
+            }
+
             // Drop mask
             if (kasperEnemyComponent.maskType != null && entity.level.playerCount > 0) {
                 Entity maskPickup = MaskPickup.instance(entity.level, kasperEnemyComponent.maskType);
