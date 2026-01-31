@@ -2,6 +2,7 @@ package net.ggj2026.twofourone.ecs.systems;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;

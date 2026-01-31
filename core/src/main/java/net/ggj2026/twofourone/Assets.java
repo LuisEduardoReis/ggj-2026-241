@@ -20,6 +20,11 @@ public class Assets {
     static TextureRegion[][] tileTextures;
     public static com.badlogic.gdx.audio.Music menuMusic;
 
+    public static Sound hitHurt;
+    public static Sound enemyDeath;
+    public static Sound beamSound1;
+
+
     public static BitmapFont font;
 
     public static void createAssets() {
@@ -40,6 +45,10 @@ public class Assets {
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.wav"));
         menuMusic.setLooping(true);
         menuMusic.play();
+
+        enemyDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/enemy-death.wav"));
+        hitHurt = Gdx.audio.newSound(Gdx.files.internal("./sounds/hit-hurt.wav"));
+        beamSound1 = Gdx.audio.newSound(Gdx.files.internal("./sounds/beam-sound-1.wav"));
     }
 
     public static TextureRegion getTileTextureById(int id) {

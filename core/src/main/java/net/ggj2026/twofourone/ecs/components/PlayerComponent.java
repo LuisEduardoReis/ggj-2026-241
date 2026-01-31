@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.components;
 
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.entities.Entity;
@@ -27,5 +28,6 @@ public class PlayerComponent implements Component {
     public void damage(float value, Entity player) {
         player.level.gameScreen.cameraShake = 20;
         this.health = Util.stepTo(this.health, 0, value);
+        Assets.hitHurt.play();
     }
 }
