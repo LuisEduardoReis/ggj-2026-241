@@ -9,6 +9,7 @@ public class Enemy {
         Entity player = new Entity(level)
             .addComponent(new EnemyComponent())
             .addComponent(new PositionComponent())
+            .addComponent(new VelocityComponent())
             .addComponent(new SpriteComponent())
             .addComponent(new LevelCollisionComponent())
             .addComponent(new EntityCollisionsComponent());

@@ -27,6 +27,9 @@ public final class Entity {
         this.components.put(component.getClass(), component);
         return this;
     }
+    public boolean hasComponent(Class<? extends Component> componentClass) {
+        return this.components.containsKey(componentClass);
+    }
 
     public boolean hasComponents(Collection<Class<? extends Component>> componentClasses) {
         for (Class<? extends Component> componentClass : componentClasses) {

@@ -1,10 +1,9 @@
 package net.ggj2026.twofourone.ecs.systems;
 
-import com.badlogic.gdx.math.Vector3;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
-import net.ggj2026.twofourone.ecs.entities.TestBullet;
+import net.ggj2026.twofourone.ecs.entities.Bullet;
 
 import java.util.Collections;
 
@@ -26,7 +25,7 @@ public class PlayerSystem extends AbstractSystem {
         if(Math.abs(lax) > deadzone) position.x += player.speed * delta * lax;
 
         if (controller.getShootingDown()) {
-            Entity bullet = TestBullet.instance(entity.level);
+            Entity bullet = Bullet.instance(entity.level);
 
             float lookDir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.camera);
             float bulletSpeed = bullet.getComponent(BulletComponent.class).speed;

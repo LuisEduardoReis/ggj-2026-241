@@ -16,7 +16,9 @@ public class VelocitySystem extends AbstractSystem {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         VelocityComponent velocity = entity.getComponent(VelocityComponent.class);
 
-        position.x += velocity.vx * delta;
-        position.y += velocity.vy * delta;
+        velocity.ex *= velocity.ef;
+        velocity.ey *= velocity.ef;
+        position.x += (velocity.vx + velocity.ex) * delta;
+        position.y += (velocity.vy + velocity.ey) * delta;
     }
 }
