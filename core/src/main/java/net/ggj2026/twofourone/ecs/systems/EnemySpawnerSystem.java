@@ -16,6 +16,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
     float stageTimer = 5;
 
     List<EnemyStage> stageOrder = Arrays.asList(
+        EnemyStage.KOH,
         EnemyStage.DEFAULT,
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
