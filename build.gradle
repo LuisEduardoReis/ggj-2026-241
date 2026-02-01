@@ -56,7 +56,7 @@ configure(subprojects) {
 
 subprojects {
   version = "$projectVersion"
-  ext.appName = 'GGJ-2026-241'
+  ext.appName = 'Ghostly'
   repositories {
     mavenCentral()
     // You may want to remove the following line if you have errors downloading dependencies.
@@ -66,4 +66,4 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'GGJ-2026-241' + '-parent'
+eclipse.project.name = 'Ghostly' + '-parent'
