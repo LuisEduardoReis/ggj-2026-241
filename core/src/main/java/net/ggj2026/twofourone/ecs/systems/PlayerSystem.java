@@ -84,8 +84,6 @@ public class PlayerSystem extends AbstractSystem {
             } else if (MaskType.SAN.equals(player.currentMask)){
                 if (player.bulletTimer == 0) {
                     Assets.beamSound1.play();
-                    Assets.beamSound1.play();
-                    Assets.beamSound1.play();
                     player.bulletTimer = player.bulletDelay;
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.TRIPLE);
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir - 20 * DEG_TO_RAD, BulletType.TRIPLE);
@@ -93,7 +91,7 @@ public class PlayerSystem extends AbstractSystem {
                 }
             } else if (MaskType.LILITH.equals(player.currentMask)) {
                 if (player.bulletTimer == 0) {
-                    player.bulletTimer = player.bulletDelay * 2;
+                    player.bulletTimer = player.bulletDelay * 4;
 
                     EvaCross.spawnEvaCross(entity.level, position.toVector2());
                     entity.level.gameScreen.cameraShake = 50;

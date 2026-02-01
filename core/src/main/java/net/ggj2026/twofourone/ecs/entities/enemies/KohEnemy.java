@@ -31,7 +31,7 @@ public class KohEnemy {
         spriteComponent.states.get(0).animated = true;
         spriteComponent.states.get(0).animationDelay = 1 / 4f / 2f;
 
-        enemyComponent.health = 3000;
+        enemyComponent.health = 1500;
         enemyComponent.speed = 2.5f;
         enemyComponent.onDeath = (entity) -> {
             // Death particles

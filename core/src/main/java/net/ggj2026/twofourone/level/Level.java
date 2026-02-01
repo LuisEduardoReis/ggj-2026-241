@@ -88,7 +88,10 @@ public class Level {
         Entity player = Player.instance(this, controller);
         this.addEntity(player);
         player.getComponent(SpriteComponent.class).states.get(0).color = PlayerComponent.ColorAssignment.get(i);
-        player.getComponent(PositionComponent.class).set(this.width/2f, this.height/2f);
+        player.getComponent(PositionComponent.class).set(
+            this.width/2f + Util.randomRange(-1, 1),
+            this.height/2f + Util.randomRange(-1, 1)
+        );
     }
 
     public Entity addEntity(Entity entity) {

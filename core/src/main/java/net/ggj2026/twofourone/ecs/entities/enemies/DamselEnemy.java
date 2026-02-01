@@ -29,7 +29,7 @@ public class DamselEnemy {
         spriteComponent.states.get(0).animated = true;
         spriteComponent.states.get(0).animationDelay = 1 / 4f / 2f;
 
-        enemyComponent.health = 2000;
+        enemyComponent.health = 1000;
         enemyComponent.pathfind = false;
         enemyComponent.speed = 5;
         enemyComponent.attackDelay = 1 / 10f;

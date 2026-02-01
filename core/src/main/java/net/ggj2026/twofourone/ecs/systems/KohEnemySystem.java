@@ -24,11 +24,11 @@ public class KohEnemySystem extends AbstractSystem {
         KohEnemyComponent kohComponent = entity.getComponent(KohEnemyComponent.class);
         SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
 
-        if (kohComponent.stage == 0 && enemyComponent.health < 2000) {
+        if (kohComponent.stage == 0 && enemyComponent.health < 1000) {
             kohComponent.stage++;
             spriteComponent.sprites.set(0, SpriteAssets.kohSprite2);
         }
-        if (kohComponent.stage == 1 && enemyComponent.health < 1000) {
+        if (kohComponent.stage == 1 && enemyComponent.health < 500) {
             kohComponent.stage++;
             spriteComponent.sprites.set(0, SpriteAssets.kohSprite3);
         }

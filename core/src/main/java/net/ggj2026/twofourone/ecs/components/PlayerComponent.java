@@ -28,14 +28,20 @@ public class PlayerComponent implements Component {
     public MaskType currentMask = null;
 
     public float lightningDamage = 100; // 100 per second
-    public float lightningRange = 10;
+    public float lightningRange = 15;
     public ArrayList<Entity> lightningTargets = new ArrayList<>();
 
     public float explosionRange = 8;
     public float explosionDamage = 200;
     public float explosionForce = 100;
 
-    public static List<Color> ColorAssignment = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA);
+    public static List<Color> ColorAssignment = Arrays.asList(
+        new Color(0x243E36FF),
+        new Color(0x7CA982FF),
+        new Color(0xE0EEC6FF),
+        new Color(0xC2A83EFF),
+        new Color(0xEF3E36FF)
+    );
 
     public void damage(float value, Entity player) {
         player.level.gameScreen.cameraShake = 20;

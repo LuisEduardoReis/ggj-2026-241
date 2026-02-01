@@ -111,7 +111,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 ominousMessagesIndex %= ominousMessages.size();
                 break;
             case RUSH:
-                for (int i = 0; i < 40; i++) {
+                for (int i = 0; i < this.maxEnemies*2; i++) {
                     this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
                 }
                 level.showMessage(ominousMessages.get(ominousMessagesIndex++));
