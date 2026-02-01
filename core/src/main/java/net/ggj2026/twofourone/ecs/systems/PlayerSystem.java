@@ -16,6 +16,8 @@ import net.ggj2026.twofourone.gamelogic.MaskType;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
 
 import static net.ggj2026.twofourone.Util.DEG_TO_RAD;
 
@@ -57,7 +59,6 @@ public class PlayerSystem extends AbstractSystem {
 
         // Shooty shooty
         player.bulletTimer = Util.stepTo(player.bulletTimer, 0, delta);
-        player.lightingTarget = null;
         Vector2 bulletSpawnPoint = new Vector2(position.x, position.y);
         if (controller.getShootingDown()) {
             float dir = controller.getLookDir(position.x, position.y, entity.level.gameScreen.viewport);
@@ -69,21 +70,10 @@ public class PlayerSystem extends AbstractSystem {
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.HIGH_DAMAGE);
                 }
             } else if (MaskType.TORU.equals(player.currentMask)){
-                float minDistance = Float.MAX_VALUE;
-                ArrayList<Entity> targets = this.getLightningTargets(entity,1, player.lightningRange);
-                /*
-                for (Entity enemy : entity.level.entities) {
-                    if (!enemy.hasComponent(EnemyComponent.class)) continue;
-                    PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
-                    float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
-                    if (dist < minDistance && dist < player.lightningRange) {
-                        player.lightingTarget = enemy;
-                        minDistance = dist;
-                    }
-                }
-                 */
-                if (!targets.isEmpty()) {
-                    EnemyComponent enemy = targets.get(0).getComponent(EnemyComponent.class);
+                player.lightningTargets.clear();
+                this.getLightningTargets(player.lightningTargets, new ArrayList<Entity>(), entity,3, player.lightningRange);
+                if (!player.lightningTargets.isEmpty()) {
+                    EnemyComponent enemy = player.lightningTargets.get(0).getComponent(EnemyComponent.class);
                     enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
                 }
             } else if (MaskType.SAN.equals(player.currentMask)){
@@ -172,25 +162,40 @@ public class PlayerSystem extends AbstractSystem {
             shapeRenderer.rect(position.x - 0.5f, position.y + 1.35f, maskTimerWidth, 0.1f);
         }
 
-        // Lightning attack
-        if (player.lightingTarget != null) {
-            Lightning.draw(shapeRenderer, position.toVector2(), player.lightingTarget.getComponent(PositionComponent.class).toVector2(), lightningColor);
-        }
+        drawLightning(shapeRenderer, player.lightningTargets, entity);
     }
 
-    private ArrayList<Entity> getLightningTargets(Entity entity, int maxChain, float range) {
+    private void drawLightning(ShapeRenderer renderer, List<Entity> targets, Entity origin){
+        if (targets.isEmpty()){
+            return;
+        }
+        Entity target = targets.get(0);
+        targets.remove(0);
+        PositionComponent position = origin.getComponent(PositionComponent.class);
+        Lightning.draw(renderer, position.toVector2(), target.getComponent(PositionComponent.class).toVector2(), lightningColor);
+        drawLightning(renderer, targets, target);
+    }
+
+    // recursively finds lightning targets that are no further than $range apart
+    // avoids keeps visited list to avoid infinite ping pong between targets
+    private void getLightningTargets(ArrayList<Entity> targets, ArrayList<Entity> visited, Entity entity, int maxChain, float range) {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         float minDistance = Float.MAX_VALUE;
-        ArrayList<Entity> validTargets = new ArrayList<>();
+        Entity target = null;
         for (Entity enemy : entity.level.entities) {
-            if (!enemy.hasComponent(EnemyComponent.class)) continue;
+            if (!enemy.hasComponent(EnemyComponent.class) || visited.contains(enemy)) continue;
             PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
             float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
             if (dist < minDistance && dist < range) {
-                validTargets.add(enemy);
+                target = enemy;
                 minDistance = dist;
             }
         }
-        return validTargets;
+
+        if (target != null) {
+            targets.add(target);
+            visited.add(target);
+            getLightningTargets(targets, visited, target, maxChain -1 , range);
+        }
     }
 }

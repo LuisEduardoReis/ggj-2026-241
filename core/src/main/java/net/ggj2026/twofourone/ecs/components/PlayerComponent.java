@@ -7,6 +7,7 @@ import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 import com.badlogic.gdx.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class PlayerComponent implements Component {
 
     public float lightningDamage = 200; // 200 per second
     public float lightningRange = 15;
-    public Entity lightingTarget = null;
+    public ArrayList<Entity> lightningTargets = new ArrayList<>();
 
     public float explosionRange = 5;
     public float explosionDamage = 50;
