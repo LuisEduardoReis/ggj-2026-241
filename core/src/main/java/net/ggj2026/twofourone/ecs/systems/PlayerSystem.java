@@ -73,8 +73,10 @@ public class PlayerSystem extends AbstractSystem {
                 player.lightningTargets.clear();
                 this.getLightningTargets(player.lightningTargets, new ArrayList<Entity>(), entity,3, player.lightningRange);
                 if (!player.lightningTargets.isEmpty()) {
-                    EnemyComponent enemy = player.lightningTargets.get(0).getComponent(EnemyComponent.class);
-                    enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
+                    for (Entity target : player.lightningTargets){
+                        EnemyComponent enemy = target.getComponent(EnemyComponent.class);
+                        enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
+                    }
                 }
             } else if (MaskType.SAN.equals(player.currentMask)){
                 if (player.bulletTimer == 0) {
@@ -179,6 +181,9 @@ public class PlayerSystem extends AbstractSystem {
     // recursively finds lightning targets that are no further than $range apart
     // avoids keeps visited list to avoid infinite ping pong between targets
     private void getLightningTargets(ArrayList<Entity> targets, ArrayList<Entity> visited, Entity entity, int maxChain, float range) {
+        if (maxChain == 0) {
+            return;
+        }
         PositionComponent position = entity.getComponent(PositionComponent.class);
         float minDistance = Float.MAX_VALUE;
         Entity target = null;
