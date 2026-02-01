@@ -20,6 +20,7 @@ public class Assets {
     public static TextureAtlas textureAtlas;
     static TextureRegion[][] tileTextures;
     public static com.badlogic.gdx.audio.Music menuMusic;
+    public static com.badlogic.gdx.audio.Music kohTrack;
 
     public static Sound hitHurt;
     public static Sound enemyDeath;
@@ -52,6 +53,8 @@ public class Assets {
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.wav"));
         menuMusic.setLooping(true);
         menuMusic.play();
+
+                kohTrack = Gdx.audio.newMusic(Gdx.files.internal("koh-track.wav"));
 
         enemyDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/enemy-death.wav"));
         hitHurt = Gdx.audio.newSound(Gdx.files.internal("sounds/hit-hurt.wav"));

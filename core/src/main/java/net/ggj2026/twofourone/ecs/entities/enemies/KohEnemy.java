@@ -1,5 +1,6 @@
 package net.ggj2026.twofourone.ecs.entities.enemies;
 
+import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
@@ -36,10 +37,15 @@ public class KohEnemy {
         enemyComponent.onDeath = (entity) -> {
             // Death particles
             SmokeParticle.smokeExplosion(entity.level, positionComponent, 2, false);
+            Assets.menuMusic.play();
+            Assets.menuMusic.setLooping(true);
         };
 
         entityCollisionsComponent.mass = 20;
 
+        Assets.menuMusic.stop();
+        Assets.kohTrack.setLooping(true);
+        Assets.kohTrack.play();
         return enemy;
     }
 }
