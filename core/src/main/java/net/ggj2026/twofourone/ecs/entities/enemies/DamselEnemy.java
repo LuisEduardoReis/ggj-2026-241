@@ -24,10 +24,14 @@ public class DamselEnemy {
         SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
         EntityCollisionsComponent entityCollisionsComponent = enemy.getComponent(EntityCollisionsComponent.class);
 
-        spriteComponent.addSprite(SpriteAssets.damselSprite);
+        spriteComponent.addSprite(SpriteAssets.shadowSprite);
+        spriteComponent.states.get(0).alpha = 0.5f;
         spriteComponent.states.get(0).scale = 1.5f;
-        spriteComponent.states.get(0).animated = true;
-        spriteComponent.states.get(0).animationDelay = 1 / 4f / 2f;
+        spriteComponent.states.get(0).y = -.5f;
+        spriteComponent.addSprite(SpriteAssets.damselSprite);
+        spriteComponent.states.get(1).scale = 1.5f;
+        spriteComponent.states.get(1).animated = true;
+        spriteComponent.states.get(1).animationDelay = 1 / 4f / 2f;
 
         enemyComponent.health = 1000;
         enemyComponent.pathfind = false;
