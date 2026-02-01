@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
@@ -42,6 +43,8 @@ public class GameScreen extends ScreenAdapter {
     public float titleDelay = 5;
     public float titleTimer = titleDelay;
 
+    public Music currentMusic = null;
+
     public GameScreen() {
         this.spriteBatch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
@@ -54,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
 
         this.controllers = new ArrayList<>();
         for(Controller c : Controllers.getControllers()) controllers.add(new XBox360Controller(c));
-        if (this.controllers.isEmpty() || true) {
+        if (this.controllers.isEmpty()) {
             controllers.add(new KeyboardMouseController());
         }
 
@@ -62,6 +65,8 @@ public class GameScreen extends ScreenAdapter {
             GameController controller = this.controllers.get(i);
             this.level.createPlayer(controller, i);
         }
+
+        playMusic(Assets.defaultMusic);
     }
 
     @Override
@@ -164,5 +169,20 @@ public class GameScreen extends ScreenAdapter {
 
         this.spriteBatch.dispose();
         this.shapeRenderer.dispose();
+    }
+
+    public void playMusic(Music music) {
+        if (this.currentMusic != null) {
+            this.currentMusic.stop();
+        }
+        music.setLooping(true);
+        music.play();
+        this.currentMusic = music;
+    }
+    public void stopMusic() {
+        if (this.currentMusic != null) {
+            this.currentMusic.stop();
+        }
+        this.currentMusic = null;
     }
 }

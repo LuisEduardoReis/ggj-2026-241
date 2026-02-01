@@ -1,6 +1,6 @@
 package net.ggj2026.twofourone.ecs.systems;
 
-import net.ggj2026.twofourone.Util;
+import net.ggj2026.twofourone.Assets;import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.enemies.DamselEnemy;
@@ -15,27 +15,24 @@ public class EnemySpawnerSystem extends AbstractSystem {
     EnemyStage stage = EnemyStage.GRACE;
     float stageTimer = 5;
 
+    int stageIndex = 0;
     List<EnemyStage> stageOrder = Arrays.asList(
-        EnemyStage.KOH,
         EnemyStage.DEFAULT,
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
         EnemyStage.RUSH,
-        EnemyStage.KOH,
-        EnemyStage.DEFAULT,
-        EnemyStage.RUSH
+        EnemyStage.KOH
     );
-    int stageIndex = 0;
+
+    int ominousMessagesIndex = 0;
     List<String> ominousMessages = Arrays.asList(
         "You are (not) ready",
         "Turn back",
         "You are (not) alone",
-        "GYAAAAAAAAAAAAAAAAHHHHHHHH!",
         "You will die",
         "Pathetic"
     );
-    int ominousMessagesIndex = 0;
 
     int maxEnemies = 0;
     float enemySpawnTimer = 0;
@@ -93,6 +90,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 }
                 if (numEnemies == 0) {
                     this.enterStage(EnemyStage.GRACE, level);
+                    level.gameScreen.playMusic(Assets.defaultMusic);
                 }
                 break;
         }
@@ -119,16 +117,17 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 ominousMessagesIndex %= ominousMessages.size();
                 break;
             case DAMSEL:
-                level.showMessage("<Code Blue>");
+                level.showMessage("< Code Blue >");
                 Entity entity = this.spawnEnemy(level, DamselEnemy.instance(level), (float) level.width / 2, (float) level.height / 2);
                 float spawnDirection = Util.randomRange(0, (float) (2*Math.PI));
                 float speed = entity.getComponent(EnemyComponent.class).speed;
                 entity.getComponent(VelocityComponent.class).set((float) (Math.cos(spawnDirection) * speed), (float) (Math.sin(spawnDirection) * speed));
-
+                level.gameScreen.playMusic(Assets.damselTrack);
                 break;
             case KOH:
-                level.showMessage("<Code Red>");
+                level.showMessage("< Code Red >");
                 this.spawnEnemyOutOfBounds(level, KohEnemy.instance(level));
+                level.gameScreen.playMusic(Assets.kohTrack);
                 break;
         }
     }

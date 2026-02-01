@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,8 +20,9 @@ public class Assets {
     public static Texture titleTexture;
     public static TextureAtlas textureAtlas;
     static TextureRegion[][] tileTextures;
-    public static com.badlogic.gdx.audio.Music menuMusic;
-    public static com.badlogic.gdx.audio.Music kohTrack;
+    public static Music defaultMusic;
+    public static Music kohTrack;
+    public static Music damselTrack;
 
     public static Sound hitHurt;
     public static Sound enemyDeath;
@@ -50,11 +52,9 @@ public class Assets {
         fillTexture = new Texture(p);
         p.dispose();
 
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.wav"));
-        menuMusic.setLooping(true);
-        menuMusic.play();
-
-                kohTrack = Gdx.audio.newMusic(Gdx.files.internal("koh-track.wav"));
+        defaultMusic = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.wav"));
+        kohTrack = Gdx.audio.newMusic(Gdx.files.internal("koh-track.wav"));
+        damselTrack = Gdx.audio.newMusic(Gdx.files.internal("damsel-track.wav"));
 
         enemyDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/enemy-death.wav"));
         hitHurt = Gdx.audio.newSound(Gdx.files.internal("sounds/hit-hurt.wav"));

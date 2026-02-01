@@ -37,16 +37,9 @@ public class KohEnemy {
         enemyComponent.onDeath = (entity) -> {
             // Death particles
             SmokeParticle.smokeExplosion(entity.level, positionComponent, 2, false);
-            Assets.kohTrack.stop();
-            Assets.menuMusic.play();
-            Assets.menuMusic.setLooping(true);
         };
 
         entityCollisionsComponent.mass = 20;
-
-        Assets.menuMusic.stop();
-        Assets.kohTrack.setLooping(true);
-        Assets.kohTrack.play();
         return enemy;
     }
 }

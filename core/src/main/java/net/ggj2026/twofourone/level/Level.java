@@ -117,7 +117,7 @@ public class Level {
             .count();
         if (!this.gameOver && this.playerCount == 0) {
             this.gameOver = true;
-            Assets.menuMusic.stop();
+            this.gameScreen.stopMusic();
         }
 
         if (this.entities.stream().anyMatch(entity -> entity.remove)) {
