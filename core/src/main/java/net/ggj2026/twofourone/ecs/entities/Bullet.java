@@ -28,7 +28,7 @@ public class Bullet {
         LevelCollisionComponent levelCollisionComponent = bullet.getComponent(LevelCollisionComponent.class);
         levelCollisionComponent.radius = 0.2f;
         levelCollisionComponent.handleLevelCollision = (x,y) -> {
-            bullet.remove = !levelCollisionComponent.bounce;
+            bullet.remove = bullet.remove || !levelCollisionComponent.bounce;
         };
 
         EntityCollisionsComponent entityCollisionsComponent = bullet.getComponent(EntityCollisionsComponent.class);

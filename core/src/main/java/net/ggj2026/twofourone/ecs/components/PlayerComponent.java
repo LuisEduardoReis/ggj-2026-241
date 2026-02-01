@@ -27,13 +27,13 @@ public class PlayerComponent implements Component {
     public float maskDelay = 5;
     public MaskType currentMask = null;
 
-    public float lightningDamage = 200; // 200 per second
-    public float lightningRange = 15;
+    public float lightningDamage = 100; // 100 per second
+    public float lightningRange = 10;
     public ArrayList<Entity> lightningTargets = new ArrayList<>();
 
     public float explosionRange = 8;
-    public float explosionDamage = 100;
-    public float explosionForce = 30;
+    public float explosionDamage = 200;
+    public float explosionForce = 100;
 
     public static List<Color> ColorAssignment = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA);
 

@@ -1,6 +1,8 @@
 package net.ggj2026.twofourone.ecs.systems;
 
-import com.badlogic.gdx.Gdx;import com.badlogic.gdx.Input;import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Assets;
@@ -9,7 +11,8 @@ import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Bullet;
-import net.ggj2026.twofourone.ecs.entities.particles.EvaCross;import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
+import net.ggj2026.twofourone.ecs.entities.particles.EvaCross;
+import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
 import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
@@ -71,11 +74,11 @@ public class PlayerSystem extends AbstractSystem {
                 }
             } else if (MaskType.TORU.equals(player.currentMask)){
                 player.lightningTargets.clear();
-                this.getLightningTargets(player.lightningTargets, new ArrayList<Entity>(), entity,3, player.lightningRange);
+                this.getLightningTargets(player.lightningTargets, new ArrayList<>(), entity,3, player.lightningRange);
                 if (!player.lightningTargets.isEmpty()) {
                     for (Entity target : player.lightningTargets){
                         EnemyComponent enemy = target.getComponent(EnemyComponent.class);
-                        enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
+                        enemy.damage(player.lightningDamage * delta);
                     }
                 }
             } else if (MaskType.SAN.equals(player.currentMask)){
@@ -101,10 +104,11 @@ public class PlayerSystem extends AbstractSystem {
                         PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
                         VelocityComponent enemyVelocity = enemy.getComponent(VelocityComponent.class);
                         float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
-                        if (dist < player.explosionRange) {
-                            enemyVelocity.ex = (enemyPos.x - position.x) / dist * player.explosionForce;
-                            enemyVelocity.ey = (enemyPos.y - position.y) / dist * player.explosionForce;
-                            enemyComponent.damage(player.explosionDamage);
+                        if (dist > 0 && dist < player.explosionRange) {
+                            float effect = (1 - dist / player.explosionRange);
+                            enemyVelocity.ex = (enemyPos.x - position.x) / dist * player.explosionForce * effect;
+                            enemyVelocity.ey = (enemyPos.y - position.y) / dist * player.explosionForce * effect;
+                            enemyComponent.damage(player.explosionDamage * effect);
                         }
                     }
                 }
@@ -200,7 +204,7 @@ public class PlayerSystem extends AbstractSystem {
         if (target != null) {
             targets.add(target);
             visited.add(target);
-            getLightningTargets(targets, visited, target, maxChain -1 , range);
+            getLightningTargets(targets, visited, target, maxChain - 1 , range);
         }
     }
 }
