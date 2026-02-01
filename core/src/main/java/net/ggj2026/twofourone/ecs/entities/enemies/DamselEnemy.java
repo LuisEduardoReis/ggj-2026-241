@@ -32,8 +32,7 @@ public class DamselEnemy {
         enemyComponent.health = 2000;
         enemyComponent.pathfind = false;
         enemyComponent.speed = 5;
-        enemyComponent.attackTimer = 5;
-        enemyComponent.attackDelay = 1 / 5f;
+        enemyComponent.attackDelay = 1 / 10f;
         enemyComponent.onDeath = (entity) -> {
             // Death particles
             SmokeParticle.smokeExplosion(entity.level, positionComponent, 2, false);

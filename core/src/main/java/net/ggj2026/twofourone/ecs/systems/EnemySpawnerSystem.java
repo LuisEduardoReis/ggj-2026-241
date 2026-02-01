@@ -13,10 +13,10 @@ import java.util.*;
 public class EnemySpawnerSystem extends AbstractSystem {
 
     EnemyStage stage = EnemyStage.GRACE;
-    float stageTimer = 10;
+    float stageTimer = 5;
 
     List<EnemyStage> stageOrder = Arrays.asList(
-        EnemyStage.DEFAULT,
+        EnemyStage.DAMSEL,
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
