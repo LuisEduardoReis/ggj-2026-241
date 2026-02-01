@@ -8,4 +8,7 @@ public class KohEnemyComponent implements Component {
     public float damagePerSecond = 100 / 5f;
     public List<Entity> targets = null;
     public int stage = 0;
+
+    public float sludgeSpawnTimer = 2;
+    public float sludgeSpawnDelay = 0.25f;
 }

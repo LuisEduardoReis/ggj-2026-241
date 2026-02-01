@@ -35,6 +35,8 @@ public class PlayerComponent implements Component {
     public float explosionDamage = 200;
     public float explosionForce = 100;
 
+    public float sludgedTimer = 0;
+
     public static List<Color> ColorAssignment = Arrays.asList(
         new Color(0x243E36FF),
         new Color(0x7CA982FF),

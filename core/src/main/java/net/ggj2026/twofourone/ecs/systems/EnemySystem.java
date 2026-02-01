@@ -23,7 +23,7 @@ public class EnemySystem extends AbstractSystem {
 
         // Health
         if (enemy.health == 0 || entity.level.playerCount == 0) {
-            this.die(entity);
+            enemy.die(entity);
         }
 
         // Attack
@@ -43,11 +43,6 @@ public class EnemySystem extends AbstractSystem {
                 }
             }
         }
-    }
-
-    private void die(Entity entity) {
-        entity.remove = true;
-        entity.getComponent(EnemyComponent.class).onDeath.accept(entity);
     }
 
     @Override

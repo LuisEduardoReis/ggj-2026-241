@@ -20,7 +20,6 @@ import net.ggj2026.twofourone.gamelogic.MaskType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 import static net.ggj2026.twofourone.Util.DEG_TO_RAD;
 
@@ -34,22 +33,27 @@ public class PlayerSystem extends AbstractSystem {
         PlayerComponent player = entity.getComponent(PlayerComponent.class);
         SpriteComponent sprite = entity.getComponent(SpriteComponent.class);
         PositionComponent position = entity.getComponent(PositionComponent.class);
-        LevelCollisionComponent levelCollisionComponent = entity.getComponent(LevelCollisionComponent.class);
         GameController controller = player.controller;
 
         // Movement
         float lax = controller.getMoveAxisX(), lay = controller.getMoveAxisY();
         float deadzone = 0.25f;
         boolean moving = false;
+        float speed = player.speed;
+
+        player.sludgedTimer = Util.stepTo(player.sludgedTimer, 0, delta);
+        if (player.sludgedTimer > 0) {
+            speed *= 0.25f;
+        }
 
         if(Math.abs(lay) > deadzone) {
             moving = true;
-            position.y -= player.speed * delta * lay;
+            position.y -= speed * delta * lay;
         }
         if(Math.abs(lax) > deadzone) {
             moving = true;
             sprite.states.get(0).mirrorX = lax > 0;
-            position.x += player.speed * delta * lax;
+            position.x += speed * delta * lax;
         }
         if (moving) {
             sprite.states.get(0).animated = true;

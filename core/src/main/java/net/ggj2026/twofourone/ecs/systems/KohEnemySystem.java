@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
+import net.ggj2026.twofourone.ecs.entities.Sludge;
 import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
@@ -45,6 +46,15 @@ public class KohEnemySystem extends AbstractSystem {
         for (Entity player : kohComponent.targets) {
             PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
             playerComponent.damage(kohComponent.damagePerSecond * delta, player);
+        }
+
+        kohComponent.sludgeSpawnTimer = Util.stepTo(kohComponent.sludgeSpawnTimer, 0, delta);
+        if (kohComponent.sludgeSpawnTimer == 0) {
+            kohComponent.sludgeSpawnTimer = kohComponent.sludgeSpawnDelay;
+
+            Entity sludge = Sludge.instance(entity.level);
+            entity.level.addEntity(sludge);
+            sludge.getComponent(PositionComponent.class).set(position.x, position.y);
         }
     }
 

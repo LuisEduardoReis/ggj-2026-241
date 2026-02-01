@@ -21,7 +21,7 @@ public class EnemySpawnerSystem extends AbstractSystem {
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
-        EnemyStage.RUSH,
+        //EnemyStage.RUSH,
         EnemyStage.KOH
     );
 
@@ -88,7 +88,10 @@ public class EnemySpawnerSystem extends AbstractSystem {
                     this.enemySpawnTimer = this.enemySpawnDelay;
                     this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, true));
                 }
-                if (numEnemies == 0) {
+                if (numBosses == 0) {
+                    level.entities.stream()
+                        .filter(entity -> entity.hasComponent(EnemyComponent.class))
+                        .forEach(enemy -> enemy.getComponent(EnemyComponent.class).die(enemy));
                     this.enterStage(EnemyStage.GRACE, level);
                     level.gameScreen.playMusic(Assets.defaultMusic);
                 }

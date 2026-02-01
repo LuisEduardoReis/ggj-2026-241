@@ -23,6 +23,7 @@ public class SpriteAssets {
     public static Sprite shadowSprite;
     public static Sprite evaCrossSprite;
     public static Sprite ringSprite;
+    public static Sprite sludgeSprite;
 
     public static void initSprites() {
         testSprite = Sprite.staticSprite(textureAtlas.findRegion("test"));
@@ -99,5 +100,6 @@ public class SpriteAssets {
         sanMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/san"));
         toruMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/toru"));
         shadowSprite = Sprite.staticSprite(textureAtlas.findRegion("shadow"));
+        sludgeSprite = Sprite.staticSprite(textureAtlas.findRegion("koh-sludge"));
     }
 }

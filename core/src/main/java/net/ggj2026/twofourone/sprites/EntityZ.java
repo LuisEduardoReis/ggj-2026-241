@@ -8,4 +8,5 @@ public class EntityZ {
     public static final float DEFAULT = 100;
     public static final float ENEMY_BULLETS = 80;
     public static final float PICKUPS = 50;
+    public static final float GROUND = 20;
 }

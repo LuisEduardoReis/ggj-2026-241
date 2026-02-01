@@ -27,4 +27,9 @@ public class EnemyComponent implements Component {
     public void damage(float damage) {
         this.health = Util.stepTo(this.health, 0, damage);
     }
+
+    public void die(Entity entity) {
+        entity.remove = true;
+        entity.getComponent(EnemyComponent.class).onDeath.accept(entity);
+    }
 }
