@@ -14,6 +14,7 @@ import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static net.ggj2026.twofourone.Util.DEG_TO_RAD;
@@ -69,6 +70,8 @@ public class PlayerSystem extends AbstractSystem {
                 }
             } else if (MaskType.TORU.equals(player.currentMask)){
                 float minDistance = Float.MAX_VALUE;
+                ArrayList<Entity> targets = this.getLightningTargets(entity,1, player.lightningRange);
+                /*
                 for (Entity enemy : entity.level.entities) {
                     if (!enemy.hasComponent(EnemyComponent.class)) continue;
                     PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
@@ -78,8 +81,9 @@ public class PlayerSystem extends AbstractSystem {
                         minDistance = dist;
                     }
                 }
-                if (player.lightingTarget != null) {
-                    EnemyComponent enemy = player.lightingTarget.getComponent(EnemyComponent.class);
+                 */
+                if (!targets.isEmpty()) {
+                    EnemyComponent enemy = targets.get(0).getComponent(EnemyComponent.class);
                     enemy.health = Util.stepTo(enemy.health, 0, player.lightningDamage * delta);
                 }
             } else if (MaskType.SAN.equals(player.currentMask)){
@@ -172,5 +176,21 @@ public class PlayerSystem extends AbstractSystem {
         if (player.lightingTarget != null) {
             Lightning.draw(shapeRenderer, position.toVector2(), player.lightingTarget.getComponent(PositionComponent.class).toVector2(), lightningColor);
         }
+    }
+
+    private ArrayList<Entity> getLightningTargets(Entity entity, int maxChain, float range) {
+        PositionComponent position = entity.getComponent(PositionComponent.class);
+        float minDistance = Float.MAX_VALUE;
+        ArrayList<Entity> validTargets = new ArrayList<>();
+        for (Entity enemy : entity.level.entities) {
+            if (!enemy.hasComponent(EnemyComponent.class)) continue;
+            PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
+            float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
+            if (dist < minDistance && dist < range) {
+                validTargets.add(enemy);
+                minDistance = dist;
+            }
+        }
+        return validTargets;
     }
 }
