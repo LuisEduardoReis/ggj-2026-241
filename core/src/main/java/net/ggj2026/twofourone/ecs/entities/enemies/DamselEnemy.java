@@ -3,7 +3,7 @@ package net.ggj2026.twofourone.ecs.entities.enemies;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
-import net.ggj2026.twofourone.ecs.entities.Particle;
+import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
@@ -36,7 +36,7 @@ public class DamselEnemy {
         enemyComponent.attackDelay = 1 / 5f;
         enemyComponent.onDeath = (entity) -> {
             // Death particles
-            Particle.smokeExplosion(entity.level, positionComponent, 2, false);
+            SmokeParticle.smokeExplosion(entity.level, positionComponent, 2, false);
             Assets.damselDeath.play();
         };
 

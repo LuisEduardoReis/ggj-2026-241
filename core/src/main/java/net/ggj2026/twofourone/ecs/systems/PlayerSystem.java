@@ -1,18 +1,15 @@
 package net.ggj2026.twofourone.ecs.systems;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;import com.badlogic.gdx.Input;import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.Bullet;
-import net.ggj2026.twofourone.ecs.entities.Particle;
+import net.ggj2026.twofourone.ecs.entities.particles.EvaCross;import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
 import net.ggj2026.twofourone.effects.Lightning;
 import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.gamelogic.MaskType;
@@ -70,7 +67,7 @@ public class PlayerSystem extends AbstractSystem {
                     player.bulletTimer = player.bulletDelay / 2;
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.HIGH_DAMAGE);
                 }
-            } else if (MaskType.LILITH.equals(player.currentMask)){
+            } else if (MaskType.TORU.equals(player.currentMask)){
                 float minDistance = Float.MAX_VALUE;
                 for (Entity enemy : entity.level.entities) {
                     if (!enemy.hasComponent(EnemyComponent.class)) continue;
@@ -94,6 +91,26 @@ public class PlayerSystem extends AbstractSystem {
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir, BulletType.TRIPLE);
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir - 20 * DEG_TO_RAD, BulletType.TRIPLE);
                     Bullet.spawnBullet(entity.level, bulletSpawnPoint, dir + 20 * DEG_TO_RAD, BulletType.TRIPLE);
+                }
+            } else if (MaskType.LILITH.equals(player.currentMask)) {
+                if (player.bulletTimer == 0) {
+                    player.bulletTimer = player.bulletDelay * 2;
+
+                    EvaCross.spawnEvaCross(entity.level, position.toVector2());
+                    entity.level.gameScreen.cameraShake = 50;
+
+                    for (Entity enemy : entity.level.entities) {
+                        if (!enemy.hasComponent(EnemyComponent.class)) continue;
+                        EnemyComponent enemyComponent = enemy.getComponent(EnemyComponent.class);
+                        PositionComponent enemyPos = enemy.getComponent(PositionComponent.class);
+                        VelocityComponent enemyVelocity = enemy.getComponent(VelocityComponent.class);
+                        float dist = Util.pointDistance(position.x, position.y, enemyPos.x, enemyPos.y);
+                        if (dist < player.explosionRange) {
+                            enemyVelocity.ex = (enemyPos.x - position.x) / dist * player.explosionForce;
+                            enemyVelocity.ey = (enemyPos.y - position.y) / dist * player.explosionForce;
+                            enemyComponent.damage(player.explosionDamage);
+                        }
+                    }
                 }
             } else {
                 if (player.bulletTimer == 0) {
@@ -119,9 +136,14 @@ public class PlayerSystem extends AbstractSystem {
         // Health
         if (player.health == 0) {
             entity.remove = true;
-            Particle.smokeExplosion(entity.level, position, 3, false);
+            SmokeParticle.smokeExplosion(entity.level, position, 3, false);
         } else {
             player.health = Util.stepTo(player.health, player.maxHealth, player.healthRegen * delta);
+        }
+
+        // Debug
+        if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+            player.pickupMask(MaskType.randomMaskType(), entity);
         }
     }
 

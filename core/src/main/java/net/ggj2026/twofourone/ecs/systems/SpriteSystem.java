@@ -39,8 +39,11 @@ public class SpriteSystem extends AbstractSystem {
                 state.animationTimer += delta;
                 if (state.animationTimer > state.animationDelay) {
                     state.animationTimer -= state.animationDelay;
-                    state.animationIndex++;
-                    state.animationIndex %= spriteAnimation.frames.size();
+
+                    if (state.animationLoop || (state.animationIndex < spriteAnimation.frames.size() - 1)) {
+                        state.animationIndex++;
+                        state.animationIndex %= spriteAnimation.frames.size();
+                    }
                 }
             } else {
                 state.animationIndex = 0;

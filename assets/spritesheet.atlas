@@ -1,5 +1,5 @@
 textures.png
-size: 32, 783
+size: 32, 815
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
@@ -90,6 +90,8 @@ particles/eva_cross
 particles/eva_cross
   bounds: 16, 464, 16, 32
   index: 8
+particles/ring
+  bounds: 0, 783, 32, 32
 particles/smoke
   bounds: 0, 496, 16, 16
 player

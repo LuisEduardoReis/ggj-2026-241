@@ -2,8 +2,6 @@ package net.ggj2026.twofourone.sprites;
 
 import com.badlogic.gdx.graphics.Color;
 
-import java.awt.*;
-
 public class SpriteState {
     public String state = null;
     public boolean visible = true;
@@ -21,7 +19,18 @@ public class SpriteState {
     public Color color = new Color(Color.WHITE);
 
     public boolean animated = true;
-    public float animationTimer = 0;
+    public boolean animationLoop = true;
     public int animationIndex = 0;
+    public float animationTimer = 0;
     public float animationDelay = 1f;
+
+    public void startAnimation() {
+        this.animated = true;
+        this.animationTimer = this.animationDelay;
+        this.animationIndex = 0;
+    }
+
+    public boolean isAnimationEnded(Sprite sprite) {
+        return !this.animationLoop && this.animationIndex == sprite.getState(this.state).frames.size() - 1;
+    }
 }

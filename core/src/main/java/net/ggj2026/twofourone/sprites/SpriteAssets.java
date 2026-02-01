@@ -9,6 +9,7 @@ public class SpriteAssets {
     public static Sprite playerSprite;
     public static Sprite oniMaskSprite;
     public static Sprite sanMaskSprite;
+    public static Sprite toruMaskSprite;
     public static Sprite lilithMaskSprite;
     public static Sprite kasperSprite;
     public static Sprite damselSprite;
@@ -20,6 +21,8 @@ public class SpriteAssets {
     public static Sprite redFireSprite;
     public static Sprite smokeParticleSprite;
     public static Sprite shadowSprite;
+    public static Sprite evaCrossSprite;
+    public static Sprite ringSprite;
 
     public static void initSprites() {
         testSprite = Sprite.staticSprite(textureAtlas.findRegion("test"));
@@ -70,13 +73,31 @@ public class SpriteAssets {
                 .addFrame(textureAtlas.findRegion("enemies/koh-phase3", 2))
                 .addFrame(textureAtlas.findRegion("enemies/koh-phase3", 3))
             );
+        evaCrossSprite = new Sprite()
+            .addState("default", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 1))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 2))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 3))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 4))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 5))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 6))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 7))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 8))
+            )
+            .addState("standing", new SpriteAnimation()
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 6))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 7))
+                .addFrame(textureAtlas.findRegion("particles/eva_cross", 8))
+            );
         blueFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/blue_fire"));
         redFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/red_fire"));
         greenFireSprite = Sprite.staticSprite(textureAtlas.findRegion("bullets/green_fire"));
         smokeParticleSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/smoke"));
+        ringSprite = Sprite.staticSprite(textureAtlas.findRegion("particles/ring"));
         oniMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/oni"));
         lilithMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/lilith"));
         sanMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/san"));
+        toruMaskSprite = Sprite.staticSprite(textureAtlas.findRegion("masks/toru"));
         shadowSprite = Sprite.staticSprite(textureAtlas.findRegion("shadow"));
     }
 }

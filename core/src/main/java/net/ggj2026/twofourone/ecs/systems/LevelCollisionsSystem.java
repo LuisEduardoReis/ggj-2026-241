@@ -42,8 +42,11 @@ public class LevelCollisionsSystem extends AbstractSystem {
 
             collisionComponent.handleLevelCollision.accept(-1f, 0f);
 
-            if (collisionComponent.bounce && velocity != null){
-                velocity.vx = -velocity.vx;
+            if (velocity != null) {
+                velocity.ex = 0;
+                if (collisionComponent.bounce) {
+                    velocity.vx = -velocity.vx;
+                }
             }
         }
         if (collisionComponent.isTileSolid.apply(level.getTile(xc + 1, yc)) && xr > 1 - collisionComponent.radius) {
@@ -53,8 +56,11 @@ public class LevelCollisionsSystem extends AbstractSystem {
 
             collisionComponent.handleLevelCollision.accept(+1f, 0f);
 
-            if (collisionComponent.bounce && velocity != null){
-                velocity.vx = -velocity.vx;
+            if (velocity != null) {
+                velocity.ex = 0;
+                if (collisionComponent.bounce) {
+                    velocity.vx = -velocity.vx;
+                }
             }
         }
 
@@ -65,8 +71,11 @@ public class LevelCollisionsSystem extends AbstractSystem {
 
             collisionComponent.handleLevelCollision.accept(0f, -1f);
 
-            if (collisionComponent.bounce && velocity != null){
-                velocity.vy = -velocity.vy;
+            if (velocity != null) {
+                velocity.ey = 0;
+                if (collisionComponent.bounce) {
+                    velocity.vy = -velocity.vy;
+                }
             }
         }
         if (collisionComponent.isTileSolid.apply(level.getTile(xc, yc + 1)) && yr > 1 - collisionComponent.radius) {
@@ -76,8 +85,11 @@ public class LevelCollisionsSystem extends AbstractSystem {
 
             collisionComponent.handleLevelCollision.accept(0f, 1f);
 
-            if (collisionComponent.bounce && velocity != null){
-                velocity.vy = -velocity.vy;
+            if (velocity != null) {
+                velocity.ey = 0;
+                if (collisionComponent.bounce) {
+                    velocity.vy = -velocity.vy;
+                }
             }
         }
     }

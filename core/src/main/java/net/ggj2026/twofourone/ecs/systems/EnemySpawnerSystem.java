@@ -16,13 +16,12 @@ public class EnemySpawnerSystem extends AbstractSystem {
     float stageTimer = 3f;
 
     List<EnemyStage> stageOrder = Arrays.asList(
+        EnemyStage.DAMSEL,
+        EnemyStage.RUSH,
+        EnemyStage.DAMSEL,
+        EnemyStage.DEFAULT,
+        EnemyStage.RUSH,
         EnemyStage.KOH,
-        EnemyStage.DEFAULT,
-        EnemyStage.RUSH,
-        EnemyStage.DAMSEL,
-        EnemyStage.DEFAULT,
-        EnemyStage.RUSH,
-        EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
         EnemyStage.RUSH
     );

@@ -5,8 +5,7 @@ import net.ggj2026.twofourone.ecs.components.BulletComponent;
 import net.ggj2026.twofourone.ecs.components.PositionComponent;
 import net.ggj2026.twofourone.ecs.components.SpriteComponent;
 import net.ggj2026.twofourone.ecs.entities.Entity;
-import net.ggj2026.twofourone.ecs.entities.Particle;
-import net.ggj2026.twofourone.sprites.EntityZ;
+import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
 
 import java.util.Collections;
 
@@ -37,7 +36,7 @@ public class BulletSystem extends AbstractSystem {
         if (bullet.trailTimer == 0) {
             bullet.trailTimer = bullet.trailDelay;
 
-            Entity particle = Particle.instance(entity.level);
+            Entity particle = SmokeParticle.instance(entity.level);
             entity.level.addEntity(particle);
 
             particle.z = entity.z;

@@ -1,12 +1,13 @@
-package net.ggj2026.twofourone.ecs.entities;
+package net.ggj2026.twofourone.ecs.entities.particles;
 
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
+import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
-public class Particle {
+public class SmokeParticle {
     public static Entity instance(Level level) {
         Entity particle = new Entity(level)
             .addComponent(new ParticleComponent())
@@ -32,7 +33,7 @@ public class Particle {
         boolean collideWithLevel
     ) {
         for (int i = 0; i < 10; i++) {
-            Entity particle = Particle.instance(level);
+            Entity particle = SmokeParticle.instance(level);
             level.addEntity(particle);
 
             PositionComponent particlePosition = particle.getComponent(PositionComponent.class);

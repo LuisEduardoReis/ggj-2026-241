@@ -30,11 +30,23 @@ public class PlayerComponent implements Component {
     public float lightningRange = 15;
     public Entity lightingTarget = null;
 
+    public float explosionRange = 5;
+    public float explosionDamage = 50;
+    public float explosionForce = 30;
+
     public static List<Color> ColorAssignment = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA);
 
     public void damage(float value, Entity player) {
         player.level.gameScreen.cameraShake = 20;
         this.health = Util.stepTo(this.health, 0, value);
         Assets.hitHurt.play();
+    }
+
+    public void pickupMask(MaskType type, Entity player) {
+        this.currentMask = type;
+        this.maskTimer = this.maskDelay;
+        SpriteComponent playerSprite = player.getComponent(SpriteComponent.class);
+        playerSprite.sprites.set(1, MaskType.maskSprites.get(type));
+        Assets.maskPickup.play();
     }
 }

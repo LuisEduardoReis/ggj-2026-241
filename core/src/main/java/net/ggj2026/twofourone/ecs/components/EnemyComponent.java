@@ -1,6 +1,7 @@
 package net.ggj2026.twofourone.ecs.components;
 
 import com.badlogic.gdx.math.Vector2;
+import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 
@@ -22,4 +23,8 @@ public class EnemyComponent implements Component {
     public float health = 100;
 
     public Consumer<Entity> onDeath = entity -> {};
+
+    public void damage(float damage) {
+        this.health = Util.stepTo(this.health, 0, damage);
+    }
 }

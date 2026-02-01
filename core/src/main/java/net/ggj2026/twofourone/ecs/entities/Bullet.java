@@ -50,8 +50,7 @@ public class Bullet {
                 otherVelocity.ey = (otherPos.y - pos.y) / dist * 10 / otherEntityCollisionsComponent.mass;
 
                 // Deal damage
-                EnemyComponent enemyComponent = other.getComponent(EnemyComponent.class);
-                enemyComponent.health = Util.stepTo(enemyComponent.health, 0, bulletComponent.damage);
+                other.getComponent(EnemyComponent.class).damage(bulletComponent.damage);
             }
 
             if (!bulletComponent.friendly && other.hasComponent(PlayerComponent.class)) {

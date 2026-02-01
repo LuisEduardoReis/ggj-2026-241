@@ -30,16 +30,28 @@ public class DamselEnemySystem extends AbstractSystem {
             bullet.getComponent(LevelCollisionComponent.class).collidesWithLevel = false;
         }
 
-        if (positionComponent.x >= entity.level.width){
+        if (positionComponent.x > entity.level.width){
+            positionComponent.x = entity.level.width;
+            velocity.ex = 0;
+            velocity.ey = 0;
             velocity.vx = -velocity.vx;
         }
-        if (positionComponent.y >= entity.level.height){
+        if (positionComponent.y > entity.level.height){
+            positionComponent.y = entity.level.height;
+            velocity.ex = 0;
+            velocity.ey = 0;
             velocity.vy = -velocity.vy;
         }
-        if (positionComponent.x <= 0){
+        if (positionComponent.x < 0){
+            positionComponent.x = 0;
+            velocity.ex = 0;
+            velocity.ey = 0;
             velocity.vx = -velocity.vx;
         }
-        if (positionComponent.y <= 0){
+        if (positionComponent.y < 0){
+            positionComponent.y = 0;
+            velocity.ex = 0;
+            velocity.ey = 0;
             velocity.vy = -velocity.vy;
         }
     }

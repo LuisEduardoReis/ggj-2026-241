@@ -29,15 +29,11 @@ public class MaskPickup {
 
         EntityCollisionsComponent entityCollisionsComponent = maskPickup.getComponent(EntityCollisionsComponent.class);
         entityCollisionsComponent.pushesOthers = false;
-        entityCollisionsComponent.handleEntityCollision = (me, other) -> {
-            if (other.hasComponent(PlayerComponent.class)) {
+        entityCollisionsComponent.handleEntityCollision = (me, player) -> {
+            if (player.hasComponent(PlayerComponent.class)) {
                 me.remove = true;
-                PlayerComponent player = other.getComponent(PlayerComponent.class);
-                player.currentMask = maskPickupComponent.type;
-                player.maskTimer = player.maskDelay;
-                SpriteComponent playerSprite = other.getComponent(SpriteComponent.class);
-                playerSprite.sprites.set(1, MaskType.maskSprites.get(maskPickupComponent.type));
-                Assets.maskPickup.play();
+                PlayerComponent playerComponent = player.getComponent(PlayerComponent.class);
+                playerComponent.pickupMask(maskPickupComponent.type, player);
             }
         };
 

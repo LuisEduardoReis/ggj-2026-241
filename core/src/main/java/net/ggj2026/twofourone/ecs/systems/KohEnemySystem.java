@@ -3,13 +3,10 @@ package net.ggj2026.twofourone.ecs.systems;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import net.ggj2026.twofourone.Assets;
 import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
-import net.ggj2026.twofourone.ecs.entities.Bullet;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.effects.Lightning;
-import net.ggj2026.twofourone.gamelogic.BulletType;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
 
 import java.util.Collections;

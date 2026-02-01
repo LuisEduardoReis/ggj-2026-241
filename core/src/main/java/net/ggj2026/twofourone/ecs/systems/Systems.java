@@ -23,6 +23,7 @@ public class Systems {
         this.systems.add(new PlayerSystem());
         this.systems.add(new SpriteSystem());
         this.systems.add(new ParticleSystem());
+        this.systems.add(new EvaCrossSystem());
         this.systems.add(new BulletSystem());
         this.systems.add(new MaskPickupSystem());
         this.systems.add(new VelocitySystem());

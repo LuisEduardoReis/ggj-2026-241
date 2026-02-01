@@ -5,7 +5,7 @@ import net.ggj2026.twofourone.Util;
 import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;
 import net.ggj2026.twofourone.ecs.entities.MaskPickup;
-import net.ggj2026.twofourone.ecs.entities.Particle;
+import net.ggj2026.twofourone.ecs.entities.particles.SmokeParticle;
 import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
@@ -29,7 +29,7 @@ public class KasperEnemy {
         SpriteComponent spriteComponent = enemy.getComponent(SpriteComponent.class);
 
         if (hasMask) {
-            kasperEnemyComponent.maskType = MaskType.values()[Util.randomRangeInt(0, MaskType.values().length)];
+            kasperEnemyComponent.maskType = MaskType.randomMaskType();
         }
 
         spriteComponent.addSprite(SpriteAssets.kasperSprite);
@@ -79,7 +79,7 @@ public class KasperEnemy {
             }
 
             // Death particles
-            Particle.smokeExplosion(entity.level, position, 1, false);
+            SmokeParticle.smokeExplosion(entity.level, position, 1, false);
         };
 
         return enemy;
