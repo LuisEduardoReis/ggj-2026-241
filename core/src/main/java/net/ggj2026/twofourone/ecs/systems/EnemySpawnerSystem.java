@@ -13,11 +13,10 @@ import java.util.*;
 public class EnemySpawnerSystem extends AbstractSystem {
 
     EnemyStage stage = EnemyStage.GRACE;
-    float stageTimer = 3f;
+    float stageTimer = 10;
 
     List<EnemyStage> stageOrder = Arrays.asList(
-        EnemyStage.RUSH,
-        EnemyStage.DAMSEL,
+        EnemyStage.DEFAULT,
         EnemyStage.RUSH,
         EnemyStage.DAMSEL,
         EnemyStage.DEFAULT,
@@ -28,10 +27,11 @@ public class EnemySpawnerSystem extends AbstractSystem {
     );
     int stageIndex = 0;
     List<String> ominousMessages = Arrays.asList(
-        "You are not ready",
+        "You are (not) ready",
         "Turn back",
+        "You are (not) alone",
+        "GYAAAAAAAAAAAAAAAAHHHHHHHH!",
         "You will die",
-        "You are alone",
         "Pathetic"
     );
     int ominousMessagesIndex = 0;
@@ -114,7 +114,8 @@ public class EnemySpawnerSystem extends AbstractSystem {
                 for (int i = 0; i < 40; i++) {
                     this.spawnEnemyOutOfBounds(level, KasperEnemy.instance(level, Math.random() < 0.2));
                 }
-                level.showMessage("GYAAAAAAAAAAAAAAAAHHHHHHHH!");
+                level.showMessage(ominousMessages.get(ominousMessagesIndex++));
+                ominousMessagesIndex %= ominousMessages.size();
                 break;
             case DAMSEL:
                 level.showMessage("<Code Blue>");

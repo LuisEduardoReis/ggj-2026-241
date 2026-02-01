@@ -31,8 +31,8 @@ public class PlayerComponent implements Component {
     public float lightningRange = 15;
     public ArrayList<Entity> lightningTargets = new ArrayList<>();
 
-    public float explosionRange = 5;
-    public float explosionDamage = 50;
+    public float explosionRange = 8;
+    public float explosionDamage = 100;
     public float explosionForce = 30;
 
     public static List<Color> ColorAssignment = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA);

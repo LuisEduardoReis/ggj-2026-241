@@ -26,6 +26,7 @@ public class EntityCollisionsSystem extends AbstractSystem {
         if (!collisionComponent.collidesWithOthers) return;
 
         for (Entity other : level.entities) {
+            if (other == entity) continue;
             if (!other.hasComponents(requiredCollisionComponents)) continue;
 
             EntityCollisionsComponent otherCollisionComponent = other.getComponent(EntityCollisionsComponent.class);

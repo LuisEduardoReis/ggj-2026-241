@@ -88,4 +88,14 @@ public class Util {
         new Vector2(-1, -1),
         new Vector2(1, -1)
     );
+
+    public static float getFadeSequenceAlpha(float timer, float delay, int fadeTime) {
+        if (timer < fadeTime) {
+            return timer / fadeTime;
+        } else if (timer > delay - fadeTime) {
+            return Util.mapValue(timer, delay -fadeTime, delay, 1, 0);
+        } else {
+            return 1;
+        }
+    }
 }

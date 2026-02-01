@@ -16,6 +16,7 @@ public class Assets {
     public static Texture testTexture;
     public static Texture tilesheet;
     public static Texture fillTexture;
+    public static Texture titleTexture;
     public static TextureAtlas textureAtlas;
     static TextureRegion[][] tileTextures;
     public static com.badlogic.gdx.audio.Music menuMusic;
@@ -34,6 +35,7 @@ public class Assets {
     public static void createAssets() {
         font = new BitmapFont(Gdx.files.internal("font.fnt"));
         testTexture = new Texture("badlogic.jpg");
+        titleTexture = new Texture("title.png");
         textureAtlas = new TextureAtlas("spritesheet.atlas");
         textureAtlas.getTextures().forEach((texture) -> texture.setFilter(Nearest, Nearest));
 

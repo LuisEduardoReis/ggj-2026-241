@@ -6,6 +6,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.ggj2026.twofourone.controllers.GameController;
 import net.ggj2026.twofourone.controllers.KeyboardMouseController;
 import net.ggj2026.twofourone.controllers.XBox360Controller;
+import net.ggj2026.twofourone.gamelogic.MaskType;
 import net.ggj2026.twofourone.level.Level;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class GameScreen extends ScreenAdapter {
     public float gameOverDelay = 2;
     public float gameOverFadeTimer = gameOverDelay;
     public float gameOverTitleTimer = gameOverDelay;
+
+    public float titleDelay = 5;
+    public float titleTimer = titleDelay;
 
     public GameScreen() {
         this.spriteBatch = new SpriteBatch();
@@ -94,6 +99,7 @@ public class GameScreen extends ScreenAdapter {
         this.spriteBatch.setProjectionMatrix(camera.combined);
         this.shapeRenderer.setProjectionMatrix(camera.combined);
 
+        // Gameover
         this.spriteBatch.begin();
         if (this.level.gameOver) {
             this.gameOverFadeTimer = Util.stepTo(this.gameOverFadeTimer, 0, delta);
@@ -108,16 +114,33 @@ public class GameScreen extends ScreenAdapter {
             font.setColor(1, 1, 1, 1f - (this.gameOverTitleTimer / this.gameOverDelay));
             Util.drawTextCentered(this.spriteBatch, font, "Game Over", Main.WIDTH/2f,Main.HEIGHT/2f);
         }
+
+        // Message
         if (this.level.message != null) {
             font.getData().setScale(4);
-            float messageAlpha = 1;
-            if (this.level.messageTimer < 1) {
-                messageAlpha = this.level.messageTimer;
-            } else if (this.level.messageTimer > this.level.messageDelay - 1) {
-                messageAlpha = Util.mapValue(this.level.messageTimer, this.level.messageDelay - 1, this.level.messageDelay, 1,0);
-            }
-            font.setColor(1, 1, 1, messageAlpha);
+            font.setColor(1, 1, 1, Util.getFadeSequenceAlpha(this.level.messageTimer, this.level.messageDelay, 1));
             Util.drawTextCentered(this.spriteBatch, font, this.level.message, Main.WIDTH/2f,Main.HEIGHT*0.75f);
+        }
+
+        // Title
+        if (this.titleTimer > 0) {
+            this.titleTimer = Util.stepTo(this.titleTimer, 0, delta);
+            float titleFadeAlpha = Util.getFadeSequenceAlpha(this.titleTimer, this.titleDelay, 1);
+
+            this.spriteBatch.setColor(1, 1, 1, titleFadeAlpha);
+            float radius = Main.WIDTH * 0.1f;
+            float size = 100;
+            for (int i = 0; i < MaskType.values().length; i++) {
+                MaskType maskType = MaskType.values()[i];
+                TextureRegion maskTexture = MaskType.maskSprites.get(maskType).getState("default").frames.get(0).textureRegion;
+                float dir = (float) (this.level.t + i * 2*Math.PI / MaskType.values().length);
+                float x = (float) (Main.WIDTH / 2f + radius * Math.cos(dir));
+                float y = (float) (Main.HEIGHT / 2f + radius * Math.sin(dir));
+                this.spriteBatch.draw(maskTexture, x - size/2, y - size/2, size, size);
+            }
+
+            this.spriteBatch.setColor(1, 1, 1, titleFadeAlpha);
+            this.spriteBatch.draw(Assets.titleTexture, 0, 0);
         }
         this.spriteBatch.end();
 
