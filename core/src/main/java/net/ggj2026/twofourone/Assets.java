@@ -53,15 +53,15 @@ public class Assets {
         menuMusic.setLooping(true);
         menuMusic.play();
 
-        enemyDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/enemy-death.wav"));
-        hitHurt = Gdx.audio.newSound(Gdx.files.internal("./sounds/hit-hurt.wav"));
-        beamSound1 = Gdx.audio.newSound(Gdx.files.internal("./sounds/beam-sound-1.wav"));
-        damselFire = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-fire.wav"));
-        damselSpawn = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-spawn.wav"));
-        damselDeath = Gdx.audio.newSound(Gdx.files.internal("./sounds/damsel-death.wav"));
-        maskPickup = Gdx.audio.newSound(Gdx.files.internal("./sounds/pickup-1.wav"));
-        oniFire = Gdx.audio.newSound(Gdx.files.internal("./sounds/oni-fire.wav"));
-        evaCross = Gdx.audio.newSound(Gdx.files.internal("./sounds/cross-explosion.wav"));
+        enemyDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/enemy-death.wav"));
+        hitHurt = Gdx.audio.newSound(Gdx.files.internal("sounds/hit-hurt.wav"));
+        beamSound1 = Gdx.audio.newSound(Gdx.files.internal("sounds/beam-sound-1.wav"));
+        damselFire = Gdx.audio.newSound(Gdx.files.internal("sounds/damsel-fire.wav"));
+        damselSpawn = Gdx.audio.newSound(Gdx.files.internal("sounds/damsel-spawn.wav"));
+        damselDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/damsel-death.wav"));
+        maskPickup = Gdx.audio.newSound(Gdx.files.internal("sounds/pickup-1.wav"));
+        oniFire = Gdx.audio.newSound(Gdx.files.internal("sounds/oni-fire.wav"));
+        evaCross = Gdx.audio.newSound(Gdx.files.internal("sounds/cross-explosion.wav"));
     }
 
     public static TextureRegion getTileTextureById(int id) {
