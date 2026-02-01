@@ -1,6 +1,8 @@
 package net.ggj2026.twofourone.ecs.entities.particles;
 
-import com.badlogic.gdx.math.Vector2;import net.ggj2026.twofourone.ecs.components.*;
+import com.badlogic.gdx.math.Vector2;
+import net.ggj2026.twofourone.Assets;
+import net.ggj2026.twofourone.ecs.components.*;
 import net.ggj2026.twofourone.ecs.entities.Entity;import net.ggj2026.twofourone.level.Level;
 import net.ggj2026.twofourone.sprites.EntityZ;
 import net.ggj2026.twofourone.sprites.SpriteAssets;
@@ -27,6 +29,7 @@ public class EvaCross {
         ParticleComponent particleComponent = particle.getComponent(ParticleComponent.class);
         particleComponent.lifetime = 2;
         particleComponent.fadeout = true;
+        Assets.evaCross.play();
 
         return particle;
     }
